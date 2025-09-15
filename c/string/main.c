@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define INIT {0}
+
 typedef struct {
   int len;
   char* buf;
