@@ -1,1 +1,3 @@
 # Code
+
+License: MIT
