@@ -21,6 +21,13 @@ void StringAppend(String* str, const char* s) {
   str->buf = newbuf;
 }
 
+void StringClear(String* str) {
+  if (str == NULL) return;
+  free(str->buf);
+  str->buf = NULL;
+  str->len = 0;
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
