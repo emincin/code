@@ -7,6 +7,12 @@ typedef struct {
   char* buf;
 } String;
 
+void StringInit(String* str) {
+  if (str == NULL) return;
+  str->buf = NULL;
+  str->len = 0;
+}
+
 void StringAppend(String* str, const char* s) {
   if (str == NULL) return;
   if (s == NULL) return;
