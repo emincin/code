@@ -66,6 +66,19 @@ typedef uint64_t u64;
 #define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
 #define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
 
+#define SELECT( \
+  _1, _2, _3, _4, _5, _6, _7, _8, \
+  _9, _10, _11, _12, _13, _14, _15, _16, \
+  name, ...) name
+
+#define EXPAND_ALL(func, ...) __VA_OPT__( \
+  SELECT(__VA_ARGS__, \
+    EXPAND_16, EXPAND_15, EXPAND_14, EXPAND_13, \
+    EXPAND_12, EXPAND_11, EXPAND_10, EXPAND_9, \
+    EXPAND_8, EXPAND_7, EXPAND_6, EXPAND_5, \
+    EXPAND_4, EXPAND_3, EXPAND_2, EXPAND_1 \
+  )(func, __VA_ARGS__))
+
 int main(int argc, char** argv) {
   return 0;
 }
