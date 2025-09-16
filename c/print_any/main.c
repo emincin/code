@@ -98,6 +98,13 @@ typedef uint64_t u64;
 void print_any_func(int count, ...) {
   va_list args;
   va_start(args, count);
+  for (int i = 0; i < count; i++) {
+    int type = va_arg(args, int);
+    switch (type) {
+      default:
+      break;
+    }
+  }
   va_end(args);
 }
 
