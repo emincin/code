@@ -49,6 +49,9 @@ typedef uint64_t u64;
 
 #define TYPE_INFO(var) TYPE_ID(var), (var)
 
+#define EXPAND_1(func, var) func(var)
+#define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
+
 int main(int argc, char** argv) {
   return 0;
 }
