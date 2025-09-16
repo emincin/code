@@ -47,6 +47,8 @@ typedef uint64_t u64;
   char: TYPE_CHAR,               \
   default: TYPE_NONE)
 
+#define TYPE_INFO(var) TYPE_ID(var), (var)
+
 int main(int argc, char** argv) {
   return 0;
 }
