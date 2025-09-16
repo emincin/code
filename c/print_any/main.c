@@ -142,6 +142,13 @@ void print_any_func(int count, ...) {
       } else {
         printf("%p" SEPARATOR, data);
       }
+    } else if (type == TYPE_CHAR) {
+      int data = va_arg(args, int);
+      if (is_last_arg) {
+        printf("%c" END, data);
+      } else {
+        printf("%c" SEPARATOR, data);
+      }
     } else {
       break;
     }
