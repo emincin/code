@@ -81,6 +81,14 @@ typedef uint64_t u64;
     EXPAND_4, EXPAND_3, EXPAND_2, EXPAND_1 \
   )(func, __VA_ARGS__))
 
+#define print_any(...) do { \
+  if (sizeof(#__VA_ARGS__) == 1) printf("\n"); \
+  __VA_OPT__(else print_any_func(0, EXPAND_ALL(TYPE_INFO, __VA_ARGS__));) \
+} while (0)
+
+void print_any_func(int placeholder, ...) {
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
