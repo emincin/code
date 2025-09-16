@@ -51,6 +51,20 @@ typedef uint64_t u64;
 
 #define EXPAND_1(func, var) func(var)
 #define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
+#define EXPAND_3(func, var, ...) func(var), EXPAND_2(func, __VA_ARGS__)
+#define EXPAND_4(func, var, ...) func(var), EXPAND_3(func, __VA_ARGS__)
+#define EXPAND_5(func, var, ...) func(var), EXPAND_4(func, __VA_ARGS__)
+#define EXPAND_6(func, var, ...) func(var), EXPAND_5(func, __VA_ARGS__)
+#define EXPAND_7(func, var, ...) func(var), EXPAND_6(func, __VA_ARGS__)
+#define EXPAND_8(func, var, ...) func(var), EXPAND_7(func, __VA_ARGS__)
+#define EXPAND_9(func, var, ...) func(var), EXPAND_8(func, __VA_ARGS__)
+#define EXPAND_10(func, var, ...) func(var), EXPAND_9(func, __VA_ARGS__)
+#define EXPAND_11(func, var, ...) func(var), EXPAND_10(func, __VA_ARGS__)
+#define EXPAND_12(func, var, ...) func(var), EXPAND_11(func, __VA_ARGS__)
+#define EXPAND_13(func, var, ...) func(var), EXPAND_12(func, __VA_ARGS__)
+#define EXPAND_14(func, var, ...) func(var), EXPAND_13(func, __VA_ARGS__)
+#define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
+#define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
 
 int main(int argc, char** argv) {
   return 0;
