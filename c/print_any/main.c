@@ -130,7 +130,19 @@ void print_any_func(int count, ...) {
         printf("%u" SEPARATOR, data);
       }
     } else if (type == TYPE_I64) {
+      i64 data = va_arg(args, i64);
+      if (is_last_arg) {
+        printf("%" PRId64 END, data);
+      } else {
+        printf("%" PRId64 SEPARATOR, data);
+      }
     } else if (type == TYPE_U64) {
+      u64 data = va_arg(args, u64);
+      if (is_last_arg) {
+        printf("%" PRIu64 END, data);
+      } else {
+        printf("%" PRIu64 SEPARATOR, data);
+      }
     } else if (type == TYPE_FLOAT || type == TYPE_DOUBLE) {
       double data = va_arg(args, double);
       if (is_last_arg) {
