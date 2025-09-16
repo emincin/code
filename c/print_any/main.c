@@ -29,7 +29,22 @@ typedef uint64_t u64;
 #define TYPE_STRING 11
 #define TYPE_CSTRING 12
 
+#define TYPE_CHAR 13
+
 #define TYPE_ID(t) _Generic((t), \
+  i8: TYPE_I8,                   \
+  i16: TYPE_I16,                 \
+  i32: TYPE_I32,                 \
+  i64: TYPE_I64,                 \
+  u8: TYPE_U8,                   \
+  u16: TYPE_U16,                 \
+  u32: TYPE_U32,                 \
+  u64: TYPE_U64,                 \
+  float: TYPE_FLOAT,             \
+  double: TYPE_DOUBLE,           \
+  char*: TYPE_STRING,            \
+  const char*: TYPE_CSTRING,     \
+  char: TYPE_CHAR,               \
   default: TYPE_NONE)
 
 int main(int argc, char** argv) {
