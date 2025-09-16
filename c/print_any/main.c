@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <inttypes.h>
 
 typedef int8_t i8;
 typedef int16_t i16;
@@ -128,6 +129,8 @@ void print_any_func(int count, ...) {
       } else {
         printf("%u" SEPARATOR, data);
       }
+    } else if (type == TYPE_I64) {
+    } else if (type == TYPE_U64) {
     } else if (type == TYPE_FLOAT || type == TYPE_DOUBLE) {
       double data = va_arg(args, double);
       if (is_last_arg) {
