@@ -35,6 +35,7 @@ typedef uint64_t u64;
 #define TYPE_CSTRING 12
 
 #define TYPE_CHAR 13
+#define TYPE_ANY 14
 
 #define TYPE_ID(t) _Generic((t), \
   i8: TYPE_I8,                   \
@@ -50,6 +51,7 @@ typedef uint64_t u64;
   char*: TYPE_STRING,            \
   const char*: TYPE_CSTRING,     \
   char: TYPE_CHAR,               \
+  void*: TYPE_ANY,               \
   default: TYPE_NONE)
 
 #define TYPE_INFO(var) TYPE_ID(var), (var)
@@ -133,6 +135,15 @@ void print_any_func(int count, ...) {
       } else {
         printf("%f" SEPARATOR, data);
       }
+    } else if (type == TYPE_ANY) {
+      void* data = va_arg(args, void*);
+      if (is_last_arg) {
+        printf("%p" END, data);
+      } else {
+        printf("%p" SEPARATOR, data);
+      }
+    } else {
+      break;
     }
   }
   va_end(args);
