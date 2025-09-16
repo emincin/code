@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 typedef int8_t i8;
 typedef int16_t i16;
@@ -81,12 +82,23 @@ typedef uint64_t u64;
     EXPAND_4, EXPAND_3, EXPAND_2, EXPAND_1 \
   )(func, __VA_ARGS__))
 
+#define COUNT_ARGS(...) __VA_OPT__( \
+  SELECT(__VA_ARGS__, \
+    16, 15, 14, 13, \
+    12, 11, 10, 9, \
+    8, 7, 6, 5, \
+    4, 3, 2, 1 \
+  ))
+
 #define print_any(...) do { \
   if (sizeof(#__VA_ARGS__) == 1) printf("\n"); \
-  __VA_OPT__(else print_any_func(0, EXPAND_ALL(TYPE_INFO, __VA_ARGS__));) \
+  __VA_OPT__(else print_any_func(COUNT_ARGS(__VA_ARGS__), EXPAND_ALL(TYPE_INFO, __VA_ARGS__));) \
 } while (0)
 
-void print_any_func(int placeholder, ...) {
+void print_any_func(int count, ...) {
+  va_list args;
+  va_start(args, count);
+  va_end(args);
 }
 
 int main(int argc, char** argv) {
