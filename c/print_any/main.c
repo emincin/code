@@ -26,6 +26,12 @@ typedef uint64_t u64;
 #define TYPE_FLOAT 9
 #define TYPE_DOUBLE 10
 
+#define TYPE_STRING 11
+#define TYPE_CSTRING 12
+
+#define TYPE_ID(t) _Generic((t), \
+  default: TYPE_NONE)
+
 int main(int argc, char** argv) {
   return 0;
 }
