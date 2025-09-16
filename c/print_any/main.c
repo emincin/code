@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 typedef int8_t i8;
 typedef int16_t i16;
@@ -11,6 +12,9 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
+
+#define END "\n"
+#define SEPARATOR " "
 
 #define TYPE_NONE 0
 
@@ -99,10 +103,15 @@ void print_any_func(int count, ...) {
   va_list args;
   va_start(args, count);
   for (int i = 0; i < count; i++) {
+    bool is_last_arg = (i == count - 1);
     int type = va_arg(args, int);
-    switch (type) {
-      default:
-      break;
+    if (type == TYPE_STRING || type == TYPE_CSTRING) {
+      char* data = va_arg(args, char*);
+      if (is_last_arg) {
+        printf("%s" END, data);
+      } else {
+        printf("%s" SEPARATOR, data);
+      }
     }
   }
   va_end(args);
