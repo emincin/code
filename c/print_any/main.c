@@ -112,6 +112,20 @@ void print_any_func(int count, ...) {
       } else {
         printf("%s" SEPARATOR, data);
       }
+    } else if (type == TYPE_I8 || type == TYPE_I16 || type == TYPE_I32 || type == TYPE_U8 || type == TYPE_U16) {
+      int data = va_arg(args, int);
+      if (is_last_arg) {
+        printf("%d" END, data);
+      } else {
+        printf("%d" SEPARATOR, data);
+      }
+    } else if (type == TYPE_U32) {
+      u32 data = va_arg(args, u32);
+      if (is_last_arg) {
+        printf("%u" END, data);
+      } else {
+        printf("%u" SEPARATOR, data);
+      }
     }
   }
   va_end(args);
