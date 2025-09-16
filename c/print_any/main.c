@@ -126,6 +126,13 @@ void print_any_func(int count, ...) {
       } else {
         printf("%u" SEPARATOR, data);
       }
+    } else if (type == TYPE_FLOAT || type == TYPE_DOUBLE) {
+      double data = va_arg(args, double);
+      if (is_last_arg) {
+        printf("%f" END, data);
+      } else {
+        printf("%f" SEPARATOR, data);
+      }
     }
   }
   va_end(args);
