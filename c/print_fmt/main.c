@@ -145,6 +145,12 @@ void print_fmt_func(const char* fmt, int count, ...) {
           u64 data = va_arg(args, u64);
         } else if (type == TYPE_FLOAT || type == TYPE_DOUBLE) {
           double data = va_arg(args, double);
+          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%f", data);
+          if (buffer_index + len <= BUFFER_SIZE) {
+            memcpy(buffer + buffer_index, temp_buf, len);
+            buffer_index += len;
+          }
         } else if (type == TYPE_ANY) {
           void* data = va_arg(args, void*);
           char temp_buf[TEMP_BUF_SIZE] = { 0 };
