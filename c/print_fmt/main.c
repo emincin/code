@@ -137,8 +137,20 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_I8 || type == TYPE_I16 || type == TYPE_I32 || type == TYPE_U8 || type == TYPE_U16) {
           int data = va_arg(args, int);
+          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%d", data);
+          if (buffer_index + len <= BUFFER_SIZE) {
+            memcpy(buffer + buffer_index, temp_buf, len);
+            buffer_index += len;
+          }
         } else if (type == TYPE_U32) {
           u32 data = va_arg(args, u32);
+          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%u", data);
+          if (buffer_index + len <= BUFFER_SIZE) {
+            memcpy(buffer + buffer_index, temp_buf, len);
+            buffer_index += len;
+          }
         } else if (type == TYPE_I64) {
           i64 data = va_arg(args, i64);
         } else if (type == TYPE_U64) {
