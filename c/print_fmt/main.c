@@ -106,8 +106,12 @@ typedef uint64_t u64;
 
 void print_fmt_func(const char* fmt, int count, ...) {
   if (fmt == NULL) return;
+  int fmtlen = (int)strlen(fmt);
+  if (fmtlen == 0) return;
   va_list args;
   va_start(args, count);
+  char buffer[BUFFER_SIZE + 1] = { 0 };
+  int buffer_index = 0;
   va_end(args);
 }
 
