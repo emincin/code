@@ -112,6 +112,26 @@ void print_fmt_func(const char* fmt, int count, ...) {
   va_start(args, count);
   char buffer[BUFFER_SIZE + 1] = { 0 };
   int buffer_index = 0;
+  for (int i = 0; i < fmtlen; i++) {
+    bool match = false;
+    if (fmt[i] == LEFT_BRACE) {
+      for (int j = i + 1; j < fmtlen; j++) {
+        if (fmt[j] == RIGHT_BRACE) {
+          i = j;
+          match = true;
+          break;
+        }
+      }
+    }
+    if (match) {
+    } else {
+      if (buffer_index < BUFFER_SIZE) {
+        buffer[buffer_index] = fmt[i];
+        buffer_index++;
+      }
+    }
+  }
+  printf("%s", buffer);
   va_end(args);
 }
 
