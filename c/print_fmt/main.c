@@ -153,8 +153,20 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_I64) {
           i64 data = va_arg(args, i64);
+          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%" PRId64, data);
+          if (buffer_index + len <= BUFFER_SIZE) {
+            memcpy(buffer + buffer_index, temp_buf, len);
+            buffer_index += len;
+          }
         } else if (type == TYPE_U64) {
           u64 data = va_arg(args, u64);
+          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%" PRIu64, data);
+          if (buffer_index + len <= BUFFER_SIZE) {
+            memcpy(buffer + buffer_index, temp_buf, len);
+            buffer_index += len;
+          }
         } else if (type == TYPE_FLOAT || type == TYPE_DOUBLE) {
           double data = va_arg(args, double);
           char temp_buf[TEMP_BUF_SIZE] = { 0 };
