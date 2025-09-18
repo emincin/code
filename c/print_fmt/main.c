@@ -112,6 +112,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
   va_start(args, count);
   char buffer[BUFFER_SIZE + 1] = { 0 };
   int buffer_index = 0;
+  int param_index = 0;
   for (int i = 0; i < fmtlen; i++) {
     bool match = false;
     if (fmt[i] == LEFT_BRACE) {
@@ -124,6 +125,34 @@ void print_fmt_func(const char* fmt, int count, ...) {
       }
     }
     if (match) {
+      if (param_index < count) {
+        int type = va_arg(args, int);
+        if (type == TYPE_STRING || type == TYPE_CSTRING) {
+          char* data = va_arg(args, char*);
+          int len = strlen(data);
+          if (buffer_index + len <= BUFFER_SIZE) {
+            memcpy(buffer + buffer_index, data, len);
+            buffer_index += len;
+          }
+        } else if (type == TYPE_I8 || type == TYPE_I16 || type == TYPE_I32 || type == TYPE_U8 || type == TYPE_U16) {
+          int data = va_arg(args, int);
+        } else if (type == TYPE_U32) {
+          u32 data = va_arg(args, u32);
+        } else if (type == TYPE_I64) {
+          i64 data = va_arg(args, i64);
+        } else if (type == TYPE_U64) {
+          u64 data = va_arg(args, u64);
+        } else if (type == TYPE_FLOAT || type == TYPE_DOUBLE) {
+          double data = va_arg(args, double);
+        } else if (type == TYPE_ANY) {
+          void* data = va_arg(args, void*);
+        } else if (type == TYPE_CHAR) {
+          int data = va_arg(args, int);
+        } else {
+          goto clean_up;
+        }
+        param_index++;
+      }
     } else {
       if (buffer_index < BUFFER_SIZE) {
         buffer[buffer_index] = fmt[i];
@@ -132,6 +161,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
     }
   }
   printf("%s", buffer);
+clean_up:
   va_end(args);
 }
 
