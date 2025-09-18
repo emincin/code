@@ -148,6 +148,10 @@ void print_fmt_func(const char* fmt, int count, ...) {
           void* data = va_arg(args, void*);
         } else if (type == TYPE_CHAR) {
           int data = va_arg(args, int);
+          if (buffer_index < BUFFER_SIZE) {
+            buffer[buffer_index] = (char)data;
+            buffer_index++;
+          }
         } else {
           goto clean_up;
         }
