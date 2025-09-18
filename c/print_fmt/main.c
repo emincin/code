@@ -18,6 +18,7 @@ typedef uint64_t u64;
 #define LEFT_BRACE '{'
 #define RIGHT_BRACE '}'
 #define BUFFER_SIZE 2048
+#define TEMP_BUF_SIZE 32
 
 #define TYPE_NONE 0
 
@@ -146,6 +147,12 @@ void print_fmt_func(const char* fmt, int count, ...) {
           double data = va_arg(args, double);
         } else if (type == TYPE_ANY) {
           void* data = va_arg(args, void*);
+          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%p", data);
+          if (buffer_index + len <= BUFFER_SIZE) {
+            memcpy(buffer + buffer_index, temp_buf, len);
+            buffer_index += len;
+          }
         } else if (type == TYPE_CHAR) {
           int data = va_arg(args, int);
           if (buffer_index < BUFFER_SIZE) {
