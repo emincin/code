@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define RESET_STYLE "\033[0m"
+
 void print_fg_idx(const char* s, int idx) {
 }
 
