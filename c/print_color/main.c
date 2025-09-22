@@ -3,15 +3,19 @@
 #define RESET_STYLE "\033[0m"
 
 void set_fg_idx(int idx) {
+  printf("\033[38;5;%dm", idx);
 }
 
 void set_fg_rgb(int r, int g, int b) {
+  printf("\033[38;2;%d;%d;%dm", r, g, b);
 }
 
 void set_bg_idx(int idx) {
+  printf("\033[48;5;%dm", idx);
 }
 
 void set_bg_rgb(int r, int g, int b) {
+  printf("\033[48;2;%d;%d;%dm", r, g, b);
 }
 
 void set_colors_idx(int fg_idx, int bg_idx) {
