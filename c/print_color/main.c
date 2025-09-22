@@ -31,12 +31,14 @@ void set_colors_rgb(int fg_r, int fg_g, int fg_b, int bg_r, int bg_g, int bg_b) 
 }
 
 void print_fg_idx(const char* s, int idx) {
+  printf("\033[38;5;%dm%s" RESET_STYLE, idx, s);
 }
 
 void print_fg_rgb(const char* s, int r, int g, int b) {
 }
 
 void print_bg_idx(const char* s, int idx) {
+  printf("\033[48;5;%dm%s" RESET_STYLE, idx, s);
 }
 
 void print_bg_rgb(const char* s, int r, int g, int b) {
