@@ -2,6 +2,24 @@
 
 #define RESET_STYLE "\033[0m"
 
+void set_fg_idx(int idx) {
+}
+
+void set_fg_rgb(int r, int g, int b) {
+}
+
+void set_bg_idx(int idx) {
+}
+
+void set_bg_rgb(int r, int g, int b) {
+}
+
+void set_colors_idx(int fg_idx, int bg_idx) {
+}
+
+void set_colors_rgb(int fg_r, int fg_g, int fg_b, int bg_r, int bg_g, int bg_b) {
+}
+
 void print_fg_idx(const char* s, int idx) {
 }
 
