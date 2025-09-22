@@ -19,9 +19,11 @@ void set_bg_rgb(int r, int g, int b) {
 }
 
 void set_colors_idx(int fg_idx, int bg_idx) {
+  printf("\033[38;5;%d;48;5;%dm", fg_idx, bg_idx);
 }
 
 void set_colors_rgb(int fg_r, int fg_g, int fg_b, int bg_r, int bg_g, int bg_b) {
+  printf("\033[38;2;%d;%d;%d;48;2;%d;%d;%dm", fg_r, fg_g, fg_b, bg_r, bg_g, bg_b);
 }
 
 void print_fg_idx(const char* s, int idx) {
