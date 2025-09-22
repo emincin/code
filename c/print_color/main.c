@@ -47,9 +47,11 @@ void print_bg_rgb(const char* s, int r, int g, int b) {
 }
 
 void print_colors_idx(const char* s, int fg_idx, int bg_idx) {
+  printf("\033[38;5;%d;48;5;%dm%s" RESET_STYLE, fg_idx, bg_idx, s);
 }
 
 void print_colors_rgb(const char* s, int fg_r, int fg_g, int fg_b, int bg_r, int bg_g, int bg_b) {
+  printf("\033[38;2;%d;%d;%d;48;2;%d;%d;%dm%s" RESET_STYLE, fg_r, fg_g, fg_b, bg_r, bg_g, bg_b, s);
 }
 
 int main(int argc, char** argv) {
