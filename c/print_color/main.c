@@ -2,6 +2,10 @@
 
 #define RESET_STYLE "\033[0m"
 
+void reset_style() {
+  printf(RESET_STYLE);
+}
+
 void set_fg_idx(int idx) {
   printf("\033[38;5;%dm", idx);
 }
