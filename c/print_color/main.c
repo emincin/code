@@ -54,6 +54,19 @@ void print_colors_rgb(const char* s, int fg_r, int fg_g, int fg_b, int bg_r, int
   printf("\033[38;2;%d;%d;%d;48;2;%d;%d;%dm%s" RESET_STYLE, fg_r, fg_g, fg_b, bg_r, bg_g, bg_b, s);
 }
 
+void print_256_color_table() {
+  for (int i = 0; i < 256; i++) {
+    set_bg_idx(i);
+    printf("%3d", i);
+    reset_style();
+    if ((i + 1) % 16 == 0) {
+      printf("\n");
+    } else {
+      printf(" ");
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
