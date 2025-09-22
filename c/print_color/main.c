@@ -35,6 +35,7 @@ void print_fg_idx(const char* s, int idx) {
 }
 
 void print_fg_rgb(const char* s, int r, int g, int b) {
+  printf("\033[38;2;%d;%d;%dm%s" RESET_STYLE, r, g, b, s);
 }
 
 void print_bg_idx(const char* s, int idx) {
@@ -42,6 +43,7 @@ void print_bg_idx(const char* s, int idx) {
 }
 
 void print_bg_rgb(const char* s, int r, int g, int b) {
+  printf("\033[48;2;%d;%d;%dm%s" RESET_STYLE, r, g, b, s);
 }
 
 void print_colors_idx(const char* s, int fg_idx, int bg_idx) {
