@@ -57,6 +57,12 @@ bool string_from_cstr(String* str, const char* s) {
   return true;
 }
 
+void string_add_cstr(String* str, const char* s) {
+  if (s == NULL) return;
+  size_t size = strlen(s);
+  if (size == 0) return;
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
