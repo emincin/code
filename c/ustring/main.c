@@ -42,6 +42,18 @@ bool string_from_cstr(String* str, const char* s) {
   if (s == NULL) return false;
   size_t size = strlen(s);
   if (size == 0) return false;
+  size_t capacity = 2;
+  while (capacity < size) {
+    capacity *= 2;
+  }
+  char* buffer = (char*)calloc(capacity + 1, sizeof(char));
+  if (buffer == NULL) {
+    return false;
+  }
+  memcpy(buffer, s, size);
+  str->size = size;
+  str->capacity = capacity;
+  str->buffer = buffer;
   return true;
 }
 
