@@ -17,6 +17,11 @@ typedef struct {
   int* buffer;
 } String32;
 
+bool string_alloc(String* str, size_t capacity);
+bool string_init(String* str);
+bool string_from_cstr(String* str, const char* s);
+bool string_add_cstr(String* str, const char* s);
+
 bool string_alloc(String* str, size_t capacity) {
   str->size = 0;
   str->capacity = 0;
@@ -57,10 +62,11 @@ bool string_from_cstr(String* str, const char* s) {
   return true;
 }
 
-void string_add_cstr(String* str, const char* s) {
-  if (s == NULL) return;
+bool string_add_cstr(String* str, const char* s) {
+  if (s == NULL) return false;
   size_t size = strlen(s);
-  if (size == 0) return;
+  if (size == 0) return false;
+  return true;
 }
 
 int main(int argc, char** argv) {
