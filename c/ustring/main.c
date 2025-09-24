@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 
 #define BUFFER_CAPACITY 32
@@ -17,7 +18,6 @@ typedef struct {
 } String32;
 
 bool string_alloc(String* str, size_t capacity) {
-  if (str == NULL) return false;
   str->size = 0;
   str->capacity = 0;
   str->buffer = NULL;
@@ -33,6 +33,16 @@ bool string_alloc(String* str, size_t capacity) {
 
 bool string_init(String* str) {
   return string_alloc(str, BUFFER_CAPACITY);
+}
+
+bool string_from_cstr(String* str, const char* s) {
+  str->size = 0;
+  str->capacity = 0;
+  str->buffer = NULL;
+  if (s == NULL) return false;
+  size_t size = strlen(s);
+  if (size == 0) return false;
+  return true;
 }
 
 int main(int argc, char** argv) {
