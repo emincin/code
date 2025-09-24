@@ -20,6 +20,12 @@ bool string_alloc(String* str, size_t capacity) {
   str->capacity = 0;
   str->buffer = NULL;
   if (capacity == 0) return false;
+  char* buffer = (char*)calloc(capacity + 1, sizeof(char));
+  if (buffer == NULL) {
+    return false;
+  }
+  str->capacity = capacity;
+  str->buffer = buffer;
   return true;
 }
 
