@@ -28,6 +28,15 @@ bool ds_init(DString* obj) {
   return ds_init_capacity(obj, CAPACITY);
 }
 
+void ds_deinit(DString* obj) {
+  obj->size = 0;
+  obj->capacity = 0;
+  if (obj->buffer) {
+    free(obj->buffer);
+    obj->buffer = NULL;
+  }
+}
+
 DString* ds_new_capacity(size_t capacity) {
   DString* ptr = (DString*)malloc(sizeof(DString));
   if (ptr == NULL) {
