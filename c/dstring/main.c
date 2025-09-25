@@ -11,6 +11,13 @@ typedef struct {
   char* buffer;
 } DString;
 
+bool ds_init_capacity(DString* obj, size_t capacity);
+bool ds_init(DString* obj);
+void ds_deinit(DString* obj);
+DString* ds_new_capacity(size_t capacity);
+DString* ds_new();
+void ds_delete(DString* ptr);
+
 bool ds_init_capacity(DString* obj, size_t capacity) {
   obj->size = 0;
   char* buffer = (char*)calloc(capacity + 1, sizeof(char));
