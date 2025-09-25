@@ -55,6 +55,16 @@ DString* ds_new() {
   return ds_new_capacity(CAPACITY);
 }
 
+void ds_delete(DString* ptr) {
+  if (!ptr) {
+    return;
+  }
+  if (ptr->buffer) {
+    free(ptr->buffer);
+  }
+  free(ptr);
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
