@@ -14,7 +14,26 @@ typedef struct {
   char* data;
 } ds;
 
+ds* ds_new_capacity(size_t capacity);
+ds* ds_new();
+void ds_delete(ds* ptr);
+
 #endif // DS_HEADER_FILE
 
 #ifdef DS_IMPL
+#include <stdio.h>
+#include <string.h>
+
+ds* ds_new_capacity(size_t capacity) {
+clean_up:
+  return NULL;
+}
+
+ds* ds_new() {
+  return ds_new_capacity(DS_CAPACITY);
+}
+
+void ds_delete(ds* ptr) {
+}
+
 #endif
