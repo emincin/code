@@ -36,4 +36,4 @@ ds* ds_new() {
 void ds_delete(ds* ptr) {
 }
 
-#endif
+#endif // DS_IMPL
