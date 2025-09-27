@@ -41,6 +41,30 @@ int code_point_to_utf8(int code_point, char* buf, int len) {
     if (len < size) return ERR_BUF_SIZE_TOO_SMALL;
     buf[0] = (char)code_point;
     return size;
+  } else if (code_point < 2048) {
+    int size = 2;
+    if (len < size) return ERR_BUF_SIZE_TOO_SMALL;
+    buf[0] = leading_byte(code_point, size - 1);
+    for (int i = 1; i < size; i++) {
+      buf[i] = continuation_byte(code_point, size - 1 - i);
+    }
+    return size;
+  } else if (code_point < 65536) {
+    int size = 3;
+    if (len < size) return ERR_BUF_SIZE_TOO_SMALL;
+    buf[0] = leading_byte(code_point, size - 1);
+    for (int i = 1; i < size; i++) {
+      buf[i] = continuation_byte(code_point, size - 1 - i);
+    }
+    return size;
+  } else {
+    int size = 4;
+    if (len < size) return ERR_BUF_SIZE_TOO_SMALL;
+    buf[0] = leading_byte(code_point, size - 1);
+    for (int i = 1; i < size; i++) {
+      buf[i] = continuation_byte(code_point, size - 1 - i);
+    }
+    return size;
   }
   return ERR_UNKNOWN;
 }
