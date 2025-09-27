@@ -7,7 +7,7 @@
 #define SURROGATE_MIN 0xD800
 #define SURROGATE_MAX 0xDFFF
 
-#define ERR_UNKNOWN 0
+#define ERR_INVALID_PTR 0
 #define ERR_INVALID_CODE_POINT -1
 #define ERR_BUF_SIZE_TOO_SMALL -2
 
@@ -35,6 +35,9 @@ int code_point_to_utf8(int code_point, char* buf, int len) {
   }
   if (in_range(code_point, SURROGATE_MIN, SURROGATE_MAX)) {
     return ERR_INVALID_CODE_POINT;
+  }
+  if (buf == NULL) {
+    return ERR_INVALID_PTR;
   }
   if (code_point < 128) {
     int size = 1;
@@ -66,7 +69,6 @@ int code_point_to_utf8(int code_point, char* buf, int len) {
     }
     return size;
   }
-  return ERR_UNKNOWN;
 }
 
 int main(int argc, char** argv) {
