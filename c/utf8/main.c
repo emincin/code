@@ -79,6 +79,10 @@ int utf8_to_code_point(const char* buf, int len) {
   }
   int code_point = ERR_INVALID_UTF8_STRING;
   for (int i = 0; i < len; i++) {
+    if ((buf[i] & 0x80) == 0) {
+      code_point = (int)buf[i];
+      break;
+    }
   }
   return code_point;
 }
