@@ -11,6 +11,8 @@
 #define ERR_INVALID_CODE_POINT -1
 #define ERR_BUF_SIZE_TOO_SMALL -2
 
+#define ERR_INVALID_UTF8_STRING -1
+
 bool in_range(int value, int min, int max) {
   return min <= value && value <= max;
 }
@@ -69,6 +71,16 @@ int code_point_to_utf8(int code_point, char* buf, int len) {
     }
     return size;
   }
+}
+
+int utf8_to_code_point(const char* buf, int len) {
+  if (buf == NULL) {
+    return ERR_INVALID_UTF8_STRING;
+  }
+  int code_point = ERR_INVALID_UTF8_STRING;
+  for (int i = 0; i < len; i++) {
+  }
+  return code_point;
 }
 
 int main(int argc, char** argv) {
