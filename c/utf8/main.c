@@ -23,6 +23,12 @@ bool is_leading_byte(char byte, int index) {
   return (byte & test_mask) == match;
 }
 
+bool is_continuation_byte(char byte) {
+  int test_mask = 0xC0;
+  int match = 0x80;
+  return (byte & test_mask) == match;
+}
+
 char leading_byte(int code_point, int rindex) {
   code_point = code_point >> 6 * rindex;
   int test_mask = 0x1F >> (rindex - 1);
@@ -103,6 +109,9 @@ int utf8_to_code_point(const char* buf, int len) {
   for (int i = 1; i < size; i++) {
     if (i == len) {
       return ERR_BUF_SIZE_TOO_SMALL;
+    }
+    if (!is_continuation_byte(buf[i])) {
+      return ERR_INVALID_UTF8_STRING;
     }
   }
   return code_point;
