@@ -98,6 +98,12 @@ int utf8_to_code_point(const char* buf, int len) {
   } else if (is_leading_byte(first_byte, 3)) {
     size = 4;
   } else {
+    return ERR_INVALID_UTF8_STRING;
+  }
+  for (int i = 1; i < size; i++) {
+    if (i == len) {
+      return ERR_BUF_SIZE_TOO_SMALL;
+    }
   }
   return code_point;
 }
