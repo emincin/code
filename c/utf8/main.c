@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define CODE_POINT_MIN 0
 #define CODE_POINT_MAX 0x10FFFF
@@ -7,14 +8,19 @@
 #define SURROGATE_MIN 0xD800
 #define SURROGATE_MAX 0xDFFF
 
-#define ERR_INVALID_PTR 0
-#define ERR_INVALID_CODE_POINT -1
+#define ERR_INVALID_PTR -1
 #define ERR_BUF_SIZE_TOO_SMALL -2
-
-#define ERR_INVALID_UTF8_STRING -1
+#define ERR_INVALID_CODE_POINT -3
+#define ERR_INVALID_UTF8_STRING -4
 
 bool in_range(int value, int min, int max) {
   return min <= value && value <= max;
+}
+
+bool is_leading_byte(char byte, int index) {
+  int test_mask = 0xF8 << (3 - index);
+  int match = 0xF0 << (3 - index);
+  return (byte & test_mask) == match;
 }
 
 char leading_byte(int code_point, int rindex) {
@@ -75,14 +81,23 @@ int code_point_to_utf8(int code_point, char* buf, int len) {
 
 int utf8_to_code_point(const char* buf, int len) {
   if (buf == NULL) {
-    return ERR_INVALID_UTF8_STRING;
+    return ERR_INVALID_PTR;
   }
-  int code_point = ERR_INVALID_UTF8_STRING;
-  for (int i = 0; i < len; i++) {
-    if ((buf[i] & 0x80) == 0) {
-      code_point = (int)buf[i];
-      break;
-    }
+  if (len < 1) {
+    return ERR_BUF_SIZE_TOO_SMALL;
+  }
+  char first_byte = buf[0];
+  int code_point = 0;
+  int size = 0;
+  if ((first_byte & 0x80) == 0) {
+    return first_byte;
+  } else if (is_leading_byte(first_byte, 1)) {
+    size = 2;
+  } else if (is_leading_byte(first_byte, 2)) {
+    size = 3;
+  } else if (is_leading_byte(first_byte, 3)) {
+    size = 4;
+  } else {
   }
   return code_point;
 }
