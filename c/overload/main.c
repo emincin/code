@@ -52,6 +52,14 @@ int add_int_int(int a, int b) {
   return a + b;
 }
 
+void print_point(Point a) {
+  printf("[%d %d]\n", a.x, a.y);
+}
+
+void print_int(int a) {
+  printf("%d\n", a);
+}
+
 #define add2(a, b) _Generic((a), \
   int: _Generic((b), int: add_int_int, default: NULL), \
   Point: _Generic((b), Point: add_point_point, default: NULL) \
