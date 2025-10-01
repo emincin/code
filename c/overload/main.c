@@ -33,6 +33,8 @@
 
 #define EXPAND(func, ...) __VA_OPT__(OVERLOAD(EXPAND_, __VA_ARGS__)(func, __VA_ARGS__))
 
+#define NONAME_FUNC(ret, ...) ((ret (*)(EXPAND(typeof, __VA_ARGS__)))0)
+
 typedef struct {
   int x;
   int y;
