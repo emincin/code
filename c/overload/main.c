@@ -1,18 +1,35 @@
 #include <stdio.h>
 
-#define CONCAT(a, b) CONCAT_IMPL(a, b)
-#define CONCAT_IMPL(a, b) a##b
+#define NO_PARAM(...) (sizeof(#__VA_ARGS__) == 1)
 
 #define STR(x) STR_IMPL(x)
 #define STR_IMPL(x) #x
 
+#define CONCAT(a, b) CONCAT_IMPL(a, b)
+#define CONCAT_IMPL(a, b) a##b
+
 #define COUNT(...) __VA_OPT__(COUNT_IMPL(__VA_ARGS__, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
 #define COUNT_IMPL(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, n, ...) n
 
-#define NO_PARAM(...) (sizeof(#__VA_ARGS__) == 1)
-
 #define OVERLOAD(name, ...) CONCAT(name, COUNT(__VA_ARGS__))
 #define INVOKE_OVERLOAD(name, ...) OVERLOAD(name, __VA_ARGS__)(__VA_ARGS__)
+
+#define EXPAND_1(func, var) func(var)
+#define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
+#define EXPAND_3(func, var, ...) func(var), EXPAND_2(func, __VA_ARGS__)
+#define EXPAND_4(func, var, ...) func(var), EXPAND_3(func, __VA_ARGS__)
+#define EXPAND_5(func, var, ...) func(var), EXPAND_4(func, __VA_ARGS__)
+#define EXPAND_6(func, var, ...) func(var), EXPAND_5(func, __VA_ARGS__)
+#define EXPAND_7(func, var, ...) func(var), EXPAND_6(func, __VA_ARGS__)
+#define EXPAND_8(func, var, ...) func(var), EXPAND_7(func, __VA_ARGS__)
+#define EXPAND_9(func, var, ...) func(var), EXPAND_8(func, __VA_ARGS__)
+#define EXPAND_10(func, var, ...) func(var), EXPAND_9(func, __VA_ARGS__)
+#define EXPAND_11(func, var, ...) func(var), EXPAND_10(func, __VA_ARGS__)
+#define EXPAND_12(func, var, ...) func(var), EXPAND_11(func, __VA_ARGS__)
+#define EXPAND_13(func, var, ...) func(var), EXPAND_12(func, __VA_ARGS__)
+#define EXPAND_14(func, var, ...) func(var), EXPAND_13(func, __VA_ARGS__)
+#define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
+#define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
 
 typedef struct {
   int x;
