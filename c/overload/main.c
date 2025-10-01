@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 #define NO_PARAM(...) (sizeof(#__VA_ARGS__) == 1)
 
@@ -40,6 +41,25 @@
 #define FIRST_ARG(a, ...) a
 
 typedef struct {
+  double x;
+  double y;
+} vec2;
+
+typedef struct {
+  double x;
+  double y;
+  double z;
+} vec3;
+
+double length_2(double x, double y) {
+  return sqrt(x * x + y * y);
+}
+
+double length_3(double x, double y, double z) {
+  return sqrt(x * x + y * y + z * z);
+}
+
+typedef struct {
   int x;
   int y;
 } Point;
@@ -52,14 +72,6 @@ int add_int_int(int a, int b) {
   return a + b;
 }
 
-void print_point(Point a) {
-  printf("[%d %d]\n", a.x, a.y);
-}
-
-void print_int(int a) {
-  printf("%d\n", a);
-}
-
 #define add_2(a, b) _Generic((a), \
   int: _Generic((b), int: add_int_int, default: NULL), \
   Point: _Generic((b), Point: add_point_point, default: NULL) \
@@ -67,9 +79,22 @@ void print_int(int a) {
 
 #define add(...) INVOKE_OVERLOAD(add_, __VA_ARGS__)
 
+void print_int(int a) {
+  printf("%d\n", a);
+}
+
+void print_point(Point a) {
+  printf("[%d %d]\n", a.x, a.y);
+}
+
+void print_double(double a) {
+  printf("%f\n", a);
+}
+
 #define print_1(a) _Generic((a), \
   int: print_int, \
-  Point: print_point \
+  Point: print_point, \
+  double: print_double \
 )(a)
 
 #define print(...) INVOKE_OVERLOAD(print_, __VA_ARGS__)
