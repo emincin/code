@@ -59,6 +59,14 @@ double length_d3(double x, double y, double z) {
   return sqrt(x * x + y * y + z * z);
 }
 
+double length_i2(int x, int y) {
+  return length_d2(x, y);
+}
+
+double length_i3(int x, int y, int z) {
+  return length_d3(x, y, z);
+}
+
 double length_vec2(vec2 a) {
   return length_d2(a.x, a.y);
 }
@@ -66,6 +74,15 @@ double length_vec2(vec2 a) {
 double length_vec3(vec3 a) {
   return length_d3(a.x, a.y, a.z);
 }
+
+#define length(...) _Generic(NONAME_FUNC(double, __VA_ARGS__), \
+  FUNC_CASE(length_d2), \
+  FUNC_CASE(length_d3), \
+  FUNC_CASE(length_i2), \
+  FUNC_CASE(length_i3), \
+  FUNC_CASE(length_vec2), \
+  FUNC_CASE(length_vec3) \
+)(__VA_ARGS__)
 
 typedef struct {
   int x;
