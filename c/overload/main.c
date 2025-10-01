@@ -35,6 +35,10 @@
 
 #define NONAME_FUNC(ret, ...) ((ret (*)(EXPAND(typeof, __VA_ARGS__)))0)
 
+#define FUNC_CASE(func) typeof(&(func)) : func
+
+#define FIRST_ARG(a, ...) a
+
 typedef struct {
   int x;
   int y;
