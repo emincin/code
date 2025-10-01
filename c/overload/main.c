@@ -60,12 +60,19 @@ void print_int(int a) {
   printf("%d\n", a);
 }
 
-#define add2(a, b) _Generic((a), \
+#define add_2(a, b) _Generic((a), \
   int: _Generic((b), int: add_int_int, default: NULL), \
   Point: _Generic((b), Point: add_point_point, default: NULL) \
 )(a, b)
 
-#define add(...) INVOKE_OVERLOAD(add, __VA_ARGS__)
+#define add(...) INVOKE_OVERLOAD(add_, __VA_ARGS__)
+
+#define print_1(a) _Generic((a), \
+  int: print_int, \
+  Point: print_point \
+)(a)
+
+#define print(...) INVOKE_OVERLOAD(print_, __VA_ARGS__)
 
 int main(int argc, char** argv) {
   return 0;
