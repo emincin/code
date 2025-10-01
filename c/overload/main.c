@@ -124,11 +124,23 @@ void print_double(double a) {
   printf("%f\n", a);
 }
 
+void print_int_int(int a, int b) {
+  printf("Position: (%d, %d)\n", a, b);
+}
+
+void print_int_string(int a, const char* b) {
+  printf("[Length: %d Data: %s]\n", a, b);
+}
+
 #define print_1(a) _Generic((a), \
   int: print_int, \
   Point: print_point, \
   double: print_double \
 )(a)
+
+#define print_2(a, b) _Generic((a), \
+  int: _Generic((b), int: print_int_int, char*: print_int_string, const char*: print_int_string, default: NULL) \
+)(a, b)
 
 #define print(...) INVOKE_OVERLOAD(print_, __VA_ARGS__)
 
