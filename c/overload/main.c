@@ -27,6 +27,13 @@ int add_int_int(int a, int b) {
   return a + b;
 }
 
+#define add2(a, b) _Generic((a), \
+  int: _Generic((b), int: add_int_int, default: NULL), \
+  Point: _Generic((b), Point: add_point_point, default: NULL) \
+)(a, b)
+
+#define add(...) INVOKE_OVERLOAD(add, __VA_ARGS__)
+
 int main(int argc, char** argv) {
   return 0;
 }
