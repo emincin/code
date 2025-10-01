@@ -14,6 +14,19 @@
 #define OVERLOAD(name, ...) CONCAT(name, COUNT(__VA_ARGS__))
 #define INVOKE_OVERLOAD(name, ...) OVERLOAD(name, __VA_ARGS__)(__VA_ARGS__)
 
+typedef struct {
+  int x;
+  int y;
+} Point;
+
+Point add_point_point(Point a, Point b) {
+  return (Point){ a.x + b.x, a.y + b.y };
+}
+
+int add_int_int(int a, int b) {
+  return a + b;
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
