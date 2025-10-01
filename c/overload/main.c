@@ -11,6 +11,9 @@
 
 #define NO_PARAM(...) (sizeof(#__VA_ARGS__) == 1)
 
+#define OVERLOAD(name, ...) CONCAT(name, COUNT(__VA_ARGS__))
+#define INVOKE_OVERLOAD(name, ...) OVERLOAD(name, __VA_ARGS__)(__VA_ARGS__)
+
 int main(int argc, char** argv) {
   return 0;
 }
