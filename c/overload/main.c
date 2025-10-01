@@ -51,6 +51,14 @@ typedef struct {
   double z;
 } vec3;
 
+vec2 make_vec2(double x, double y) {
+  return (vec2){ x, y };
+}
+
+vec3 make_vec3(double x, double y, double z) {
+  return (vec3){ x, y, z };
+}
+
 double length_d2(double x, double y) {
   return sqrt(x * x + y * y);
 }
