@@ -132,6 +132,10 @@ void print_int_string(int a, const char* b) {
   printf("[Length: %d Data: %s]\n", a, b);
 }
 
+void print_(void) {
+  printf("\n");
+}
+
 #define print_1(a) _Generic((a), \
   int: print_int, \
   Point: print_point, \
