@@ -124,6 +124,10 @@ void print_double(double a) {
   printf("%f\n", a);
 }
 
+void print_string(const char* a) {
+  printf("%s\n", a);
+}
+
 void print_int_int(int a, int b) {
   printf("Position: (%d, %d)\n", a, b);
 }
@@ -139,7 +143,9 @@ void print_(void) {
 #define print_1(a) _Generic((a), \
   int: print_int, \
   Point: print_point, \
-  double: print_double \
+  double: print_double, \
+  char*: print_string, \
+  const char*: print_string \
 )(a)
 
 #define print_2(a, b) _Generic((a), \
