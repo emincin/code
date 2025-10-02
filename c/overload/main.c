@@ -59,6 +59,16 @@ vec3 make_vec3(double x, double y, double z) {
   return (vec3){ x, y, z };
 }
 
+#define make_vec(...) _Generic(NONAME_FUNC(vec2, __VA_ARGS__), \
+  FUNC_CASE(make_vec2), \
+  vec2 (*)(int, int): make_vec2, \
+  default: _Generic(NONAME_FUNC(vec3, __VA_ARGS__), \
+    FUNC_CASE(make_vec3), \
+    vec3 (*)(int, int, int): make_vec3, \
+    default: NULL \
+  ) \
+)(__VA_ARGS__)
+
 double length_d2(double x, double y) {
   return sqrt(x * x + y * y);
 }
