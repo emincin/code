@@ -89,7 +89,8 @@ double length_vec3(vec3 a) {
   FUNC_CASE(length_i2), \
   FUNC_CASE(length_i3), \
   FUNC_CASE(length_vec2), \
-  FUNC_CASE(length_vec3) \
+  FUNC_CASE(length_vec3), \
+  default: NULL \
 )(__VA_ARGS__)
 
 typedef struct {
@@ -107,7 +108,8 @@ int add_int_int(int a, int b) {
 
 #define add_2(a, b) _Generic((a), \
   int: _Generic((b), int: add_int_int, default: NULL), \
-  Point: _Generic((b), Point: add_point_point, default: NULL) \
+  Point: _Generic((b), Point: add_point_point, default: NULL), \
+  default: NULL \
 )(a, b)
 
 #define add(...) INVOKE_OVERLOAD(add_, __VA_ARGS__)
@@ -145,11 +147,13 @@ void print_(void) {
   Point: print_point, \
   double: print_double, \
   char*: print_string, \
-  const char*: print_string \
+  const char*: print_string, \
+  default: NULL \
 )(a)
 
 #define print_2(a, b) _Generic((a), \
-  int: _Generic((b), int: print_int_int, char*: print_int_string, const char*: print_int_string, default: NULL) \
+  int: _Generic((b), int: print_int_int, char*: print_int_string, const char*: print_int_string, default: NULL), \
+  default: NULL \
 )(a, b)
 
 #define print(...) INVOKE_OVERLOAD(print_, __VA_ARGS__)
