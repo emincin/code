@@ -2,6 +2,7 @@
 #include <math.h>
 
 #define NO_PARAM(...) (sizeof(#__VA_ARGS__) == 1)
+#define EPSILON 0.000001
 
 #define STR(x) STR_IMPL(x)
 #define STR_IMPL(x) #x
@@ -100,6 +101,24 @@ double length_vec3(vec3 a) {
   FUNC_CASE(length_i3), \
   FUNC_CASE(length_vec2), \
   FUNC_CASE(length_vec3), \
+  default: NULL \
+)(__VA_ARGS__)
+
+vec2 normalize_vec2(vec2 a) {
+  double len = length(a);
+  if (len < EPSILON) return (vec2){ 0 };
+  return (vec2){ a.x / len, a.y / len };
+}
+
+vec3 normalize_vec3(vec3 a) {
+  double len = length(a);
+  if (len < EPSILON) return (vec3){ 0 };
+  return (vec3){ a.x / len, a.y / len, a.z / len };
+}
+
+#define normalize(...) _Generic(NONAME_FUNC(typeof(FIRST_ARG(__VA_ARGS__)), __VA_ARGS__), \
+  FUNC_CASE(normalize_vec2), \
+  FUNC_CASE(normalize_vec3), \
   default: NULL \
 )(__VA_ARGS__)
 
