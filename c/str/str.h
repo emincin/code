@@ -17,6 +17,7 @@ Str* str_new_cstr(const char* buf);
 Str* str_new_capacity(size_t capacity);
 Str* str_new_();
 void str_delete(Str* str);
+void str_clear();
 
 #endif // STR_H
 
@@ -30,9 +31,12 @@ Str* str_new_cstr_n(const char* buf, size_t len) {
   if (buf == NULL) {
     return NULL;
   }
-  size_t capacity = 2;
-  while (capacity < len) {
-    capacity *= 2;
+  size_t capacity = 0;
+  if (len > 0) {
+    capacity = 1;
+    while (capacity < len) {
+      capacity *= 2;
+    }
   }
   Str* str = str_new_capacity(capacity);
   if (str == NULL) {
@@ -78,6 +82,9 @@ void str_delete(Str* str) {
   }
   free(str->data);
   free(str);
+}
+
+void str_clear() {
 }
 
 #endif // STR_C
