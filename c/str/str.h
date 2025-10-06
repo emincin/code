@@ -13,6 +13,7 @@ typedef struct str_t {
 } Str;
 
 Str* str_new_capacity(size_t capacity);
+void str_delete(Str* str);
 
 #endif // STR_H
 
@@ -36,6 +37,14 @@ Str* str_new_capacity(size_t capacity) {
 clean_up:
   free(str);
   return NULL;
+}
+
+void str_delete(Str* str) {
+  if (str == NULL) {
+    return;
+  }
+  free(str->data);
+  free(str);
 }
 
 #endif // STR_C
