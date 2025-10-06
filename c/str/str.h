@@ -25,8 +25,16 @@ Str* str_new_capacity(size_t capacity) {
   if (str == NULL) {
     return NULL;
   }
+  char* buffer = (char*)calloc(capacity + 1, sizeof(char));
+  if (buffer == NULL) {
+    goto clean_up;
+  }
+  str->size = 0;
+  str->capacity = capacity;
+  str->data = buffer;
   return str;
 clean_up:
+  free(str);
   return NULL;
 }
 
