@@ -12,7 +12,10 @@ typedef struct str_t {
   char* data;
 } Str;
 
+Str* str_new_cstr_n(const char* buf, size_t len);
+Str* str_new_cstr(const char* buf);
 Str* str_new_capacity(size_t capacity);
+Str* str_new_();
 void str_delete(Str* str);
 
 #endif // STR_H
@@ -37,6 +40,10 @@ Str* str_new_capacity(size_t capacity) {
 clean_up:
   free(str);
   return NULL;
+}
+
+Str* str_new_() {
+  return str_new_capacity(STR_CAPACITY);
 }
 
 void str_delete(Str* str) {
