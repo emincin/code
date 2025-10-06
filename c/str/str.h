@@ -27,11 +27,19 @@ void str_delete(Str* str);
 #include <string.h>
 
 Str* str_new_cstr_n(const char* buf, size_t len) {
+  if (buf == NULL) {
+    return NULL;
+  }
   size_t capacity = 2;
   while (capacity < len) {
     capacity *= 2;
   }
   Str* str = str_new_capacity(capacity);
+  if (str == NULL) {
+    return NULL;
+  }
+  memcpy(str->data, buf, len);
+  str->size = len;
   return str;
 }
 
