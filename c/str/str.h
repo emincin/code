@@ -15,10 +15,17 @@ typedef struct str_t {
 Str* str_new_capacity(size_t capacity);
 
 #endif // STR_H
+
+
 #ifdef STR_C
 #include <stdlib.h>
 
 Str* str_new_capacity(size_t capacity) {
+  Str* str = (Str*)malloc(sizeof(Str));
+  if (str == NULL) {
+    return NULL;
+  }
+  return str;
 clean_up:
   return NULL;
 }
