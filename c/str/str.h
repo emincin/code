@@ -91,6 +91,10 @@ void str_clear(Str* str) {
 }
 
 void str_reset(Str* str) {
+  free(str->data);
+  str->data = (char*)calloc(1, sizeof(char));
+  str->size = 0;
+  str->capacity = 0;
 }
 
 #endif // STR_C
