@@ -22,7 +22,25 @@ void str_delete(Str* str);
 
 
 #ifdef STR_C
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+Str* str_new_cstr_n(const char* buf, size_t len) {
+  size_t capacity = 2;
+  while (capacity < len) {
+    capacity *= 2;
+  }
+  Str* str = str_new_capacity(capacity);
+  return str;
+}
+
+Str* str_new_cstr(const char* buf) {
+  if (buf == NULL) {
+    return NULL;
+  }
+  return str_new_cstr_n(buf, strlen(buf));
+}
 
 Str* str_new_capacity(size_t capacity) {
   Str* str = (Str*)malloc(sizeof(Str));
