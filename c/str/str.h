@@ -12,6 +12,15 @@ typedef struct str_t {
   char* data;
 } Str;
 
+Str* str_new_capacity(size_t capacity);
+
 #endif // STR_H
 #ifdef STR_C
+#include <stdlib.h>
+
+Str* str_new_capacity(size_t capacity) {
+clean_up:
+  return NULL;
+}
+
 #endif // STR_C
