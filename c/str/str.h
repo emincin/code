@@ -17,7 +17,8 @@ Str* str_new_cstr(const char* buf);
 Str* str_new_capacity(size_t capacity);
 Str* str_new_();
 void str_delete(Str* str);
-void str_clear();
+void str_clear(Str* str);
+void str_reset(Str* str);
 
 #endif // STR_H
 
@@ -84,7 +85,12 @@ void str_delete(Str* str) {
   free(str);
 }
 
-void str_clear() {
+void str_clear(Str* str) {
+  str->data[0] = 0;
+  str->size = 0;
+}
+
+void str_reset(Str* str) {
 }
 
 #endif // STR_C
