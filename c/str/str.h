@@ -24,6 +24,8 @@ size_t str_append_char_n(Str* str, char c, size_t n);
 size_t str_append_char(Str* str, char c);
 Str* str_substr_pos_n(Str* str, size_t pos, size_t len);
 Str* str_substr_pos(Str* str, size_t pos);
+Str* str_slice_from_to(Str* str, int start, int end);
+Str* str_slice_from(Str* str, int start);
 void str_clear(Str* str);
 void str_reset(Str* str);
 
@@ -146,6 +148,20 @@ Str* str_substr_pos_n(Str* str, size_t pos, size_t len) {
 
 Str* str_substr_pos(Str* str, size_t pos) {
   return str_substr_pos_n(str, pos, str->size - pos);
+}
+
+Str* str_slice_from_to(Str* str, int start, int end) {
+  int size = (int)str->size;
+  if (start < 0) start += size;
+  if (end < 0) end += size;
+  if (start < 0) start = 0;
+  if (end > size) end = size;
+  if (end < start) end = start;
+  return str_new_cstr_n(str->data + start, end - start);
+}
+
+Str* str_slice_from(Str* str, int start) {
+  return str_slice_from_to(str, start, str->size);
 }
 
 void str_clear(Str* str) {
