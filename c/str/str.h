@@ -74,6 +74,24 @@ void str_reset(Str* str);
 
 #define str_new(...) INVOKE_OVERLOAD(str_new_, __VA_ARGS__)
 
+#define str_append_2(a, b) _Generic((b), \
+  char: str_append_char, \
+  int: str_append_char, \
+  char*: str_append_cstr, \
+  const char*: str_append_cstr, \
+  Str*: str_append_str, \
+  const Str*: str_append_str, \
+  default: NULL \
+)(a, b)
+
+#define str_append_3(a, b, c) _Generic((b), \
+  char: str_append_char_n, \
+  int: str_append_char_n, \
+  char*: str_append_cstr_n, \
+  const char*: str_append_cstr_n, \
+  default: NULL \
+)(a, b, c)
+
 #define str_append(...) INVOKE_OVERLOAD(str_append_, __VA_ARGS__)
 
 #endif // HAS_GENERIC
