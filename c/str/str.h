@@ -72,8 +72,6 @@ void str_reset(Str* str);
   default: NULL \
 )(a, b)
 
-#define str_new(...) INVOKE_OVERLOAD(str_new_, __VA_ARGS__)
-
 #define str_append_2(a, b) _Generic((b), \
   char: str_append_char, \
   int: str_append_char, \
@@ -92,7 +90,16 @@ void str_reset(Str* str);
   default: NULL \
 )(a, b, c)
 
+#define str_substr_2 str_substr_pos
+#define str_substr_3 str_substr_pos_n
+
+#define str_slice_2 str_slice_from
+#define str_slice_3 str_slice_from_to
+
+#define str_new(...) INVOKE_OVERLOAD(str_new_, __VA_ARGS__)
 #define str_append(...) INVOKE_OVERLOAD(str_append_, __VA_ARGS__)
+#define str_substr(...) INVOKE_OVERLOAD(str_substr_, __VA_ARGS__)
+#define str_slice(...) INVOKE_OVERLOAD(str_slice_, __VA_ARGS__)
 
 #endif // HAS_GENERIC
 
