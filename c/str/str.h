@@ -19,6 +19,9 @@ Str* str_new_(void);
 void str_delete(Str* str);
 size_t str_append_cstr_n(Str* str, const char* buf, size_t len);
 size_t str_append_cstr(Str* str, const char* buf);
+size_t str_append_str(Str* str, Str* other);
+size_t str_append_char_n(Str* str, char c, size_t n);
+size_t str_append_char(Str* str, char c);
 void str_clear(Str* str);
 void str_reset(Str* str);
 
@@ -111,6 +114,26 @@ size_t str_append_cstr_n(Str* str, const char* buf, size_t len) {
 size_t str_append_cstr(Str* str, const char* buf) {
   if (buf == NULL) return 0;
   return str_append_cstr_n(str, buf, strlen(buf));
+}
+
+size_t str_append_str(Str* str, Str* other) {
+  return str_append_cstr_n(str, other->data, other->size);
+}
+
+size_t str_append_char_n(Str* str, char c, size_t n) {
+  size_t written = 0;
+  for (size_t i = 0; i < n; i++) {
+    size_t ret = str_append_char(str, c);
+    if (ret == 0) {
+      break;
+    }
+    written += ret;
+  }
+  return written;
+}
+
+size_t str_append_char(Str* str, char c) {
+  return str_append_cstr_n(str, &c, 1);
 }
 
 void str_clear(Str* str) {
