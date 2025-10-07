@@ -38,6 +38,30 @@ void str_reset(Str* str);
 #endif // __STDC_VERSION__
 
 #ifdef HAS_GENERIC
+
+#define CONCAT(a, b) CONCAT_IMPL(a, b)
+#define CONCAT_IMPL(a, b) a##b
+
+#define COUNT(...) __VA_OPT__(COUNT_IMPL(__VA_ARGS__, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1))
+#define COUNT_IMPL(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, n, ...) n
+
+#define OVERLOAD(name, ...) CONCAT(name, COUNT(__VA_ARGS__))
+#define INVOKE_OVERLOAD(name, ...) OVERLOAD(name, __VA_ARGS__)(__VA_ARGS__)
+
+#define str_new_1(a) _Generic((a), \
+  int: str_new_capacity, \
+  unsigned int: str_new_capacity, \
+  long: str_new_capacity, \
+  unsigned long: str_new_capacity, \
+  long long: str_new_capacity, \
+  unsigned long long: str_new_capacity, \
+  char*: str_new_cstr, \
+  const char*: str_new_cstr, \
+  default: NULL \
+)(a)
+
+#define str_new(...) INVOKE_OVERLOAD(str_new_, __VA_ARGS__)
+
 #endif // HAS_GENERIC
 
 #endif // STR_H
