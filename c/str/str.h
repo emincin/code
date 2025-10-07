@@ -28,14 +28,16 @@ Str* str_substr_pos_n(Str* str, size_t pos, size_t len);
 Str* str_substr_pos(Str* str, size_t pos);
 Str* str_slice_from_to(Str* str, int start, int end);
 Str* str_slice_from(Str* str, int start);
+size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len);
+size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
 void str_clear(Str* str);
 void str_reset(Str* str);
 
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112)
 
-#ifndef HAS_GENERIC
+#ifndef NO_GENERIC
 #define HAS_GENERIC 1
-#endif // HAS_GENERIC
+#endif // NO_GENERIC
 
 #endif // __STDC_VERSION__
 
@@ -249,6 +251,20 @@ Str* str_slice_from_to(Str* str, int start, int end) {
 
 Str* str_slice_from(Str* str, int start) {
   return str_slice_from_to(str, start, (int)str->size);
+}
+
+size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len) {
+  if (buf == NULL || len == 0) {
+    return 0;
+  }
+  return len;
+}
+
+size_t str_insert_cstr(Str* str, size_t pos, const char* buf) {
+  if (buf == NULL) {
+    return 0;
+  }
+  return str_insert_cstr_n(str, pos, buf, strlen(buf));
 }
 
 void str_clear(Str* str) {
