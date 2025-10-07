@@ -60,7 +60,15 @@ void str_reset(Str* str);
   default: NULL \
 )(a)
 
+#define str_new_2(a, b) _Generic((a), \
+  char*: str_new_cstr_n, \
+  const char*: str_new_cstr_n, \
+  default: NULL \
+)(a, b)
+
 #define str_new(...) INVOKE_OVERLOAD(str_new_, __VA_ARGS__)
+
+#define str_append(...) INVOKE_OVERLOAD(str_append_, __VA_ARGS__)
 
 #endif // HAS_GENERIC
 
