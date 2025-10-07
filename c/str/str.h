@@ -29,6 +29,17 @@ Str* str_slice_from(Str* str, int start);
 void str_clear(Str* str);
 void str_reset(Str* str);
 
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112)
+
+#ifndef HAS_GENERIC
+#define HAS_GENERIC 1
+#endif // HAS_GENERIC
+
+#endif // __STDC_VERSION__
+
+#ifdef HAS_GENERIC
+#endif // HAS_GENERIC
+
 #endif // STR_H
 
 
@@ -161,7 +172,7 @@ Str* str_slice_from_to(Str* str, int start, int end) {
 }
 
 Str* str_slice_from(Str* str, int start) {
-  return str_slice_from_to(str, start, str->size);
+  return str_slice_from_to(str, start, (int)str->size);
 }
 
 void str_clear(Str* str) {
