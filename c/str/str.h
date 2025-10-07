@@ -14,12 +14,14 @@ typedef struct str_t {
 
 Str* str_new_cstr_n(const char* buf, size_t len);
 Str* str_new_cstr(const char* buf);
+Str* str_new_str(const Str* other);
+Str* str_new_char_n(char c, size_t n);
 Str* str_new_capacity(size_t capacity);
 Str* str_new_(void);
 void str_delete(Str* str);
 size_t str_append_cstr_n(Str* str, const char* buf, size_t len);
 size_t str_append_cstr(Str* str, const char* buf);
-size_t str_append_str(Str* str, Str* other);
+size_t str_append_str(Str* str, const Str* other);
 size_t str_append_char_n(Str* str, char c, size_t n);
 size_t str_append_char(Str* str, char c);
 Str* str_substr_pos_n(Str* str, size_t pos, size_t len);
@@ -57,12 +59,16 @@ void str_reset(Str* str);
   unsigned long long: str_new_capacity, \
   char*: str_new_cstr, \
   const char*: str_new_cstr, \
+  Str*: str_new_str, \
+  const Str*: str_new_str, \
   default: NULL \
 )(a)
 
 #define str_new_2(a, b) _Generic((a), \
   char*: str_new_cstr_n, \
   const char*: str_new_cstr_n, \
+  char: str_new_char_n, \
+  int: str_new_char_n, \
   default: NULL \
 )(a, b)
 
@@ -105,6 +111,19 @@ Str* str_new_cstr(const char* buf) {
     return NULL;
   }
   return str_new_cstr_n(buf, strlen(buf));
+}
+
+Str* str_new_str(const Str* other) {
+  return str_new_cstr_n(other->data, other->size);
+}
+
+Str* str_new_char_n(char c, size_t n) {
+  Str* str = str_new_capacity(n);
+  if (str == NULL) {
+    return NULL;
+  }
+  str_append_char_n(str, c, n);
+  return str;
 }
 
 Str* str_new_capacity(size_t capacity) {
@@ -160,7 +179,7 @@ size_t str_append_cstr(Str* str, const char* buf) {
   return str_append_cstr_n(str, buf, strlen(buf));
 }
 
-size_t str_append_str(Str* str, Str* other) {
+size_t str_append_str(Str* str, const Str* other) {
   return str_append_cstr_n(str, other->data, other->size);
 }
 
