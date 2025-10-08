@@ -30,6 +30,8 @@ Str* str_slice_from_to(Str* str, int start, int end);
 Str* str_slice_from(Str* str, int start);
 size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len);
 size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
+size_t str_resize_n_char(Str* str, size_t capacity, char c);
+size_t str_resize_n(Str* str, size_t capacity);
 void str_clear(Str* str);
 void str_reset(Str* str);
 
@@ -257,6 +259,9 @@ size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len) {
   if (buf == NULL || len == 0) {
     return 0;
   }
+  if (pos > len) {
+    pos = len;
+  }
   return len;
 }
 
@@ -265,6 +270,21 @@ size_t str_insert_cstr(Str* str, size_t pos, const char* buf) {
     return 0;
   }
   return str_insert_cstr_n(str, pos, buf, strlen(buf));
+}
+
+size_t str_resize_n_char(Str* str, size_t capacity, char c) {
+  char* buffer = (char*)realloc(str->data, capacity + 1);
+  if (buffer == NULL) {
+    return 0;
+  }
+  memset(buffer + str->size, c, capacity + 1 - str->size);
+  str->data = buffer;
+  str->capacity = capacity;
+  return capacity;
+}
+
+size_t str_resize_n(Str* str, size_t capacity) {
+  return str_resize_n_char(str, capacity, 0);
 }
 
 void str_clear(Str* str) {
