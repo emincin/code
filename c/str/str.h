@@ -269,9 +269,7 @@ Str* str_slice_from(Str* str, int start) {
 }
 
 size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len) {
-  if (buf == NULL || len == 0) {
-    return 0;
-  }
+  if (buf == NULL || len == 0) return 0;
   if (pos > str->size) {
     pos = str->size;
   }
@@ -290,9 +288,7 @@ size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len) {
 }
 
 size_t str_insert_cstr(Str* str, size_t pos, const char* buf) {
-  if (buf == NULL) {
-    return 0;
-  }
+  if (buf == NULL) return 0;
   return str_insert_cstr_n(str, pos, buf, strlen(buf));
 }
 
@@ -301,7 +297,12 @@ size_t str_resize_n_char(Str* str, size_t capacity, char c) {
   if (buffer == NULL) {
     return 0;
   }
-  memset(buffer + str->size, c, capacity + 1 - str->size);
+  if (capacity >= str->size) {
+    memset(buffer + str->size, c, capacity - str->size);
+  } else {
+    str->data[capacity] = 0;
+    str->size = capacity;
+  }
   str->data = buffer;
   str->capacity = capacity;
   return capacity;
