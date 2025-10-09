@@ -128,6 +128,21 @@ Str* ptr_to_str(void* value);
 #define str_insert(...) INVOKE_OVERLOAD(str_insert_, __VA_ARGS__)
 #define str_resize(...) INVOKE_OVERLOAD(str_resize_, __VA_ARGS__)
 
+#define to_str(a) _Generic((a), \
+  short: short_to_str, \
+  unsigned short: ushort_to_str, \
+  int: int_to_str, \
+  unsigned int: uint_to_str, \
+  long: long_to_str, \
+  unsigned long: ulong_to_str, \
+  long long: longlong_to_str, \
+  unsigned long long: ulonglong_to_str, \
+  float: float_to_str, \
+  double: double_to_str, \
+  void*: ptr_to_str, \
+  default: NULL \
+)(a)
+
 #endif // HAS_GENERIC
 
 #endif // STR_H
@@ -250,7 +265,7 @@ Str* str_slice_from_to(Str* str, int start, int end) {
   if (start < 0) start = 0;
   if (end > size) end = size;
   if (end < start) end = start;
-  return str_new_cstr_n(str->data + start, end - start);
+  return str_new_cstr_n(str->data + start, (size_t)(end - start));
 }
 
 Str* str_slice_from(Str* str, int start) {
@@ -320,6 +335,72 @@ void str_reset(Str* str) {
 void str_delete(Str* str) {
   free(str->data);
   free(str);
+}
+
+Str* short_to_str(short value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%d", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* ushort_to_str(unsigned short value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%d", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* int_to_str(int value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%d", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* uint_to_str(unsigned int value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%u", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* long_to_str(long value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%ld", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* ulong_to_str(unsigned long value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%lu", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* longlong_to_str(long long value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%lld", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* ulonglong_to_str(unsigned long long value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%llu", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* float_to_str(float value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%f", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* double_to_str(double value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%f", value);
+  return str_new_cstr_n(buf, len);
+}
+
+Str* ptr_to_str(void* value) {
+  char buf[32] = { 0 };
+  int len = snprintf(buf, sizeof(buf), "%p", value);
+  return str_new_cstr_n(buf, len);
 }
 
 #endif // STR_C
