@@ -12,6 +12,8 @@ typedef struct str_t {
   char* data;
 } Str;
 
+size_t calc_capacity(size_t size);
+
 Str* str_new_cstr_n(const char* buf, size_t len);
 Str* str_new_cstr(const char* buf);
 Str* str_new_str(const Str* other);
@@ -31,6 +33,7 @@ size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len);
 size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
 size_t str_resize_n_char(Str* str, size_t capacity, char c);
 size_t str_resize_n(Str* str, size_t capacity);
+void str_print(const Str* str);
 void str_clear(Str* str);
 void str_reset(Str* str);
 void str_delete(Str* str);
@@ -134,6 +137,17 @@ Str* ptr_to_str(void* value);
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+size_t calc_capacity(size_t size) {
+  size_t capacity = 0;
+  if (size > 0) {
+    capacity = 1;
+    while (capacity < size) {
+      capacity *= 2;
+    }
+  }
+  return capacity;
+}
 
 Str* str_new_cstr_n(const char* buf, size_t len) {
   if (buf == NULL) {
@@ -314,6 +328,10 @@ size_t str_resize_n_char(Str* str, size_t capacity, char c) {
 
 size_t str_resize_n(Str* str, size_t capacity) {
   return str_resize_n_char(str, capacity, 0);
+}
+
+void str_print(const Str* str) {
+  printf("size:%zu capacity:%zu data:%s", str->size, str->capacity, str->data);
 }
 
 void str_clear(Str* str) {
