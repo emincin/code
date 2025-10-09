@@ -259,9 +259,23 @@ size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len) {
   if (buf == NULL || len == 0) {
     return 0;
   }
-  if (pos > len) {
-    pos = len;
+  if (pos > str->size) {
+    pos = str->size;
   }
+  size_t new_size = str->size + len;
+  if (new_size > str->capacity) {
+    size_t new_capacity = str->capacity;
+    while (new_capacity < new_size) {
+      new_capacity *= 2;
+    }
+    new_capacity = str_resize_n(str, new_capacity);
+    if (new_capacity == 0) {
+      return 0;
+    }
+  }
+  memmove(str->data + pos + len, str->data + pos, str->size - pos);
+  memcpy(str->data + pos, buf, len);
+  str->size = new_size;
   return len;
 }
 
