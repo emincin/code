@@ -202,18 +202,7 @@ Str* str_new_(void) {
 }
 
 size_t str_append_cstr_n(Str* str, const char* buf, size_t len) {
-  if (buf == NULL || len == 0) return 0;
-  size_t new_size = str->size + len;
-  if (new_size > str->capacity) {
-    size_t new_capacity = calc_capacity(new_size);
-    new_capacity = str_resize_n(str, new_capacity);
-    if (new_capacity == 0) {
-      return 0;
-    }
-  }
-  memcpy(str->data + str->size, buf, len);
-  str->size = new_size;
-  return len;
+  return str_insert_cstr_n(str, str->size, buf, len);
 }
 
 size_t str_append_cstr(Str* str, const char* buf) {
