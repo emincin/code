@@ -153,13 +153,7 @@ Str* str_new_cstr_n(const char* buf, size_t len) {
   if (buf == NULL) {
     return NULL;
   }
-  size_t capacity = 0;
-  if (len > 0) {
-    capacity = 1;
-    while (capacity < len) {
-      capacity *= 2;
-    }
-  }
+  size_t capacity = calc_capacity(len);
   Str* str = str_new_capacity(capacity);
   if (str == NULL) {
     return NULL;
@@ -215,10 +209,7 @@ size_t str_append_cstr_n(Str* str, const char* buf, size_t len) {
   if (buf == NULL || len == 0) return 0;
   size_t new_size = str->size + len;
   if (new_size > str->capacity) {
-    size_t new_capacity = str->capacity;
-    while (new_capacity < new_size) {
-      new_capacity *= 2;
-    }
+    size_t new_capacity = calc_capacity(new_size);
     char* buffer = (char*)realloc(str->data, new_capacity + 1);
     if (buffer == NULL) {
       return 0;
@@ -293,10 +284,7 @@ size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len) {
   }
   size_t new_size = str->size + len;
   if (new_size > str->capacity) {
-    size_t new_capacity = str->capacity;
-    while (new_capacity < new_size) {
-      new_capacity *= 2;
-    }
+    size_t new_capacity = calc_capacity(new_size);
     new_capacity = str_resize_n(str, new_capacity);
     if (new_capacity == 0) {
       return 0;
