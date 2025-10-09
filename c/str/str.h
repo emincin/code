@@ -31,8 +31,8 @@ Str* str_slice_from_to(Str* str, int start, int end);
 Str* str_slice_from(Str* str, int start);
 size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len);
 size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
-size_t str_resize_n_char(Str* str, size_t capacity, char c);
-size_t str_resize_n(Str* str, size_t capacity);
+size_t str_resize_n_char(Str* str, size_t new_size, char c);
+size_t str_resize_n(Str* str, size_t new_size);
 size_t str_expand(Str* str, size_t new_capacity);
 void str_print(const Str* str);
 void str_println(const Str* str);
@@ -299,24 +299,26 @@ size_t str_insert_cstr(Str* str, size_t pos, const char* buf) {
   return str_insert_cstr_n(str, pos, buf, strlen(buf));
 }
 
-size_t str_resize_n_char(Str* str, size_t capacity, char c) {
-  char* buffer = (char*)realloc(str->data, capacity + 1);
-  if (buffer == NULL) {
-    return 0;
+size_t str_resize_n_char(Str* str, size_t new_size, char c) {
+  if (new_size > str->capacity) {
+    size_t new_capacity = calc_capacity(new_size);
+    new_capacity = str_expand(str, new_capacity);
+    if (new_capacity == 0) {
+      return 0;
+    }
   }
-  if (capacity >= str->size) {
-    memset(buffer + str->size, c, capacity - str->size);
-  } else {
-    str->data[capacity] = 0;
-    str->size = capacity;
+  if (new_size > str->size) {
+    memset(str->data + str->size, c, new_size - str->size);
+    str->size = new_size;
+  } else if (new_size < str->size) {
+    str->data[new_size] = 0;
+    str->size = new_size;
   }
-  str->data = buffer;
-  str->capacity = capacity;
-  return capacity;
+  return new_size;
 }
 
-size_t str_resize_n(Str* str, size_t capacity) {
-  return str_resize_n_char(str, capacity, 0);
+size_t str_resize_n(Str* str, size_t new_size) {
+  return str_resize_n_char(str, new_size, 0);
 }
 
 size_t str_expand(Str* str, size_t new_capacity) {
