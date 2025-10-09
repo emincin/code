@@ -18,7 +18,6 @@ Str* str_new_str(const Str* other);
 Str* str_new_char_n(char c, size_t n);
 Str* str_new_capacity(size_t capacity);
 Str* str_new_(void);
-void str_delete(Str* str);
 size_t str_append_cstr_n(Str* str, const char* buf, size_t len);
 size_t str_append_cstr(Str* str, const char* buf);
 size_t str_append_str(Str* str, const Str* other);
@@ -34,6 +33,19 @@ size_t str_resize_n_char(Str* str, size_t capacity, char c);
 size_t str_resize_n(Str* str, size_t capacity);
 void str_clear(Str* str);
 void str_reset(Str* str);
+void str_delete(Str* str);
+
+Str* short_to_str(short value);
+Str* ushort_to_str(unsigned short value);
+Str* int_to_str(int value);
+Str* uint_to_str(unsigned int value);
+Str* long_to_str(long value);
+Str* ulong_to_str(unsigned long value);
+Str* longlong_to_str(long long value);
+Str* ulonglong_to_str(unsigned long long value);
+Str* float_to_str(float value);
+Str* double_to_str(double value);
+Str* ptr_to_str(void* value);
 
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112)
 
@@ -185,11 +197,6 @@ Str* str_new_(void) {
   return str_new_capacity(STR_CAPACITY);
 }
 
-void str_delete(Str* str) {
-  free(str->data);
-  free(str);
-}
-
 size_t str_append_cstr_n(Str* str, const char* buf, size_t len) {
   if (buf == NULL || len == 0) return 0;
   size_t new_size = str->size + len;
@@ -319,6 +326,11 @@ void str_reset(Str* str) {
   str->data = (char*)calloc(1, sizeof(char));
   str->size = 0;
   str->capacity = 0;
+}
+
+void str_delete(Str* str) {
+  free(str->data);
+  free(str);
 }
 
 #endif // STR_C
