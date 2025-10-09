@@ -4,7 +4,7 @@
 
 #ifndef STR_CAPACITY
 #define STR_CAPACITY 32
-#endif
+#endif // STR_CAPACITY
 
 typedef struct str_t {
   size_t size;
@@ -34,6 +34,7 @@ size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
 size_t str_resize_n_char(Str* str, size_t capacity, char c);
 size_t str_resize_n(Str* str, size_t capacity);
 void str_print(const Str* str);
+void str_println(const Str* str);
 void str_clear(Str* str);
 void str_reset(Str* str);
 void str_delete(Str* str);
@@ -319,6 +320,10 @@ size_t str_resize_n(Str* str, size_t capacity) {
 
 void str_print(const Str* str) {
   printf("size:%zu capacity:%zu data:%s", str->size, str->capacity, str->data);
+}
+
+void str_println(const Str* str) {
+  printf("size:%zu capacity:%zu data:%s\n", str->size, str->capacity, str->data);
 }
 
 void str_clear(Str* str) {
