@@ -150,9 +150,7 @@ size_t calc_capacity(size_t size) {
 }
 
 Str* str_new_cstr_n(const char* buf, size_t len) {
-  if (buf == NULL) {
-    return NULL;
-  }
+  if (buf == NULL) return NULL;
   size_t capacity = calc_capacity(len);
   Str* str = str_new_capacity(capacity);
   if (str == NULL) {
@@ -164,9 +162,7 @@ Str* str_new_cstr_n(const char* buf, size_t len) {
 }
 
 Str* str_new_cstr(const char* buf) {
-  if (buf == NULL) {
-    return NULL;
-  }
+  if (buf == NULL) return NULL;
   return str_new_cstr_n(buf, strlen(buf));
 }
 
@@ -210,13 +206,10 @@ size_t str_append_cstr_n(Str* str, const char* buf, size_t len) {
   size_t new_size = str->size + len;
   if (new_size > str->capacity) {
     size_t new_capacity = calc_capacity(new_size);
-    char* buffer = (char*)realloc(str->data, new_capacity + 1);
-    if (buffer == NULL) {
+    new_capacity = str_resize_n(str, new_capacity);
+    if (new_capacity == 0) {
       return 0;
     }
-    memset(buffer + str->size, 0, new_capacity + 1 - str->size);
-    str->data = buffer;
-    str->capacity = new_capacity;
   }
   memcpy(str->data + str->size, buf, len);
   str->size = new_size;
@@ -235,7 +228,7 @@ size_t str_append_str(Str* str, const Str* other) {
 size_t str_append_char_n(Str* str, char c, size_t n) {
   size_t written = 0;
   for (size_t i = 0; i < n; i++) {
-    size_t ret = str_append_char(str, c);
+    size_t ret = str_append_cstr_n(str, &c, 1);
     if (ret == 0) {
       break;
     }
@@ -245,7 +238,7 @@ size_t str_append_char_n(Str* str, char c, size_t n) {
 }
 
 size_t str_append_char(Str* str, char c) {
-  return str_append_cstr_n(str, &c, 1);
+  return str_append_char_n(str, c, 1);
 }
 
 Str* str_substr_pos_n(Str* str, size_t pos, size_t len) {
