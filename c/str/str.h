@@ -33,6 +33,7 @@ size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len);
 size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
 size_t str_resize_n_char(Str* str, size_t capacity, char c);
 size_t str_resize_n(Str* str, size_t capacity);
+size_t str_expand(Str* str, size_t new_capacity);
 void str_print(const Str* str);
 void str_println(const Str* str);
 void str_clear(Str* str);
@@ -282,7 +283,7 @@ size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len) {
   size_t new_size = str->size + len;
   if (new_size > str->capacity) {
     size_t new_capacity = calc_capacity(new_size);
-    new_capacity = str_resize_n(str, new_capacity);
+    new_capacity = str_expand(str, new_capacity);
     if (new_capacity == 0) {
       return 0;
     }
@@ -316,6 +317,18 @@ size_t str_resize_n_char(Str* str, size_t capacity, char c) {
 
 size_t str_resize_n(Str* str, size_t capacity) {
   return str_resize_n_char(str, capacity, 0);
+}
+
+size_t str_expand(Str* str, size_t new_capacity) {
+  if (new_capacity <= str->capacity) return 0;
+  char* buffer = (char*)realloc(str->data, new_capacity + 1);
+  if (buffer == NULL) {
+    return 0;
+  }
+  memset(buffer + str->size, 0, new_capacity - str->size);
+  str->data = buffer;
+  str->capacity = new_capacity;
+  return new_capacity;
 }
 
 void str_print(const Str* str) {
