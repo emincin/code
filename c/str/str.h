@@ -186,7 +186,8 @@ Str* str_new_str(const Str* other) {
 }
 
 Str* str_new_char_n(char c, size_t n) {
-  Str* str = str_new_capacity(n);
+  size_t capacity = calc_capacity(n);
+  Str* str = str_new_capacity(capacity);
   if (str == NULL) {
     return NULL;
   }
@@ -338,15 +339,11 @@ void str_delete(Str* str) {
 }
 
 Str* short_to_str(short value) {
-  char buf[32] = { 0 };
-  int len = snprintf(buf, sizeof(buf), "%d", value);
-  return str_new_cstr_n(buf, len);
+  return int_to_str(value);
 }
 
 Str* ushort_to_str(unsigned short value) {
-  char buf[32] = { 0 };
-  int len = snprintf(buf, sizeof(buf), "%d", value);
-  return str_new_cstr_n(buf, len);
+  return int_to_str(value);
 }
 
 Str* int_to_str(int value) {
@@ -386,9 +383,7 @@ Str* ulonglong_to_str(unsigned long long value) {
 }
 
 Str* float_to_str(float value) {
-  char buf[32] = { 0 };
-  int len = snprintf(buf, sizeof(buf), "%f", value);
-  return str_new_cstr_n(buf, len);
+  return double_to_str(value);
 }
 
 Str* double_to_str(double value) {
