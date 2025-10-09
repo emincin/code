@@ -34,6 +34,7 @@ size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
 size_t str_resize_n_char(Str* str, size_t new_size, char c);
 size_t str_resize_n(Str* str, size_t new_size);
 size_t str_expand(Str* str, size_t new_capacity);
+size_t str_shrink(Str* str, size_t new_capacity);
 void str_print(const Str* str);
 void str_println(const Str* str);
 void str_clear(Str* str);
@@ -328,6 +329,21 @@ size_t str_expand(Str* str, size_t new_capacity) {
     return 0;
   }
   memset(buffer + str->size, 0, new_capacity - str->size);
+  str->data = buffer;
+  str->capacity = new_capacity;
+  return new_capacity;
+}
+
+size_t str_shrink(Str* str, size_t new_capacity) {
+  if (new_capacity >= str->capacity) return 0;
+  char* buffer = (char*)realloc(str->data, new_capacity + 1);
+  if (buffer == NULL) {
+    return 0;
+  }
+  if (new_capacity < str->size) {
+    str->data[new_capacity] = 0;
+    str->size = new_capacity;
+  }
   str->data = buffer;
   str->capacity = new_capacity;
   return new_capacity;
