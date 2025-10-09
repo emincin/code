@@ -100,10 +100,18 @@ void str_reset(Str* str);
 #define str_slice_2 str_slice_from
 #define str_slice_3 str_slice_from_to
 
+#define str_insert_3 str_insert_cstr
+#define str_insert_4 str_insert_cstr_n
+
+#define str_resize_2 str_resize_n
+#define str_resize_3 str_resize_n_char
+
 #define str_new(...) INVOKE_OVERLOAD(str_new_, __VA_ARGS__)
 #define str_append(...) INVOKE_OVERLOAD(str_append_, __VA_ARGS__)
 #define str_substr(...) INVOKE_OVERLOAD(str_substr_, __VA_ARGS__)
 #define str_slice(...) INVOKE_OVERLOAD(str_slice_, __VA_ARGS__)
+#define str_insert(...) INVOKE_OVERLOAD(str_insert_, __VA_ARGS__)
+#define str_resize(...) INVOKE_OVERLOAD(str_resize_, __VA_ARGS__)
 
 #endif // HAS_GENERIC
 
