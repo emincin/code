@@ -31,10 +31,14 @@ Str* str_slice_from_to(Str* str, int start, int end);
 Str* str_slice_from(Str* str, int start);
 size_t str_insert_cstr_n(Str* str, size_t pos, const char* buf, size_t len);
 size_t str_insert_cstr(Str* str, size_t pos, const char* buf);
+size_t str_insert_str(Str* str, size_t pos, const Str* other);
+size_t str_insert_char_n(Str* str, size_t pos, char c, size_t n);
+size_t str_insert_char(Str* str, size_t pos, char c);
 size_t str_resize_n_char(Str* str, size_t new_size, char c);
 size_t str_resize_n(Str* str, size_t new_size);
 size_t str_expand(Str* str, size_t new_capacity);
 size_t str_shrink(Str* str, size_t new_capacity);
+size_t str_shrink_to_fit(Str* str);
 void str_print(const Str* str);
 void str_println(const Str* str);
 void str_clear(Str* str);
@@ -300,6 +304,18 @@ size_t str_insert_cstr(Str* str, size_t pos, const char* buf) {
   return str_insert_cstr_n(str, pos, buf, strlen(buf));
 }
 
+size_t str_insert_str(Str* str, size_t pos, const Str* other) {
+  return str_insert_cstr_n(str, pos, other->data, other->size);
+}
+
+size_t str_insert_char_n(Str* str, size_t pos, char c, size_t n) {
+  return n;
+}
+
+size_t str_insert_char(Str* str, size_t pos, char c) {
+  return str_insert_char_n(str, pos, c, 1);
+}
+
 size_t str_resize_n_char(Str* str, size_t new_size, char c) {
   if (new_size > str->capacity) {
     size_t new_capacity = calc_capacity(new_size);
@@ -347,6 +363,10 @@ size_t str_shrink(Str* str, size_t new_capacity) {
   str->data = buffer;
   str->capacity = new_capacity;
   return new_capacity;
+}
+
+size_t str_shrink_to_fit(Str* str) {
+  return str_shrink(str, str->size);
 }
 
 void str_print(const Str* str) {
