@@ -19,7 +19,7 @@ Size term_get_window_size(void) {
 #if defined(_WIN32)
 #else
   struct winsize ws = { 0 };
-  // STDOUT_FILENO: 1
+  // STDIN_FILENO/STDOUT_FILENO/STDERR_FILENO: 0/1/2
   // TIOCGWINSZ: Terminal I/O Control Get Window Size
   int ret = ioctl(1, TIOCGWINSZ, &ws);
   if (ret == -1) {
