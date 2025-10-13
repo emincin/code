@@ -42,6 +42,12 @@ Size term_get_window_size(void) {
   return size;
 }
 
+void test_1(void) {
+  while (1) {
+    print_size(term_get_window_size());
+  }
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
