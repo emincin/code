@@ -10,10 +10,17 @@ typedef struct {
   int height;
 } Size;
 
+void print_size(Size size) {
+  printf("[width: %d, height: %d]\n", size.width, size.height);
+}
+
 Size term_get_window_size(void) {
   Size size = { 0 };
 #if defined(_WIN32)
 #else
+  struct winsize ws = { 0 };
+  size.width = ws.ws_col;
+  size.height = ws.ws_row;
 #endif // _WIN32
   return size;
 }
