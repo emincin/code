@@ -17,6 +17,17 @@ void print_size(Size size) {
 Size term_get_window_size(void) {
   Size size = { 0 };
 #if defined(_WIN32)
+  HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+  if (output == NULL || output == INVALID_HANDLE_VALUE) {
+    return size;
+  }
+  CONSOLE_SCREEN_BUFFER_INFO csbi = { 0 };
+  BOOL ok = GetConsoleScreenBufferInfo(output, &csbi);
+  if (!ok) {
+    return size;
+  }
+  size.width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+  size.height = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 #else
   struct winsize ws = { 0 };
   // STDIN_FILENO/STDOUT_FILENO/STDERR_FILENO: 0/1/2
