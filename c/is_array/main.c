@@ -6,6 +6,8 @@
   default: "none" \
 )
 
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
+
 #define is_array(x) _Generic(&(x), \
   typeof(*(x)) (*)[]: 1, \
   default: 0 \
@@ -21,6 +23,13 @@ void ptr_test(void) {
   printf("buf: %s\n", PTR_TEST(buf));
   char* ptr = NULL;
   printf("ptr: %s\n", PTR_TEST(ptr));
+}
+
+void array_size_test(void) {
+  char buf[32] = { 0 };
+  printf("buf - array size: %d\n", (int)ARRAY_SIZE(buf));
+  char* ptr = NULL;
+  printf("ptr - array size: %d\n", (int)ARRAY_SIZE(ptr));
 }
 
 char* get_rvalue(void) {
