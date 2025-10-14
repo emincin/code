@@ -41,6 +41,7 @@ void is_array_test(void) {
   printf("buf is array: %d\n", is_array(buf));
   char* ptr = NULL;
   printf("ptr is array: %d\n", is_array(ptr));
+  printf("string literal is array: %d\n", is_array("hello"));
   //is_array(get_rvalue()); // error: cannot take the address of an rvalue
 }
 
