@@ -20,7 +20,7 @@
   (sizeof( struct { static_assert(expr, msg); char c; } ) > 0)
 
 #define SAFE_ARRAY_SIZE(arr) (ARRAY_SIZE(arr) * \
-  static_assert_expr(is_array(arr), "expression must be array"))
+  static_assert_expr(is_array(arr), #arr " must be an array"))
 
 #define SAFE_STRLEN(s) \
   (SAFE_ARRAY_SIZE(s) > 0 ? ARRAY_SIZE(s) - 1 : 0)
