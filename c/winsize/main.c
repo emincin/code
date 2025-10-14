@@ -1,6 +1,7 @@
 #if defined(_WIN32)
 #include <windows.h>
 #else
+#include <unistd.h>
 #include <sys/ioctl.h>
 #endif // _WIN32
 #include <stdio.h>
@@ -31,8 +32,12 @@ Size term_get_window_size(void) {
 #else
   struct winsize ws = { 0 };
   // STDIN_FILENO/STDOUT_FILENO/STDERR_FILENO: 0/1/2
+  int fd = STDOUT_FILENO;
+  if (!isatty(fd)) {
+    return size;
+  }
   // TIOCGWINSZ: Terminal I/O Control Get Window Size
-  int ret = ioctl(1, TIOCGWINSZ, &ws);
+  int ret = ioctl(fd, TIOCGWINSZ, &ws);
   if (ret == -1) {
     return size;
   }
@@ -43,6 +48,10 @@ Size term_get_window_size(void) {
 }
 
 void test_1(void) {
+  print_size(term_get_window_size());
+}
+
+void test_2(void) {
   while (1) {
     print_size(term_get_window_size());
   }
