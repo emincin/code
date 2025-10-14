@@ -34,6 +34,7 @@ typedef struct {
 
 void string_init(String* str, const char* s, size_t n) {
   assert(str != NULL);
+  assert(s != NULL);
   str->data = (char*)calloc(n + 1, sizeof(char));
   if (str->data == NULL) {
     return;
@@ -44,7 +45,7 @@ void string_init(String* str, const char* s, size_t n) {
 
 void string_print(String* str) {
   assert(str != NULL);
-  printf("size: %zu data: %s", str->size, str->data);
+  printf("size: %zu data: %s\n", str->size, str->data);
 }
 
 void ptr_test(void) {
@@ -87,6 +88,7 @@ void string_test(void) {
   String b = { 0 };
   const char* s = "123";
   //string_init(&b, SN(s)); // static assertion failed
+  string_print(&b);
 }
 
 int main(int argc, char** argv) {
