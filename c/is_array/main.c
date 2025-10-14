@@ -13,6 +13,12 @@
   default: 0 \
 )
 
+#define static_assert_expr(expr, msg) \
+  (sizeof( struct { static_assert(expr, msg); char c; } ) > 0)
+
+#define SAFE_ARRAY_SIZE(arr) (ARRAY_SIZE(arr) * \
+  static_assert_expr(is_array(arr), "expression must be array"))
+
 typedef struct {
   size_t size;
   char* data;
@@ -42,7 +48,13 @@ void is_array_test(void) {
   char* ptr = NULL;
   printf("ptr is array: %d\n", is_array(ptr));
   printf("string literal is array: %d\n", is_array("hello"));
-  //is_array(get_rvalue()); // error: cannot take the address of an rvalue
+  //is_array(get_rvalue()); // compile-time error: cannot take the address of an rvalue
+}
+
+void safe_array_size_test(int fake_arr[]) {
+  int buf[32] = { 0 };
+  printf("array size: %d\n", (int)SAFE_ARRAY_SIZE(buf));
+  //printf("array size: %d\n", (int)SAFE_ARRAY_SIZE(fake_arr)); // static assertion failed
 }
 
 int main(int argc, char** argv) {
