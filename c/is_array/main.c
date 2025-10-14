@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define PTR_TEST(expr) _Generic((expr), \
   char*: "char*", \
@@ -21,7 +23,7 @@
   static_assert_expr(is_array(arr), "expression must be array"))
 
 #define SAFE_STRLEN(s) \
-  (SAFE_ARRAY_SIZE(s) > 0 ? SAFE_ARRAY_SIZE(s) - 1 : 0)
+  (SAFE_ARRAY_SIZE(s) > 0 ? ARRAY_SIZE(s) - 1 : 0)
 
 #define SN(s) s, SAFE_STRLEN(s)
 
@@ -32,7 +34,11 @@ typedef struct {
 
 void string_init(String* str, const char* s, size_t n) {
   assert(str != NULL);
-  str->data = s;
+  str->data = (char*)calloc(n + 1, sizeof(char));
+  if (str->data == NULL) {
+    return;
+  }
+  memcpy(str->data, s, n);
   str->size = n;
 }
 
@@ -72,6 +78,15 @@ void safe_array_size_test(int fake_arr[]) {
   int buf[32] = { 0 };
   printf("array size: %d\n", (int)SAFE_ARRAY_SIZE(buf));
   //printf("array size: %d\n", (int)SAFE_ARRAY_SIZE(fake_arr)); // static assertion failed
+}
+
+void string_test(void) {
+  String a = { 0 };
+  string_init(&a, SN("hello"));
+  string_print(&a);
+  String b = { 0 };
+  const char* s = "123";
+  //string_init(&b, SN(s)); // static assertion failed
 }
 
 int main(int argc, char** argv) {
