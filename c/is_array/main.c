@@ -13,7 +13,9 @@ typedef struct {
 
 void ptr_test(void) {
   char buf[32] = { 0 };
-  printf("%s\n", PTR_TEST(buf));
+  printf("buf: %s\n", PTR_TEST(buf));
+  char* ptr = NULL;
+  printf("ptr: %s\n", PTR_TEST(ptr));
 }
 
 int main(int argc, char** argv) {
