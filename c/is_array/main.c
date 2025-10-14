@@ -11,6 +11,11 @@ typedef struct {
   char* data;
 } String;
 
+void ptr_test(void) {
+  char buf[32] = { 0 };
+  printf("%s\n", PTR_TEST(buf));
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
