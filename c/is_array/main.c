@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <assert.h>
 
 #define PTR_TEST(expr) _Generic((expr), \
   char*: "char*", \
@@ -19,10 +20,26 @@
 #define SAFE_ARRAY_SIZE(arr) (ARRAY_SIZE(arr) * \
   static_assert_expr(is_array(arr), "expression must be array"))
 
+#define SAFE_STRLEN(s) \
+  (SAFE_ARRAY_SIZE(s) > 0 ? SAFE_ARRAY_SIZE(s) - 1 : 0)
+
+#define SN(s) s, SAFE_STRLEN(s)
+
 typedef struct {
   size_t size;
   char* data;
 } String;
+
+void string_init(String* str, const char* s, size_t n) {
+  assert(str != NULL);
+  str->data = s;
+  str->size = n;
+}
+
+void string_print(String* str) {
+  assert(str != NULL);
+  printf("size: %zu data: %s", str->size, str->data);
+}
 
 void ptr_test(void) {
   char buf[32] = { 0 };
