@@ -43,6 +43,12 @@ void string_init(String* str, const char* s, size_t n) {
   str->size = n;
 }
 
+void string_deinit(String* str) {
+  assert(str != NULL);
+  free(str->data);
+  *str = (String){ 0 };
+}
+
 void string_print(String* str) {
   assert(str != NULL);
   printf("size: %zu data: %s\n", str->size, str->data);
@@ -89,6 +95,9 @@ void string_test(void) {
   const char* s = "123";
   //string_init(&b, SN(s)); // static assertion failed
   string_print(&b);
+clean_up:
+  string_deinit(&a);
+  string_deinit(&b);
 }
 
 int main(int argc, char** argv) {
