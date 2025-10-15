@@ -12,7 +12,7 @@
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
 #define is_array(x) _Generic(&(x), \
-  typeof(*(x)) (*)[]: 1, \
+  typeof(*(x)) (*)[ARRAY_SIZE(x)]: 1, \
   default: 0 \
 )
 
