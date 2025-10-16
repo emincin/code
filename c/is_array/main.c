@@ -54,39 +54,44 @@ void string_print(String* str) {
   printf("size: %zu data: %s\n", str->size, str->data);
 }
 
+// TEST_1
 void ptr_test(void) {
   char buf[32] = { 0 };
-  printf("buf: %s\n", PTR_TEST(buf));
+  printf("buf: %s\n", PTR_TEST(buf)); // [warning]
   char* ptr = NULL;
-  printf("ptr: %s\n", PTR_TEST(ptr));
+  printf("ptr: %s\n", PTR_TEST(ptr)); // [warning]
 }
 
+// TEST_2
 void array_size_test(void) {
   char buf[32] = { 0 };
   printf("buf - array size: %d\n", (int)ARRAY_SIZE(buf));
   char* ptr = NULL;
-  printf("ptr - array size: %d\n", (int)ARRAY_SIZE(ptr));
+  printf("ptr - array size: %d\n", (int)ARRAY_SIZE(ptr)); // [warning]
 }
 
 char* get_rvalue(void) {
   return NULL;
 }
 
+// TEST_3
 void is_array_test(void) {
   char buf[32] = { 0 };
   printf("buf is array: %d\n", is_array(buf));
   char* ptr = NULL;
-  printf("ptr is array: %d\n", is_array(ptr));
+  printf("ptr is array: %d\n", is_array(ptr)); // [warning]
   printf("string literal is array: %d\n", is_array("hello"));
   //is_array(get_rvalue()); // compile-time error: cannot take the address of an rvalue
 }
 
+// TEST_4
 void safe_array_size_test(int fake_arr[]) {
   int buf[32] = { 0 };
   printf("array size: %d\n", (int)SAFE_ARRAY_SIZE(buf));
   //printf("array size: %d\n", (int)SAFE_ARRAY_SIZE(fake_arr)); // static assertion failed
 }
 
+// TEST_5
 void string_test(void) {
   String a = { 0 };
   string_init(&a, SN("hello"));
