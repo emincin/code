@@ -105,6 +105,24 @@ clean_up:
   string_deinit(&b);
 }
 
+void test(void) {
+#ifdef TEST_1
+  ptr_test();
+#endif
+#ifdef TEST_2
+  array_size_test();
+#endif
+#ifdef TEST_3
+  is_array_test();
+#endif
+#ifdef TEST_4
+  safe_array_size_test(NULL);
+#endif
+#ifdef TEST_5
+  string_test();
+#endif
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
