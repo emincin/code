@@ -11,3 +11,5 @@
 [overload](https://www.bilibili.com/video/BV1jfHKzXEdM)
 
 [winsize](https://www.bilibili.com/video/BV1L14bzbEPS)
+
+[is_array](https://www.bilibili.com/video/BV1WCWtzcE8P)
