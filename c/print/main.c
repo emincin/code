@@ -84,6 +84,14 @@
 #define EXPAND(func, ...) __VA_OPT__( \
   CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
 
+#define print(...) \
+  print_func(ARGS_COUNT(__VA_ARGS__) __VA_OPT__(,) EXPAND(type_value_pair, __VA_ARGS__))
+
+int print_func(int count, ...) {
+  int ret = 0;
+  return ret;
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
