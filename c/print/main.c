@@ -69,6 +69,7 @@
   default:            TYPE_NONE)
 
 #define type_value_pair(x) typeid_of(x), (x)
+#define dot(x) .x
 
 #define EXPAND_1(func, var) func(var)
 #define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
@@ -87,8 +88,27 @@
 #define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
 #define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
 
+#define LAST_1(a) a
+#define LAST_2(a, b) b
+#define LAST_3(a, b, c) c
+#define LAST_4(a, b, c, d) d
+#define LAST_5(a, b, c, d, e) e
+#define LAST_6(a, b, c, d, e, f) f
+#define LAST_7(a, b, c, d, e, f, g) g
+#define LAST_8(a, b, c, d, e, f, g, h) h
+#define LAST_9(a, b, c, d, e, f, g, h, i) i
+#define LAST_10(a, b, c, d, e, f, g, h, i, j) j
+#define LAST_11(a, b, c, d, e, f, g, h, i, j, k) k
+#define LAST_12(a, b, c, d, e, f, g, h, i, j, k, l) l
+#define LAST_13(a, b, c, d, e, f, g, h, i, j, k, l, m) m
+#define LAST_14(a, b, c, d, e, f, g, h, i, j, k, l, m, n) n
+#define LAST_15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) o
+#define LAST_16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) p
+
 #define EXPAND(func, ...) __VA_OPT__( \
   CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
+
+#define LAST(...) __VA_OPT__(CONCAT(LAST_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
 #define print(...) \
   print_func(ARGS_COUNT(__VA_ARGS__) __VA_OPT__(,) EXPAND(type_value_pair, __VA_ARGS__))
