@@ -1,6 +1,10 @@
+#include <assert.h>
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#define STRING_CAPACITY 32
 
 #define CONCAT_IMPL(a, b) a##b
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
@@ -87,8 +91,31 @@
 #define print(...) \
   print_func(ARGS_COUNT(__VA_ARGS__) __VA_OPT__(,) EXPAND(type_value_pair, __VA_ARGS__))
 
+typedef struct string_t {
+  size_t capacity;
+  size_t size;
+  char* data;
+} String;
+
+bool string_init(String* self, size_t capacity) {
+  return true;
+}
+
+void string_deinit(String* self) {
+}
+
 int print_func(int count, ...) {
   int ret = 0;
+  va_list args;
+  va_start(args, count);
+  String str = { 0 };
+  bool ok = string_init(&str, STRING_CAPACITY);
+  if (!ok) {
+    goto clean_up;
+  }
+clean_up:
+  string_deinit(&str);
+  va_end(args);
   return ret;
 }
 
