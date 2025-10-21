@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define CONCAT(a, b) CONCAT_IMPL(a, b)
 #define CONCAT_IMPL(a, b) a##b
+#define CONCAT(a, b) CONCAT_IMPL(a, b)
 
 #define SELECT( \
   _1, _2, _3, _4, \
@@ -12,12 +12,11 @@
   _13, _14, _15, _16, \
   name, ...) name
 
-#define COUNT_ARGS(...) __VA_OPT__( \
-  SELECT(__VA_ARGS__, \
-    16, 15, 14, 13, \
-    12, 11, 10, 9, \
-    8, 7, 6, 5, \
-    4, 3, 2, 1 \
+#define COUNT_ARGS(...) __VA_OPT__( SELECT(__VA_ARGS__, \
+  16, 15, 14, 13, \
+  12, 11, 10, 9, \
+  8, 7, 6, 5, \
+  4, 3, 2, 1 \
   ))
 
 #define ARGS_COUNT(...) (0 __VA_OPT__(+ COUNT_ARGS(__VA_ARGS__)))
