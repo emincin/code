@@ -81,6 +81,9 @@
 #define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
 #define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
 
+#define EXPAND(func, ...) __VA_OPT__( \
+  CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
+
 int main(int argc, char** argv) {
   return 0;
 }
