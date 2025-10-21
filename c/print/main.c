@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define END "\n"
+#define SEPARATOR " "
+#define LEFT_BRACE '{'
+#define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
 
 #define CONCAT_IMPL(a, b) a##b
