@@ -143,6 +143,11 @@ void string_deinit(String* self) {
   *self = (String){ 0 };
 }
 
+bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
+  assert(self != NULL);
+  return true;
+}
+
 int print_func(int count, ...) {
   int ret = 0;
   va_list args;
