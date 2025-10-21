@@ -124,17 +124,17 @@ size_t calculate_capacity(size_t size) {
   return capacity;
 }
 
-bool string_init(String* self, size_t capacity) {
+void string_init(String* self, size_t capacity) {
   assert(self != NULL);
   char* buf = (char*)malloc(capacity + 1);
   if (buf == NULL) {
-    return false;
+    *self = (String){ 0 };
+    return;
   }
   buf[0] = 0;
   self->capacity = capacity;
   self->size = 0;
   self->data = buf;
-  return true;
 }
 
 void string_deinit(String* self) {
@@ -148,10 +148,7 @@ int print_func(int count, ...) {
   va_list args;
   va_start(args, count);
   String str = { 0 };
-  bool ok = string_init(&str, STRING_CAPACITY);
-  if (!ok) {
-    goto clean_up;
-  }
+  string_init(&str, STRING_CAPACITY);
   for (int i = 0; i < count; i++) {
     int type = va_arg(args, int);
     if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
