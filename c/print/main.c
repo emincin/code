@@ -98,10 +98,22 @@ typedef struct string_t {
 } String;
 
 bool string_init(String* self, size_t capacity) {
+  assert(self != NULL);
+  char* buf = (char*)malloc(capacity + 1);
+  if (buf == NULL) {
+    return false;
+  }
+  buf[0] = 0;
+  self->capacity = capacity;
+  self->size = 0;
+  self->data = buf;
   return true;
 }
 
 void string_deinit(String* self) {
+  assert(self != NULL);
+  free(self->data);
+  *self = (String){ 0 };
 }
 
 int print_func(int count, ...) {
