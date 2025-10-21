@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define STRING_CAPACITY 32
 
@@ -135,6 +136,14 @@ int print_func(int count, ...) {
   bool ok = string_init(&str, STRING_CAPACITY);
   if (!ok) {
     goto clean_up;
+  }
+  for (int i = 0; i < count; i++) {
+    int type = va_arg(args, int);
+    if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
+      char* data = va_arg(args, char*);
+    } else {
+      goto clean_up;
+    }
   }
 clean_up:
   string_deinit(&str);
