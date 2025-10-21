@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define CONCAT(a, b) CONCAT_IMPL(a, b)
+#define CONCAT_IMPL(a, b) a##b
+
 #define TYPE_NONE           0
 #define TYPE_BOOL           1
 #define TYPE_CHAR           2
@@ -42,6 +45,8 @@
   void*:              TYPE_ANY, \
   const void*:        TYPE_CONST_ANY, \
   default:            TYPE_NONE)
+
+#define type_value_pair(x) typeid_of(x), (x)
 
 int main(int argc, char** argv) {
   return 0;
