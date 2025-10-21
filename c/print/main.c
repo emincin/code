@@ -109,6 +109,21 @@ typedef struct string_t {
   char* data;
 } String;
 
+size_t calculate_capacity(size_t size) {
+  size_t capacity = 0;
+  const size_t max = SIZE_MAX;
+  if (size > 0) {
+    capacity = 1;
+    while (capacity < size) {
+      if (capacity > max / 2) {
+        return max;
+      }
+      capacity *= 2;
+    }
+  }
+  return capacity;
+}
+
 bool string_init(String* self, size_t capacity) {
   assert(self != NULL);
   char* buf = (char*)malloc(capacity + 1);
