@@ -223,6 +223,11 @@ bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
   return true;
 }
 
+bool string_append_sn(String* self, const char* s, size_t n) {
+  assert(self != NULL);
+  return string_insert_sn(self, self->size, s, n);
+}
+
 void print_func(PrintConfig* config, int count, ...) {
   const char* end = END;
   const char* sep = SEPARATOR;
