@@ -11,6 +11,7 @@
 #define LEFT_BRACE '{'
 #define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
+#define PRINT(s) printf("%s", s)
 
 typedef struct print_config_t {
   const char* end;
@@ -214,6 +215,9 @@ void print_func(PrintConfig* config, int count, ...) {
     } else {
       goto clean_up;
     }
+  }
+  if (str.data) {
+    PRINT(str.data);
   }
 clean_up:
   string_deinit(&str);
