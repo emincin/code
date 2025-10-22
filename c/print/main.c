@@ -8,14 +8,16 @@
 
 #define END "\n"
 #define SEPARATOR " "
+#define FILE_STREAM stdout
 #define LEFT_BRACE '{'
 #define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
-#define PRINT(s) printf("%s", s)
+#define PRINT(fp, s) fprintf(fp, "%s", s)
 
 typedef struct print_config_t {
   const char* end;
   const char* sep;
+  FILE* file;
 } PrintConfig;
 
 #define as_print_config_ptr(x) _Generic((x), \
@@ -293,12 +295,16 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
 void print_func(PrintConfig* config, int count, ...) {
   const char* end = END;
   const char* sep = SEPARATOR;
+  FILE* file = FILE_STREAM;
   if (config) {
     if (config->end) {
       end = config->end;
     }
     if (config->sep) {
       sep = config->sep;
+    }
+    if (config->file) {
+      file = config->file;
     }
   }
   va_list args;
@@ -308,7 +314,7 @@ void print_func(PrintConfig* config, int count, ...) {
   parse_va_list(&str, sep, count, args);
   string_append_s(&str, end);
   if (str.data) {
-    PRINT(str.data);
+    PRINT(file, str.data);
   }
 clean_up:
   string_deinit(&str);
