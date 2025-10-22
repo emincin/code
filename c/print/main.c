@@ -238,6 +238,24 @@ bool string_append_s(String* self, const char* s) {
   return string_append_sn(self, s, n);
 }
 
+int format_string(String* str, const char* fmt, int count, va_list args) {
+  int arg_index = 0;
+  return arg_index;
+}
+
+void parse_va_list(String* str, const char* sep, int count, va_list args) {
+  for (int i = 0; i < count; i++) {
+    int type = va_arg(args, int);
+    if (i == 0) {
+      if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
+        char* fmt = va_arg(args, char*);
+        int ret = format_string(str, fmt, count, args);
+        i += ret;
+      }
+    }
+  }
+}
+
 void print_func(PrintConfig* config, int count, ...) {
   const char* end = END;
   const char* sep = SEPARATOR;
@@ -253,14 +271,7 @@ void print_func(PrintConfig* config, int count, ...) {
   va_start(args, count);
   String str = { 0 };
   string_init(&str, STRING_CAPACITY);
-  for (int i = 0; i < count; i++) {
-    int type = va_arg(args, int);
-    if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
-      char* data = va_arg(args, char*);
-    } else {
-      break;
-    }
-  }
+  parse_va_list(&str, sep, count, args);
   string_append_s(&str, end);
   if (str.data) {
     PRINT(str.data);
