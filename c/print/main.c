@@ -240,6 +240,11 @@ bool string_append_s(String* self, const char* s) {
 
 size_t read_from_va_list(String* str, int type, va_list args) {
   size_t ret = 0;
+  switch (type) {
+    case TYPE_NONE: {
+      break;
+    }
+  }
   return ret;
 }
 
