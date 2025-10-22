@@ -243,7 +243,7 @@ size_t read_from_va_list(String* str, int type, va_list args) {
   return ret;
 }
 
-int format_string(String* str, const char* fmt, int count, va_list args) {
+int format_from_va_list(String* str, const char* fmt, int count, va_list args) {
   int arg_index = 0;
   size_t fmtlen = strlen(fmt);
   for (size_t i = 0; i < fmtlen; i++) {
@@ -276,7 +276,7 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
     if (i == 0) {
       if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
         char* fmt = va_arg(args, char*);
-        int ret = format_string(str, fmt, count - 1, args);
+        int ret = format_from_va_list(str, fmt, count - 1, args);
         i += ret;
       }
     } else {
