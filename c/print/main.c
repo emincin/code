@@ -17,6 +17,10 @@ typedef struct print_config_t {
   const char* sep;
 } PrintConfig;
 
+#define as_print_config_ptr(x) _Generic((x), \
+  PrintConfig*: (x), \
+  default: NULL)
+
 #define CONCAT_IMPL(a, b) a##b
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
 
@@ -119,10 +123,19 @@ typedef struct print_config_t {
 
 #define LAST(...) __VA_OPT__(CONCAT(LAST_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
-#define set(...) ((PrintConfig){ EXPAND(dot, __VA_ARGS__) })
+#define set(...) (&(PrintConfig){ EXPAND(dot, __VA_ARGS__) })
 
-#define print(...) \
-  print_func(ARGS_COUNT(__VA_ARGS__) __VA_OPT__(,) EXPAND(type_value_pair, __VA_ARGS__))
+#define print(...) do { \
+  __VA_OPT__( \
+    print_func( \
+      as_print_config_ptr(LAST(__VA_ARGS__)), \
+      COUNT_ARGS(__VA_ARGS__), \
+      EXPAND(type_value_pair, __VA_ARGS__) \
+    ); \
+    break; \
+  ) \
+  print_func(NULL, ARGS_COUNT(__VA_ARGS__)); \
+} while (0)
 
 typedef int8_t i8;
 typedef int16_t i16;
@@ -179,8 +192,7 @@ bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
   return true;
 }
 
-int print_func(int count, ...) {
-  int ret = 0;
+void print_func(PrintConfig* config, int count, ...) {
   va_list args;
   va_start(args, count);
   String str = { 0 };
@@ -196,7 +208,6 @@ int print_func(int count, ...) {
 clean_up:
   string_deinit(&str);
   va_end(args);
-  return ret;
 }
 
 int main(int argc, char** argv) {
