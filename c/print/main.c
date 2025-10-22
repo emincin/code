@@ -193,6 +193,12 @@ bool string_realloc(String* self, size_t new_capacity) {
   if (buf == NULL) {
     return false;
   }
+  if (new_capacity > self->capacity) {
+    memset(buf + self->capacity + 1, 0, new_capacity - self->capacity);
+  } else if (new_capacity < self->size) {
+    buf[new_capacity] = 0;
+    self->size = new_capacity;
+  }
   self->capacity = new_capacity;
   self->data = buf;
   return true;
