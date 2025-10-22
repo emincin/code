@@ -188,6 +188,11 @@ void string_deinit(String* self) {
   *self = (String){ 0 };
 }
 
+bool string_realloc(String* self, size_t new_capacity) {
+  assert(self != NULL);
+  return true;
+}
+
 bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
   assert(self != NULL);
   if (pos > self->size) {
@@ -195,6 +200,11 @@ bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
   }
   size_t new_size = self->size + n;
   if (new_size > self->capacity) {
+    size_t new_capacity = calculate_capacity(new_size);
+    bool ok = string_realloc(self, new_capacity);
+    if (!ok) {
+      return false;
+    }
   }
   memmove(self->data + pos + n, self->data + pos, self->size - pos);
   memcpy(self->data + pos, s, n);
