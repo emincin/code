@@ -190,6 +190,15 @@ void string_deinit(String* self) {
 
 bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
   assert(self != NULL);
+  if (pos > self->size) {
+    pos = self->size;
+  }
+  size_t new_size = self->size + n;
+  if (new_size > self->capacity) {
+  }
+  memmove(self->data + pos + n, self->data + pos, self->size - pos);
+  memcpy(self->data + pos, s, n);
+  self->size = new_size;
   return true;
 }
 
@@ -213,7 +222,7 @@ void print_func(PrintConfig* config, int count, ...) {
     if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
       char* data = va_arg(args, char*);
     } else {
-      goto clean_up;
+      break;
     }
   }
   if (str.data) {
