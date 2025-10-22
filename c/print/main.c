@@ -240,6 +240,22 @@ bool string_append_s(String* self, const char* s) {
 
 int format_string(String* str, const char* fmt, int count, va_list args) {
   int arg_index = 0;
+  size_t fmtlen = strlen(fmt);
+  for (size_t i = 0; i < fmtlen; i++) {
+    bool match = false;
+    if (fmt[i] == LEFT_BRACE) {
+      for (size_t j = i + 1; j < fmtlen; j++) {
+        if (fmt[j] == RIGHT_BRACE) {
+          i = j;
+          match = true;
+          break;
+        }
+      }
+    }
+    if (match) {
+    } else {
+    }
+  }
   return arg_index;
 }
 
