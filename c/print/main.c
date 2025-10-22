@@ -171,12 +171,11 @@ size_t calculate_capacity(size_t size) {
 
 void string_init(String* self, size_t capacity) {
   assert(self != NULL);
-  char* buf = (char*)malloc(capacity + 1);
+  char* buf = (char*)calloc(capacity + 1, sizeof(char));
   if (buf == NULL) {
     *self = (String){ 0 };
     return;
   }
-  buf[0] = 0;
   self->capacity = capacity;
   self->size = 0;
   self->data = buf;
@@ -190,6 +189,12 @@ void string_deinit(String* self) {
 
 bool string_realloc(String* self, size_t new_capacity) {
   assert(self != NULL);
+  char* buf = (char*)realloc(self->data, new_capacity + 1);
+  if (buf == NULL) {
+    return false;
+  }
+  self->capacity = new_capacity;
+  self->data = buf;
   return true;
 }
 
