@@ -9,6 +9,7 @@
 #define END "\n"
 #define SEPARATOR " "
 #define FILE_STREAM stdout
+#define FLUSH_STREAM false
 #define LEFT_BRACE '{'
 #define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
@@ -18,6 +19,7 @@ typedef struct print_config_t {
   const char* end;
   const char* sep;
   FILE* file;
+  bool flush;
 } PrintConfig;
 
 #define as_print_config_ptr(x) _Generic((x), \
@@ -296,6 +298,7 @@ void print_func(PrintConfig* config, int count, ...) {
   const char* end = END;
   const char* sep = SEPARATOR;
   FILE* file = FILE_STREAM;
+  bool flush = FLUSH_STREAM;
   if (config) {
     if (config->end) {
       end = config->end;
@@ -306,6 +309,9 @@ void print_func(PrintConfig* config, int count, ...) {
     if (config->file) {
       file = config->file;
     }
+    if (config->flush) {
+      flush = config->flush;
+    }
   }
   va_list args;
   va_start(args, count);
@@ -315,6 +321,9 @@ void print_func(PrintConfig* config, int count, ...) {
   string_append_s(&str, end);
   if (str.data) {
     PRINT(file, str.data);
+    if (flush) {
+      fflush(file);
+    }
   }
 clean_up:
   string_deinit(&str);
