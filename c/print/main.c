@@ -223,9 +223,19 @@ bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
   return true;
 }
 
+bool string_insert_s(String* self, size_t pos, const char* s) {
+  size_t n = strlen(s);
+  return string_insert_sn(self, pos, s, n);
+}
+
 bool string_append_sn(String* self, const char* s, size_t n) {
   assert(self != NULL);
   return string_insert_sn(self, self->size, s, n);
+}
+
+bool string_append_s(String* self, const char* s) {
+  size_t n = strlen(s);
+  return string_append_sn(self, s, n);
 }
 
 void print_func(PrintConfig* config, int count, ...) {
@@ -251,6 +261,7 @@ void print_func(PrintConfig* config, int count, ...) {
       break;
     }
   }
+  string_append_s(&str, end);
   if (str.data) {
     PRINT(str.data);
   }
