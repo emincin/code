@@ -193,6 +193,16 @@ bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
 }
 
 void print_func(PrintConfig* config, int count, ...) {
+  const char* end = END;
+  const char* sep = SEPARATOR;
+  if (config) {
+    if (config->end) {
+      end = config->end;
+    }
+    if (config->sep) {
+      sep = config->sep;
+    }
+  }
   va_list args;
   va_start(args, count);
   String str = { 0 };
