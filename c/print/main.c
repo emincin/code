@@ -16,8 +16,8 @@
 #define PRINT(fp, s) fprintf(fp, "%s", s)
 
 typedef struct print_config_t {
-  const char* end;
   const char* sep;
+  const char* end;
   FILE* file;
   bool flush;
 } PrintConfig;
@@ -295,16 +295,16 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
 }
 
 void print_func(PrintConfig* config, int count, ...) {
-  const char* end = END;
   const char* sep = SEPARATOR;
+  const char* end = END;
   FILE* file = FILE_STREAM;
   bool flush = FLUSH_STREAM;
   if (config) {
-    if (config->end) {
-      end = config->end;
-    }
     if (config->sep) {
       sep = config->sep;
+    }
+    if (config->end) {
+      end = config->end;
     }
     if (config->file) {
       file = config->file;
