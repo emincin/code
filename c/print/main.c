@@ -12,6 +12,11 @@
 #define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
 
+typedef struct print_config_t {
+  const char* end;
+  const char* sep;
+} PrintConfig;
+
 #define CONCAT_IMPL(a, b) a##b
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
 
@@ -113,6 +118,8 @@
   CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
 
 #define LAST(...) __VA_OPT__(CONCAT(LAST_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
+
+#define set(...) ((PrintConfig){ EXPAND(dot, __VA_ARGS__) })
 
 #define print(...) \
   print_func(ARGS_COUNT(__VA_ARGS__) __VA_OPT__(,) EXPAND(type_value_pair, __VA_ARGS__))
