@@ -248,6 +248,60 @@ size_t read_from_va_list(String* str, int type, va_list args) {
     case TYPE_NONE: {
       break;
     }
+    case TYPE_BOOL:
+    case TYPE_CHAR:
+    case TYPE_SCHAR:
+    case TYPE_UCHAR:
+    case TYPE_SHORT:
+    case TYPE_USHORT:
+    case TYPE_INT: {
+      int arg = va_arg(args, int);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_UINT: {
+      unsigned int arg = va_arg(args, unsigned int);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_LONG: {
+      long arg = va_arg(args, long);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_ULONG: {
+      unsigned long arg = va_arg(args, unsigned long);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_LONGLONG: {
+      long long arg = va_arg(args, long long);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_ULONGLONG: {
+      unsigned long long arg = va_arg(args, unsigned long long);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_FLOAT:
+    case TYPE_DOUBLE: {
+      double arg = va_arg(args, double);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_STRING:
+    case TYPE_CONST_STRING: {
+      char* arg = va_arg(args, char*);
+      ret = sizeof(arg);
+      break;
+    }
+    case TYPE_ANY:
+    case TYPE_CONST_ANY: {
+      void* arg = va_arg(args, void*);
+      ret = sizeof(arg);
+      break;
+    }
   }
   return ret;
 }
@@ -290,6 +344,9 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
       }
     } else {
       size_t ret = read_from_va_list(str, type, args);
+      if (ret == 0) {
+        break;
+      }
     }
   }
 }
