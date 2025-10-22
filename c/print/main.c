@@ -238,6 +238,11 @@ bool string_append_s(String* self, const char* s) {
   return string_append_sn(self, s, n);
 }
 
+size_t read_from_va_list(String* str, int type, va_list args) {
+  size_t ret = 0;
+  return ret;
+}
+
 int format_string(String* str, const char* fmt, int count, va_list args) {
   int arg_index = 0;
   size_t fmtlen = strlen(fmt);
@@ -254,6 +259,8 @@ int format_string(String* str, const char* fmt, int count, va_list args) {
     }
     if (match) {
       if (arg_index < count) {
+        int type = va_arg(args, int);
+        size_t ret = read_from_va_list(str, type, args);
         arg_index++;
       }
     } else {
@@ -273,6 +280,7 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
         i += ret;
       }
     } else {
+      size_t ret = read_from_va_list(str, type, args);
     }
   }
 }
