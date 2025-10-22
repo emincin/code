@@ -253,7 +253,11 @@ int format_string(String* str, const char* fmt, int count, va_list args) {
       }
     }
     if (match) {
+      if (arg_index < count) {
+        arg_index++;
+      }
     } else {
+      string_append_sn(str, fmt + i, 1);
     }
   }
   return arg_index;
@@ -265,9 +269,10 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
     if (i == 0) {
       if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
         char* fmt = va_arg(args, char*);
-        int ret = format_string(str, fmt, count, args);
+        int ret = format_string(str, fmt, count - 1, args);
         i += ret;
       }
+    } else {
     }
   }
 }
