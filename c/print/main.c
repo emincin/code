@@ -334,9 +334,9 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
     case TYPE_STRING:
     case TYPE_CONST_STRING: {
       char* arg = va_arg(*args_ptr, char*);
-      int err = 0;
-      read_from_value(str, arg, err);
-      return sizeof(arg);
+      size_t len = strlen(arg);
+      bool ok = string_append_sn(str, arg, len);
+      return len;
     }
     case TYPE_ANY:
     case TYPE_CONST_ANY: {
@@ -377,6 +377,7 @@ int format_from_va_list(String* str, const char* fmt, int count, va_list* args_p
 }
 
 void parse_va_list(String* str, const char* sep, int count, va_list args) {
+  size_t seplen = strlen(sep);
   for (int i = 0; i < count; i++) {
     int type = va_arg(args, int);
     if (i == 0 && (type == TYPE_STRING || type == TYPE_CONST_STRING)) {
@@ -389,6 +390,9 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
         break;
       }
     }
+    if (i < count - 1) {
+      bool ok = string_append_sn(str, sep, seplen);
+    }
   }
 }
 
@@ -398,6 +402,7 @@ void print_func(PrintConfig* config, int count, ...) {
   FILE* file = FILE_STREAM;
   bool flush = FLUSH_STREAM;
   if (config) {
+    count -= 1;
     if (config->sep) {
       sep = config->sep;
     }
