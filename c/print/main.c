@@ -330,6 +330,7 @@ bool string_insert_sn(String* self, size_t pos, const char* s, size_t n) {
 }
 
 bool string_insert_s(String* self, size_t pos, const char* s) {
+  assert(self != NULL);
   size_t n = strlen(s);
   return string_insert_sn(self, pos, s, n);
 }
@@ -340,6 +341,7 @@ bool string_append_sn(String* self, const char* s, size_t n) {
 }
 
 bool string_append_s(String* self, const char* s) {
+  assert(self != NULL);
   size_t n = strlen(s);
   return string_append_sn(self, s, n);
 }
