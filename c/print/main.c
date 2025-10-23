@@ -34,7 +34,46 @@
   4, 3, 2, 1 \
   ))
 
+#define EXPAND_1(func, var) func(var)
+#define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
+#define EXPAND_3(func, var, ...) func(var), EXPAND_2(func, __VA_ARGS__)
+#define EXPAND_4(func, var, ...) func(var), EXPAND_3(func, __VA_ARGS__)
+#define EXPAND_5(func, var, ...) func(var), EXPAND_4(func, __VA_ARGS__)
+#define EXPAND_6(func, var, ...) func(var), EXPAND_5(func, __VA_ARGS__)
+#define EXPAND_7(func, var, ...) func(var), EXPAND_6(func, __VA_ARGS__)
+#define EXPAND_8(func, var, ...) func(var), EXPAND_7(func, __VA_ARGS__)
+#define EXPAND_9(func, var, ...) func(var), EXPAND_8(func, __VA_ARGS__)
+#define EXPAND_10(func, var, ...) func(var), EXPAND_9(func, __VA_ARGS__)
+#define EXPAND_11(func, var, ...) func(var), EXPAND_10(func, __VA_ARGS__)
+#define EXPAND_12(func, var, ...) func(var), EXPAND_11(func, __VA_ARGS__)
+#define EXPAND_13(func, var, ...) func(var), EXPAND_12(func, __VA_ARGS__)
+#define EXPAND_14(func, var, ...) func(var), EXPAND_13(func, __VA_ARGS__)
+#define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
+#define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
+
+#define LAST_1(a) a
+#define LAST_2(a, b) b
+#define LAST_3(a, b, c) c
+#define LAST_4(a, b, c, d) d
+#define LAST_5(a, b, c, d, e) e
+#define LAST_6(a, b, c, d, e, f) f
+#define LAST_7(a, b, c, d, e, f, g) g
+#define LAST_8(a, b, c, d, e, f, g, h) h
+#define LAST_9(a, b, c, d, e, f, g, h, i) i
+#define LAST_10(a, b, c, d, e, f, g, h, i, j) j
+#define LAST_11(a, b, c, d, e, f, g, h, i, j, k) k
+#define LAST_12(a, b, c, d, e, f, g, h, i, j, k, l) l
+#define LAST_13(a, b, c, d, e, f, g, h, i, j, k, l, m) m
+#define LAST_14(a, b, c, d, e, f, g, h, i, j, k, l, m, n) n
+#define LAST_15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) o
+#define LAST_16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) p
+
 #define ARGS_COUNT(...) (0 __VA_OPT__(+ COUNT_ARGS(__VA_ARGS__)))
+
+#define EXPAND(func, ...) __VA_OPT__( \
+  CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
+
+#define LAST(...) __VA_OPT__(CONCAT(LAST_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
 #define ERR_OK              0
 #define ERR_FAIL            1
@@ -103,45 +142,6 @@
 
 #define type_value_pair(x) typeid_of(x), (x)
 #define dot(x) .x
-
-#define EXPAND_1(func, var) func(var)
-#define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
-#define EXPAND_3(func, var, ...) func(var), EXPAND_2(func, __VA_ARGS__)
-#define EXPAND_4(func, var, ...) func(var), EXPAND_3(func, __VA_ARGS__)
-#define EXPAND_5(func, var, ...) func(var), EXPAND_4(func, __VA_ARGS__)
-#define EXPAND_6(func, var, ...) func(var), EXPAND_5(func, __VA_ARGS__)
-#define EXPAND_7(func, var, ...) func(var), EXPAND_6(func, __VA_ARGS__)
-#define EXPAND_8(func, var, ...) func(var), EXPAND_7(func, __VA_ARGS__)
-#define EXPAND_9(func, var, ...) func(var), EXPAND_8(func, __VA_ARGS__)
-#define EXPAND_10(func, var, ...) func(var), EXPAND_9(func, __VA_ARGS__)
-#define EXPAND_11(func, var, ...) func(var), EXPAND_10(func, __VA_ARGS__)
-#define EXPAND_12(func, var, ...) func(var), EXPAND_11(func, __VA_ARGS__)
-#define EXPAND_13(func, var, ...) func(var), EXPAND_12(func, __VA_ARGS__)
-#define EXPAND_14(func, var, ...) func(var), EXPAND_13(func, __VA_ARGS__)
-#define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
-#define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
-
-#define LAST_1(a) a
-#define LAST_2(a, b) b
-#define LAST_3(a, b, c) c
-#define LAST_4(a, b, c, d) d
-#define LAST_5(a, b, c, d, e) e
-#define LAST_6(a, b, c, d, e, f) f
-#define LAST_7(a, b, c, d, e, f, g) g
-#define LAST_8(a, b, c, d, e, f, g, h) h
-#define LAST_9(a, b, c, d, e, f, g, h, i) i
-#define LAST_10(a, b, c, d, e, f, g, h, i, j) j
-#define LAST_11(a, b, c, d, e, f, g, h, i, j, k) k
-#define LAST_12(a, b, c, d, e, f, g, h, i, j, k, l) l
-#define LAST_13(a, b, c, d, e, f, g, h, i, j, k, l, m) m
-#define LAST_14(a, b, c, d, e, f, g, h, i, j, k, l, m, n) n
-#define LAST_15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) o
-#define LAST_16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) p
-
-#define EXPAND(func, ...) __VA_OPT__( \
-  CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
-
-#define LAST(...) __VA_OPT__(CONCAT(LAST_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
 #define as_print_config_ptr(x) _Generic((x), \
   PrintConfig*: (x), \
