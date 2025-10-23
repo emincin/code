@@ -17,6 +17,8 @@
 #define TEMP_BUFFER_SIZE 32
 #define FPRINTS(fp, s) fprintf(fp, "%s", s)
 
+#define RESET_STYLE "\033[0m"
+
 #define ERR_OK              0
 #define ERR_FAIL            1
 
@@ -188,6 +190,16 @@
   PrintConfig*: (x), \
   default: NULL)
 
+#define read_from_value(str, value, err) do { \
+  char buf[TEMP_BUFFER_SIZE] = { 0 }; \
+  const char* fmt = format_of(value); \
+  int len = snprintf(buf, sizeof(buf), fmt, value); \
+  if (len < 0) { err = ERR_FAIL; break; } \
+  bool ok = string_append_sn(str, buf, len); \
+  if (!ok) { err = ERR_FAIL; break; } \
+  err = ERR_OK; \
+} while (0)
+
 #define set(...) (&(PrintConfig){ EXPAND(dot, __VA_ARGS__) })
 
 #define print(...) do { \
@@ -308,16 +320,6 @@ bool string_append_s(String* self, const char* s) {
   size_t n = strlen(s);
   return string_append_sn(self, s, n);
 }
-
-#define read_from_value(str, value, err) do { \
-  char buf[TEMP_BUFFER_SIZE] = { 0 }; \
-  const char* fmt = format_of(value); \
-  int len = snprintf(buf, sizeof(buf), fmt, value); \
-  if (len < 0) { err = ERR_FAIL; break; } \
-  bool ok = string_append_sn(str, buf, len); \
-  if (!ok) { err = ERR_FAIL; break; } \
-  err = ERR_OK; \
-} while (0)
 
 size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
   switch (type) {
