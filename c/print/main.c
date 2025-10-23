@@ -278,10 +278,9 @@ bool string_append_s(String* self, const char* s) {
 } while (0)
 
 size_t read_from_va_list(String* str, int type, va_list args) {
-  size_t ret = 0;
   switch (type) {
     case TYPE_NONE: {
-      break;
+      return 0;
     }
     case TYPE_BOOL:
     case TYPE_CHAR:
@@ -291,54 +290,45 @@ size_t read_from_va_list(String* str, int type, va_list args) {
     case TYPE_USHORT:
     case TYPE_INT: {
       int arg = va_arg(args, int);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_UINT: {
       unsigned int arg = va_arg(args, unsigned int);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_LONG: {
       long arg = va_arg(args, long);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_ULONG: {
       unsigned long arg = va_arg(args, unsigned long);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_LONGLONG: {
       long long arg = va_arg(args, long long);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_ULONGLONG: {
       unsigned long long arg = va_arg(args, unsigned long long);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_FLOAT:
     case TYPE_DOUBLE: {
       double arg = va_arg(args, double);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_STRING:
     case TYPE_CONST_STRING: {
       char* arg = va_arg(args, char*);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
     case TYPE_ANY:
     case TYPE_CONST_ANY: {
       void* arg = va_arg(args, void*);
-      ret = sizeof(arg);
-      break;
+      return sizeof(arg);
     }
   }
-  return ret;
+  return 0;
 }
 
 int format_from_va_list(String* str, const char* fmt, int count, va_list args) {
