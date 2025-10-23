@@ -277,7 +277,7 @@ bool string_append_s(String* self, const char* s) {
   err = ERR_OK; \
 } while (0)
 
-size_t read_from_va_list(String* str, int type, va_list args) {
+size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
   switch (type) {
     case TYPE_NONE: {
       return 0;
@@ -289,58 +289,58 @@ size_t read_from_va_list(String* str, int type, va_list args) {
     case TYPE_SHORT:
     case TYPE_USHORT:
     case TYPE_INT: {
-      int arg = va_arg(args, int);
+      int arg = va_arg(*args_ptr, int);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_UINT: {
-      unsigned int arg = va_arg(args, unsigned int);
+      unsigned int arg = va_arg(*args_ptr, unsigned int);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_LONG: {
-      long arg = va_arg(args, long);
+      long arg = va_arg(*args_ptr, long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_ULONG: {
-      unsigned long arg = va_arg(args, unsigned long);
+      unsigned long arg = va_arg(*args_ptr, unsigned long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_LONGLONG: {
-      long long arg = va_arg(args, long long);
+      long long arg = va_arg(*args_ptr, long long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_ULONGLONG: {
-      unsigned long long arg = va_arg(args, unsigned long long);
+      unsigned long long arg = va_arg(*args_ptr, unsigned long long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_FLOAT:
     case TYPE_DOUBLE: {
-      double arg = va_arg(args, double);
+      double arg = va_arg(*args_ptr, double);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_STRING:
     case TYPE_CONST_STRING: {
-      char* arg = va_arg(args, char*);
+      char* arg = va_arg(*args_ptr, char*);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_ANY:
     case TYPE_CONST_ANY: {
-      void* arg = va_arg(args, void*);
+      void* arg = va_arg(*args_ptr, void*);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
@@ -349,7 +349,7 @@ size_t read_from_va_list(String* str, int type, va_list args) {
   return 0;
 }
 
-int format_from_va_list(String* str, const char* fmt, int count, va_list args) {
+int format_from_va_list(String* str, const char* fmt, int count, va_list* args_ptr) {
   int arg_index = 0;
   size_t fmtlen = strlen(fmt);
   for (size_t i = 0; i < fmtlen; i++) {
@@ -365,8 +365,8 @@ int format_from_va_list(String* str, const char* fmt, int count, va_list args) {
     }
     if (match) {
       if (arg_index < count) {
-        int type = va_arg(args, int);
-        size_t ret = read_from_va_list(str, type, args);
+        int type = va_arg(*args_ptr, int);
+        size_t ret = read_from_va_list(str, type, args_ptr);
         arg_index++;
       }
     } else {
@@ -381,10 +381,10 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
     int type = va_arg(args, int);
     if (i == 0 && (type == TYPE_STRING || type == TYPE_CONST_STRING)) {
       char* fmt = va_arg(args, char*);
-      int ret = format_from_va_list(str, fmt, count - 1, args);
+      int ret = format_from_va_list(str, fmt, count - 1, &args);
       i += ret;
     } else {
-      size_t ret = read_from_va_list(str, type, args);
+      size_t ret = read_from_va_list(str, type, &args);
       if (ret == 0) {
         break;
       }
