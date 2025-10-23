@@ -17,7 +17,31 @@
 #define TEMP_BUFFER_SIZE 32
 #define FPRINTS(fp, s) fprintf(fp, "%s", s)
 
+#define ERR_OK              0
+#define ERR_FAIL            1
+
+#define TYPE_NONE           0
+#define TYPE_BOOL           1
+#define TYPE_CHAR           2
+#define TYPE_SCHAR          3
+#define TYPE_UCHAR          4
+#define TYPE_SHORT          5
+#define TYPE_INT            6
+#define TYPE_LONG           7
+#define TYPE_LONGLONG       8
+#define TYPE_USHORT         9
+#define TYPE_UINT           10
+#define TYPE_ULONG          11
+#define TYPE_ULONGLONG      12
+#define TYPE_FLOAT          13
+#define TYPE_DOUBLE         14
+#define TYPE_STRING         15
+#define TYPE_CONST_STRING   16
+#define TYPE_ANY            17
+#define TYPE_CONST_ANY      18
+
 #define CONCAT_IMPL(a, b) a##b
+
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
 
 #define SELECT( \
@@ -70,33 +94,9 @@
 
 #define ARGS_COUNT(...) (0 __VA_OPT__(+ COUNT_ARGS(__VA_ARGS__)))
 
-#define EXPAND(func, ...) __VA_OPT__( \
-  CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
+#define EXPAND(func, ...) __VA_OPT__(CONCAT(EXPAND_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
 
 #define LAST(...) __VA_OPT__(CONCAT(LAST_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
-
-#define ERR_OK              0
-#define ERR_FAIL            1
-
-#define TYPE_NONE           0
-#define TYPE_BOOL           1
-#define TYPE_CHAR           2
-#define TYPE_SCHAR          3
-#define TYPE_UCHAR          4
-#define TYPE_SHORT          5
-#define TYPE_INT            6
-#define TYPE_LONG           7
-#define TYPE_LONGLONG       8
-#define TYPE_USHORT         9
-#define TYPE_UINT           10
-#define TYPE_ULONG          11
-#define TYPE_ULONGLONG      12
-#define TYPE_FLOAT          13
-#define TYPE_DOUBLE         14
-#define TYPE_STRING         15
-#define TYPE_CONST_STRING   16
-#define TYPE_ANY            17
-#define TYPE_CONST_ANY      18
 
 #define typeid_of(x) _Generic((x), \
   _Bool:              TYPE_BOOL, \
@@ -141,6 +141,7 @@
   default:            "")
 
 #define type_value_pair(x) typeid_of(x), (x)
+
 #define dot(x) .x
 
 #define as_print_config_ptr(x) _Generic((x), \
