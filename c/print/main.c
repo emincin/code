@@ -290,41 +290,59 @@ size_t read_from_va_list(String* str, int type, va_list args) {
     case TYPE_USHORT:
     case TYPE_INT: {
       int arg = va_arg(args, int);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_UINT: {
       unsigned int arg = va_arg(args, unsigned int);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_LONG: {
       long arg = va_arg(args, long);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_ULONG: {
       unsigned long arg = va_arg(args, unsigned long);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_LONGLONG: {
       long long arg = va_arg(args, long long);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_ULONGLONG: {
       unsigned long long arg = va_arg(args, unsigned long long);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_FLOAT:
     case TYPE_DOUBLE: {
       double arg = va_arg(args, double);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_STRING:
     case TYPE_CONST_STRING: {
       char* arg = va_arg(args, char*);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_ANY:
     case TYPE_CONST_ANY: {
       void* arg = va_arg(args, void*);
+      int err = 0;
+      read_from_value(str, arg, err);
       return sizeof(arg);
     }
   }
