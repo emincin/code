@@ -17,17 +17,6 @@
 #define TEMP_BUFFER_SIZE 32
 #define FPRINTS(fp, s) fprintf(fp, "%s", s)
 
-typedef struct print_config_t {
-  const char* sep;
-  const char* end;
-  FILE* file;
-  bool flush;
-} PrintConfig;
-
-#define as_print_config_ptr(x) _Generic((x), \
-  PrintConfig*: (x), \
-  default: NULL)
-
 #define CONCAT_IMPL(a, b) a##b
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
 
@@ -154,6 +143,10 @@ typedef struct print_config_t {
 
 #define LAST(...) __VA_OPT__(CONCAT(LAST_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
+#define as_print_config_ptr(x) _Generic((x), \
+  PrintConfig*: (x), \
+  default: NULL)
+
 #define set(...) (&(PrintConfig){ EXPAND(dot, __VA_ARGS__) })
 
 #define print(...) do { \
@@ -177,6 +170,13 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
+
+typedef struct print_config_t {
+  const char* sep;
+  const char* end;
+  FILE* file;
+  bool flush;
+} PrintConfig;
 
 typedef struct string_t {
   size_t capacity;
