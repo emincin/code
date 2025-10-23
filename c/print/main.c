@@ -15,7 +15,9 @@
 #define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
 #define TEMP_BUFFER_SIZE 32
-#define FPRINTS(fp, s) fprintf(fp, "%s", s)
+
+#define FPRINTSN(fp, s, n) fprintf(fp, "%s", s)
+#define FFLUSH(fp) fflush(fp)
 
 #define RESET_STYLE "\033[0m"
 
@@ -495,9 +497,9 @@ void print_func(PrintConfig* config, int count, ...) {
   parse_va_list(&str, sep, count, args);
   string_append_s(&str, end);
   if (str.data) {
-    FPRINTS(file, str.data);
+    FPRINTSN(file, str.data, str.size);
     if (flush) {
-      fflush(file);
+      FFLUSH(file);
     }
   }
 clean_up:
