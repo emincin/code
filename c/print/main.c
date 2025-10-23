@@ -40,24 +40,6 @@
 #define TYPE_ANY            17
 #define TYPE_CONST_ANY      18
 
-#define CONCAT_IMPL(a, b) a##b
-
-#define CONCAT(a, b) CONCAT_IMPL(a, b)
-
-#define SELECT( \
-  _1, _2, _3, _4, \
-  _5, _6, _7, _8, \
-  _9, _10, _11, _12, \
-  _13, _14, _15, _16, \
-  name, ...) name
-
-#define COUNT_ARGS(...) __VA_OPT__( SELECT(__VA_ARGS__, \
-  16, 15, 14, 13, \
-  12, 11, 10, 9, \
-  8, 7, 6, 5, \
-  4, 3, 2, 1 \
-  ))
-
 #define EXPAND_1(func, var) func(var)
 #define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
 #define EXPAND_3(func, var, ...) func(var), EXPAND_2(func, __VA_ARGS__)
@@ -91,6 +73,24 @@
 #define LAST_14(a, b, c, d, e, f, g, h, i, j, k, l, m, n) n
 #define LAST_15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) o
 #define LAST_16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) p
+
+#define SELECT( \
+  _1, _2, _3, _4, \
+  _5, _6, _7, _8, \
+  _9, _10, _11, _12, \
+  _13, _14, _15, _16, \
+  name, ...) name
+
+#define COUNT_ARGS(...) __VA_OPT__( SELECT(__VA_ARGS__, \
+  16, 15, 14, 13, \
+  12, 11, 10, 9, \
+  8, 7, 6, 5, \
+  4, 3, 2, 1 \
+  ))
+
+#define CONCAT_IMPL(a, b) a##b
+
+#define CONCAT(a, b) CONCAT_IMPL(a, b)
 
 #define ARGS_COUNT(...) (0 __VA_OPT__(+ COUNT_ARGS(__VA_ARGS__)))
 
@@ -140,7 +140,7 @@
   const void*:        "%p", \
   default:            "")
 
-#define type_value_pair(x) typeid_of(x), (x)
+#define typeid_value_pair(x) typeid_of(x), (x)
 
 #define dot(x) .x
 
@@ -155,7 +155,7 @@
     print_func( \
       as_print_config_ptr(LAST(__VA_ARGS__)), \
       COUNT_ARGS(__VA_ARGS__), \
-      EXPAND(type_value_pair, __VA_ARGS__) \
+      EXPAND(typeid_value_pair, __VA_ARGS__) \
     ); \
     break; \
   ) \
