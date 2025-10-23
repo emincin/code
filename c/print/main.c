@@ -335,6 +335,9 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
     case TYPE_CONST_STRING: {
       char* arg = va_arg(*args_ptr, char*);
       size_t len = strlen(arg);
+      if (len == 0) {
+        return 1;
+      }
       bool ok = string_append_sn(str, arg, len);
       return len;
     }
