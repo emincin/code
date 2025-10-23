@@ -46,6 +46,9 @@ typedef struct print_config_t {
 
 #define ARGS_COUNT(...) (0 __VA_OPT__(+ COUNT_ARGS(__VA_ARGS__)))
 
+#define ERR_OK              0
+#define ERR_FAIL            1
+
 #define TYPE_NONE           0
 #define TYPE_BOOL           1
 #define TYPE_CHAR           2
@@ -264,6 +267,16 @@ bool string_append_s(String* self, const char* s) {
   return string_append_sn(self, s, n);
 }
 
+#define read_from_value(str, value, err) do { \
+  char buf[TEMP_BUFFER_SIZE] = { 0 }; \
+  const char* fmt = format_of(value); \
+  int len = snprintf(buf, sizeof(buf), fmt, value); \
+  if (len < 0) { err = ERR_FAIL; break; } \
+  bool ok = string_append_sn(str, buf, len); \
+  if (!ok) { err = ERR_FAIL; break; } \
+  err = ERR_OK; \
+} while (0)
+
 size_t read_from_va_list(String* str, int type, va_list args) {
   size_t ret = 0;
   switch (type) {
@@ -358,12 +371,10 @@ int format_from_va_list(String* str, const char* fmt, int count, va_list args) {
 void parse_va_list(String* str, const char* sep, int count, va_list args) {
   for (int i = 0; i < count; i++) {
     int type = va_arg(args, int);
-    if (i == 0) {
-      if (type == TYPE_STRING || type == TYPE_CONST_STRING) {
-        char* fmt = va_arg(args, char*);
-        int ret = format_from_va_list(str, fmt, count - 1, args);
-        i += ret;
-      }
+    if (i == 0 && (type == TYPE_STRING || type == TYPE_CONST_STRING)) {
+      char* fmt = va_arg(args, char*);
+      int ret = format_from_va_list(str, fmt, count - 1, args);
+      i += ret;
     } else {
       size_t ret = read_from_va_list(str, type, args);
       if (ret == 0) {
