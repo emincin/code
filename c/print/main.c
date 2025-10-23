@@ -278,6 +278,21 @@ void string_deinit(String* self) {
   *self = (String){ 0 };
 }
 
+String* string_new(size_t capacity) {
+  String* self = (String*)malloc(sizeof(String));
+  if (self == NULL) {
+    return NULL;
+  }
+  string_init(self, capacity);
+  return self;
+}
+
+void string_delete(String* self) {
+  assert(self != NULL);
+  free(self->data);
+  free(self);
+}
+
 bool string_realloc(String* self, size_t new_capacity) {
   assert(self != NULL);
   char* buf = (char*)realloc(self->data, new_capacity + 1);
