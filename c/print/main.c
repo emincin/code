@@ -200,6 +200,8 @@
   err = ERR_OK; \
 } while (0)
 
+#define rgb(r, g, b) ((Color24){ r, g, b })
+
 #define set(...) (&(PrintConfig){ EXPAND(dot, __VA_ARGS__) })
 
 #define print(...) do { \
@@ -223,6 +225,12 @@ typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
+
+typedef struct color24_t {
+  unsigned char r;
+  unsigned char g;
+  unsigned char b;
+} Color24;
 
 typedef struct print_config_t {
   const char* sep;
