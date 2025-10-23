@@ -89,6 +89,22 @@
 #define LAST_14(a, b, c, d, e, f, g, h, i, j, k, l, m, n) n
 #define LAST_15(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) o
 #define LAST_16(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) p
+#define LAST_17(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q) q
+#define LAST_18(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r) r
+#define LAST_19(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s) s
+#define LAST_20(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t) t
+#define LAST_21(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u) u
+#define LAST_22(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v) v
+#define LAST_23(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w) w
+#define LAST_24(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x) x
+#define LAST_25(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y) y
+#define LAST_26(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z) z
+#define LAST_27(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A) A
+#define LAST_28(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B) B
+#define LAST_29(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C) C
+#define LAST_30(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D) D
+#define LAST_31(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E) E
+#define LAST_32(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F) F
 
 #define SELECT( \
   _1, _2, _3, _4, \
