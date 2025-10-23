@@ -492,18 +492,17 @@ void print_func(PrintConfig* config, int count, ...) {
   }
   va_list args;
   va_start(args, count);
-  String str = { 0 };
-  string_init(&str, STRING_CAPACITY);
-  parse_va_list(&str, sep, count, args);
-  string_append_s(&str, end);
-  if (str.data) {
-    FPRINTSN(file, str.data, str.size);
+  String a = { 0 };
+  string_init(&a, STRING_CAPACITY);
+  parse_va_list(&a, sep, count, args);
+  string_append_s(&a, end);
+  if (a.data) {
+    FPRINTSN(file, a.data, a.size);
     if (flush) {
       FFLUSH(file);
     }
   }
-clean_up:
-  string_deinit(&str);
+  string_deinit(&a);
   va_end(args);
 }
 
