@@ -56,6 +56,22 @@
 #define EXPAND_14(func, var, ...) func(var), EXPAND_13(func, __VA_ARGS__)
 #define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
 #define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
+#define EXPAND_17(func, var, ...) func(var), EXPAND_16(func, __VA_ARGS__)
+#define EXPAND_18(func, var, ...) func(var), EXPAND_17(func, __VA_ARGS__)
+#define EXPAND_19(func, var, ...) func(var), EXPAND_18(func, __VA_ARGS__)
+#define EXPAND_20(func, var, ...) func(var), EXPAND_19(func, __VA_ARGS__)
+#define EXPAND_21(func, var, ...) func(var), EXPAND_20(func, __VA_ARGS__)
+#define EXPAND_22(func, var, ...) func(var), EXPAND_21(func, __VA_ARGS__)
+#define EXPAND_23(func, var, ...) func(var), EXPAND_22(func, __VA_ARGS__)
+#define EXPAND_24(func, var, ...) func(var), EXPAND_23(func, __VA_ARGS__)
+#define EXPAND_25(func, var, ...) func(var), EXPAND_24(func, __VA_ARGS__)
+#define EXPAND_26(func, var, ...) func(var), EXPAND_25(func, __VA_ARGS__)
+#define EXPAND_27(func, var, ...) func(var), EXPAND_26(func, __VA_ARGS__)
+#define EXPAND_28(func, var, ...) func(var), EXPAND_27(func, __VA_ARGS__)
+#define EXPAND_29(func, var, ...) func(var), EXPAND_28(func, __VA_ARGS__)
+#define EXPAND_30(func, var, ...) func(var), EXPAND_29(func, __VA_ARGS__)
+#define EXPAND_31(func, var, ...) func(var), EXPAND_30(func, __VA_ARGS__)
+#define EXPAND_32(func, var, ...) func(var), EXPAND_31(func, __VA_ARGS__)
 
 #define LAST_1(a) a
 #define LAST_2(a, b) b
