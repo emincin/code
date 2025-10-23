@@ -10,11 +10,12 @@
 #define SEPARATOR " "
 #define FILE_STREAM stdout
 #define FLUSH_STREAM false
+
 #define LEFT_BRACE '{'
 #define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
 #define TEMP_BUFFER_SIZE 32
-#define PRINT(fp, s) fprintf(fp, "%s", s)
+#define FPRINTS(fp, s) fprintf(fp, "%s", s)
 
 typedef struct print_config_t {
   const char* sep;
@@ -426,7 +427,7 @@ void print_func(PrintConfig* config, int count, ...) {
   parse_va_list(&str, sep, count, args);
   string_append_s(&str, end);
   if (str.data) {
-    PRINT(file, str.data);
+    FPRINTS(file, str.data);
     if (flush) {
       fflush(file);
     }
