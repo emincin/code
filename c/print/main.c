@@ -13,6 +13,7 @@
 #define LEFT_BRACE '{'
 #define RIGHT_BRACE '}'
 #define STRING_CAPACITY 32
+#define TEMP_BUFFER_SIZE 32
 #define PRINT(fp, s) fprintf(fp, "%s", s)
 
 typedef struct print_config_t {
@@ -85,6 +86,27 @@ typedef struct print_config_t {
   void*:              TYPE_ANY, \
   const void*:        TYPE_CONST_ANY, \
   default:            TYPE_NONE)
+
+#define format_of(x) _Generic((x), \
+  _Bool:              "%d", \
+  char:               "%c", \
+  signed char:        "%hhd", \
+  unsigned char:      "%hhu", \
+  short:              "%hd", \
+  int:                "%d", \
+  long:               "%ld", \
+  long long:          "%lld", \
+  unsigned short:     "%hu", \
+  unsigned int:       "%u", \
+  unsigned long:      "%lu", \
+  unsigned long long: "%llu", \
+  float:              "%f", \
+  double:             "%f", \
+  char*:              "%s", \
+  const char*:        "%s", \
+  void*:              "%p", \
+  const void*:        "%p", \
+  default:            "")
 
 #define type_value_pair(x) typeid_of(x), (x)
 #define dot(x) .x
