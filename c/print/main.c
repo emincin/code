@@ -206,6 +206,9 @@
 
 #define set(...) (&(PrintConfig){ EXPAND(dot, __VA_ARGS__) })
 
+#define format(fmt, ...) \
+  format_func(fmt, ARGS_COUNT(__VA_ARGS__) __VA_OPT__(,) EXPAND(typeid_value_pair, __VA_ARGS__))
+
 #define print(...) do { \
   __VA_OPT__( \
     print_func( \
@@ -478,6 +481,11 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
       bool ok = string_append_sn(str, sep, seplen);
     }
   }
+}
+
+String* format_func(const char* fmt, int count, ...) {
+  String* str = string_new(STRING_CAPACITY);
+  return str;
 }
 
 void print_func(PrintConfig* config, int count, ...) {
