@@ -574,6 +574,19 @@ const char* reset_style() {
   return RESET_STYLE;
 }
 
+void print_256_color_table() {
+  for (int i = 0; i < 256; i++) {
+    char buf[4] = { 0 };
+    snprintf(buf, sizeof(buf), "%3d", i);
+    print(set_bg_idx(i), buf, reset_style(), set(sep = "", end = ""));
+    if ((i + 1) % 16 == 0) {
+      printf("\n");
+    } else {
+      printf(" ");
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
