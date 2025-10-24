@@ -485,6 +485,10 @@ void parse_va_list(String* str, const char* sep, int count, va_list args) {
 
 String* format_func(const char* fmt, int count, ...) {
   String* str = string_new(STRING_CAPACITY);
+  va_list args;
+  va_start(args, count);
+  format_from_va_list(str, fmt, count, &args);
+  va_end(args);
   return str;
 }
 
