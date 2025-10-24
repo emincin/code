@@ -437,6 +437,7 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
       return sizeof(arg);
     }
     case TYPE_STRING_T:
+    case TYPE_CONST_STRING_T:
     {
       String* arg = va_arg(*args_ptr, String*);
       size_t len = arg->size;
@@ -444,7 +445,9 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
         return 1;
       }
       bool ok = string_append_sn(str, arg->data, len);
-      string_delete(arg);
+      if (type == TYPE_STRING_T) {
+        string_delete(arg);
+      }
       return len;
     }
   }
