@@ -554,6 +554,10 @@ String* set_fg_rgb(int r, int g, int b) {
   return format("\033[38;2;{};{};{}m", r, g, b);
 }
 
+String* set_fg_color(Color24 color) {
+  return set_fg_rgb(color.r, color.g, color.b);
+}
+
 String* set_bg_idx(int idx) {
   return format("\033[48;5;{}m", idx);
 }
@@ -562,12 +566,20 @@ String* set_bg_rgb(int r, int g, int b) {
   return format("\033[48;2;{};{};{}m", r, g, b);
 }
 
+String* set_bg_color(Color24 color) {
+  return set_bg_rgb(color.r, color.g, color.b);
+}
+
 String* set_colors_idx(int fg_idx, int bg_idx) {
   return format("\033[38;5;{};48;5;{}m", fg_idx, bg_idx);
 }
 
 String* set_colors_rgb(int fg_r, int fg_g, int fg_b, int bg_r, int bg_g, int bg_b) {
   return format("\033[38;2;{};{};{};48;2;{};{};{}m", fg_r, fg_g, fg_b, bg_r, bg_g, bg_b);
+}
+
+String* set_colors_color(Color24 fg_color, Color24 bg_color) {
+  return set_colors_rgb(fg_color.r, fg_color.g, fg_color.b, bg_color.r, bg_color.g, bg_color.b);
 }
 
 const char* reset_style() {
