@@ -350,7 +350,8 @@ bool string_append_s(String* self, const char* s) {
 
 size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
   switch (type) {
-    case TYPE_NONE: {
+    case TYPE_NONE:
+    {
       return 0;
     }
     case TYPE_BOOL:
@@ -359,51 +360,59 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
     case TYPE_UCHAR:
     case TYPE_SHORT:
     case TYPE_USHORT:
-    case TYPE_INT: {
+    case TYPE_INT:
+    {
       int arg = va_arg(*args_ptr, int);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
-    case TYPE_UINT: {
+    case TYPE_UINT:
+    {
       unsigned int arg = va_arg(*args_ptr, unsigned int);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
-    case TYPE_LONG: {
+    case TYPE_LONG:
+    {
       long arg = va_arg(*args_ptr, long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
-    case TYPE_ULONG: {
+    case TYPE_ULONG:
+    {
       unsigned long arg = va_arg(*args_ptr, unsigned long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
-    case TYPE_LONGLONG: {
+    case TYPE_LONGLONG:
+    {
       long long arg = va_arg(*args_ptr, long long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
-    case TYPE_ULONGLONG: {
+    case TYPE_ULONGLONG:
+    {
       unsigned long long arg = va_arg(*args_ptr, unsigned long long);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_FLOAT:
-    case TYPE_DOUBLE: {
+    case TYPE_DOUBLE:
+    {
       double arg = va_arg(*args_ptr, double);
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
     case TYPE_STRING:
-    case TYPE_CONST_STRING: {
+    case TYPE_CONST_STRING:
+    {
       char* arg = va_arg(*args_ptr, char*);
       size_t len = strlen(arg);
       if (len == 0) {
@@ -413,7 +422,8 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
       return len;
     }
     case TYPE_ANY:
-    case TYPE_CONST_ANY: {
+    case TYPE_CONST_ANY:
+    {
       void* arg = va_arg(*args_ptr, void*);
       int err = 0;
       read_from_value(str, arg, err);
