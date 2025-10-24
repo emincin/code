@@ -546,6 +546,34 @@ void print_func(PrintConfig* config, int count, ...) {
   va_end(args);
 }
 
+String* set_fg_idx(int idx) {
+  return format("\033[38;5;{}m", idx);
+}
+
+String* set_fg_rgb(int r, int g, int b) {
+  return format("\033[38;2;{};{};{}m", r, g, b);
+}
+
+String* set_bg_idx(int idx) {
+  return format("\033[48;5;{}m", idx);
+}
+
+String* set_bg_rgb(int r, int g, int b) {
+  return format("\033[48;2;{};{};{}m", r, g, b);
+}
+
+String* set_colors_idx(int fg_idx, int bg_idx) {
+  return format("\033[38;5;{};48;5;{}m", fg_idx, bg_idx);
+}
+
+String* set_colors_rgb(int fg_r, int fg_g, int fg_b, int bg_r, int bg_g, int bg_b) {
+  return format("\033[38;2;{};{};{};48;2;{};{};{}m", fg_r, fg_g, fg_b, bg_r, bg_g, bg_b);
+}
+
+const char* reset_style() {
+  return RESET_STYLE;
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
