@@ -43,6 +43,8 @@
 #define TYPE_CONST_STRING   16
 #define TYPE_ANY            17
 #define TYPE_CONST_ANY      18
+#define TYPE_STRING_T       19
+#define TYPE_CONST_STRING_T 20
 
 #define EXPAND_1(func, var) func(var)
 #define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
@@ -161,6 +163,8 @@
   const char*:        TYPE_CONST_STRING, \
   void*:              TYPE_ANY, \
   const void*:        TYPE_CONST_ANY, \
+  String*:            TYPE_STRING_T, \
+  const String*:      TYPE_CONST_STRING_T, \
   default:            TYPE_NONE)
 
 #define format_of(x) _Generic((x), \
@@ -431,6 +435,17 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
       int err = 0;
       read_from_value(str, arg, err);
       return sizeof(arg);
+    }
+    case TYPE_STRING_T:
+    {
+      String* arg = va_arg(*args_ptr, String*);
+      size_t len = arg->size;
+      if (len == 0) {
+        return 1;
+      }
+      bool ok = string_append_sn(str, arg->data, len);
+      string_delete(arg);
+      return len;
     }
   }
   return 0;
