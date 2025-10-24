@@ -19,6 +19,32 @@
 #define FPRINTSN(fp, s, n) fprintf(fp, "%s", s)
 #define FFLUSH(fp) fflush(fp)
 
+#define COLOR_DARK_BLACK      0
+#define COLOR_DARK_RED        1
+#define COLOR_DARK_GREEN      2
+#define COLOR_DARK_YELLOW     3
+#define COLOR_DARK_BLUE       4
+#define COLOR_DARK_MAGENTA    5
+#define COLOR_DARK_CYAN       6
+#define COLOR_DARK_WHITE      7
+#define COLOR_BRIGHT_BLACK    8
+#define COLOR_BRIGHT_RED      9
+#define COLOR_BRIGHT_GREEN    10
+#define COLOR_BRIGHT_YELLOW   11
+#define COLOR_BRIGHT_BLUE     12
+#define COLOR_BRIGHT_MAGENTA  13
+#define COLOR_BRIGHT_CYAN     14
+#define COLOR_BRIGHT_WHITE    15
+
+#define COLOR_BLACK           COLOR_DARK_BLACK
+#define COLOR_RED             COLOR_DARK_RED
+#define COLOR_GREEN           COLOR_DARK_GREEN
+#define COLOR_YELLOW          COLOR_DARK_YELLOW
+#define COLOR_BLUE            COLOR_DARK_BLUE
+#define COLOR_MAGENTA         COLOR_DARK_MAGENTA
+#define COLOR_CYAN            COLOR_DARK_CYAN
+#define COLOR_WHITE           COLOR_DARK_WHITE
+
 #define RESET_STYLE "\033[0m"
 
 #define ERR_OK              0
@@ -582,11 +608,11 @@ String* set_colors_color(Color24 fg_color, Color24 bg_color) {
   return set_colors_rgb(fg_color.r, fg_color.g, fg_color.b, bg_color.r, bg_color.g, bg_color.b);
 }
 
-const char* reset_style() {
+const char* reset_style(void) {
   return RESET_STYLE;
 }
 
-void print_256_color_table() {
+void print_256_color_table(void) {
   for (int i = 0; i < 256; i++) {
     char buf[4] = { 0 };
     snprintf(buf, sizeof(buf), "%3d", i);
