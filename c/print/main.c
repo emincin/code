@@ -572,6 +572,10 @@ void print_func(PrintConfig* config, int count, ...) {
   va_end(args);
 }
 
+String* set_cursor_pos(int x, int y) {
+  return format("\033[{};{}H", y + 1, x + 1);
+}
+
 String* set_fg_idx(int idx) {
   return format("\033[38;5;{}m", idx);
 }
