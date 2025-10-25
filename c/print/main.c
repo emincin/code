@@ -486,12 +486,17 @@ int format_from_va_list(String* str, const char* fmt, int count, va_list* args_p
   for (size_t i = 0; i < fmtlen; i++) {
     bool match = false;
     if (fmt[i] == LEFT_BRACE) {
+      size_t next_i = i + 1;
+      if (next_i < fmtlen && fmt[next_i] == LEFT_BRACE) {
+        i = next_i;
+      } else {
       for (size_t j = i + 1; j < fmtlen; j++) {
         if (fmt[j] == RIGHT_BRACE) {
           i = j;
           match = true;
           break;
         }
+      }
       }
     }
     if (match) {
