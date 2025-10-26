@@ -292,6 +292,17 @@ typedef struct string_t {
 
 String* format_func(const char* fmt, int count, ...);
 void print_func(PrintConfig* config, int count, ...);
+String* set_cursor_pos(int x, int y);
+String* set_fg_idx(int idx);
+String* set_fg_rgb(int r, int g, int b);
+String* set_fg_color(Color24 color);
+String* set_bg_idx(int idx);
+String* set_bg_rgb(int r, int g, int b);
+String* set_bg_color(Color24 color);
+String* set_colors_idx(int fg_idx, int bg_idx);
+String* set_colors_rgb(int fg_r, int fg_g, int fg_b, int bg_r, int bg_g, int bg_b);
+String* set_colors_color(Color24 fg_color, Color24 bg_color);
+const char* reset_style(void);
 
 size_t calculate_capacity(size_t size) {
   size_t capacity = 0;
@@ -394,6 +405,14 @@ bool string_append_s(String* self, const char* s) {
   return string_append_sn(self, s, n);
 }
 
+size_t read_from_color24(String* str, Color24 color) {
+  String* temp = format("{}[R:{} G:{} B:{}]{}", set_fg_color(color), color.r, color.g, color.b, reset_style());
+  size_t len = temp->size;
+  string_append_sn(str, temp->data, len);
+  string_delete(temp);
+  return len;
+}
+
 size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
   switch (type) {
     case TYPE_NONE:
@@ -492,21 +511,13 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
     case TYPE_COLOR24:
     {
       Color24 arg = va_arg(*args_ptr, Color24);
-      String* temp = format("[R:{} G:{} B:{}]", arg.r, arg.g, arg.b);
-      size_t len = temp->size;
-      string_append_sn(str, temp->data, len);
-      string_delete(temp);
-      return len;
+      return read_from_color24(str, arg);
     }
     case TYPE_COLOR24_PTR:
     case TYPE_CONST_COLOR24_PTR:
     {
       Color24* arg = va_arg(*args_ptr, Color24*);
-      String* temp = format("[R:{} G:{} B:{}]", arg->r, arg->g, arg->b);
-      size_t len = temp->size;
-      string_append_sn(str, temp->data, len);
-      string_delete(temp);
-      return len;
+      return read_from_color24(str, *arg);
     }
   }
   return 0;
@@ -699,7 +710,9 @@ void test_2(void) {
 void test_3(void) {
   Color24 color = rgba(255, 0, 0, 1);
   print(color);
+  color = rgba(0, 255, 0, 1);
   print(&color);
+  color = rgba(144, 12, 12, 1);
   print(set_fg_color(color), "MURDER", reset_style(), set(sep = ""));
 }
 
