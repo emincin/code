@@ -643,12 +643,20 @@ void print_fmt_test(void) {
   print("{} is {}", "Emin", 42);
 }
 
+void print_color_test(void) {
+  print(set_colors_idx(COLOR_RED, COLOR_WHITE), "REDRUM", reset_style(), set(sep = ""));
+  print(set_fg_rgb(102, 255, 178), "Here is Johnny~", reset_style(), set(sep = ""));
+}
+
 void test(void) {
 #ifdef PRINT_ANY_TEST
   print_any_test();
 #endif
 #ifdef PRINT_FMT_TEST
   print_fmt_test();
+#endif
+#ifdef PRINT_COLOR_TEST
+  print_color_test();
 #endif
 }
 
