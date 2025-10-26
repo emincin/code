@@ -700,8 +700,11 @@ void test_1(void) {
 
 void test_2(void) {
   String* content = format("{{+} print in {}", "C23");
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 202311)
   print(const_of_ptr(content)); // C23 required
-  //print((const String*)content); // Alternative
+#else
+  print((const String*)content); // Alternative
+#endif
   FILE* file = fopen("test.txt", "wb");
   print(content, set(file = file));
   fclose(file);
