@@ -291,6 +291,7 @@ typedef struct string_t {
 } String;
 
 String* format_func(const char* fmt, int count, ...);
+void print_func(PrintConfig* config, int count, ...);
 
 size_t calculate_capacity(size_t size) {
   size_t capacity = 0;
@@ -688,7 +689,8 @@ void test_1(void) {
 
 void test_2(void) {
   String* content = format("{{+} print in {}", "C23");
-  print(const_of_ptr(content));
+  print(const_of_ptr(content)); // C23 required
+  //print((const String*)content); // Alternative
   FILE* file = fopen("test.txt", "wb");
   print(content, set(file = file));
   fclose(file);
