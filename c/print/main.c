@@ -696,6 +696,7 @@ void test_3(void) {
   Color24 color = rgb(255, 0, 0);
   print(color);
   print(&color);
+  print(set_fg_color(color), "MURDER", reset_style(), set(sep = ""));
 }
 
 void test(void) {
