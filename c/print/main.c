@@ -648,6 +648,13 @@ void print_color_test(void) {
   print(set_fg_rgb(102, 255, 178), "Here is Johnny~", reset_style(), set(sep = ""));
 }
 
+void test_1(void) {
+  print(1, 2, set(sep = "", end = ""));
+  print(3, 4, set(sep = "", end = ""));
+  print(set_cursor_pos(2, 1), set(end = ""));
+  print(set_fg_idx(COLOR_BRIGHT_GREEN), format("{}/{}", 70, 100), reset_style(), set(sep = ""));
+}
+
 void test(void) {
 #ifdef PRINT_ANY_TEST
   print_any_test();
@@ -657,6 +664,12 @@ void test(void) {
 #endif
 #ifdef PRINT_COLOR_TEST
   print_color_test();
+#endif
+#ifdef PRINT_256_COLOR_TABLE
+  print_256_color_table();
+#endif
+#ifdef TEST_1
+  test_1();
 #endif
 }
 
