@@ -218,6 +218,8 @@
 
 #define dot(x) .x
 
+#define const_of_ptr(x) ((const typeof(*(x))*)(x))
+
 #define as_print_config_ptr(x) _Generic((x), \
   PrintConfig*: (x), \
   default: NULL)
@@ -655,6 +657,14 @@ void test_1(void) {
   print(set_fg_idx(COLOR_BRIGHT_GREEN), format("{}/{}", 70, 100), reset_style(), set(sep = ""));
 }
 
+void test_2(void) {
+  String* content = format("print in {}", "C23");
+  print(const_of_ptr(content));
+  FILE* file = fopen("test.txt", "wb");
+  print(content, set(file = file));
+  fclose(file);
+}
+
 void test(void) {
 #ifdef PRINT_ANY_TEST
   print_any_test();
@@ -670,6 +680,9 @@ void test(void) {
 #endif
 #ifdef TEST_1
   test_1();
+#endif
+#ifdef TEST_2
+  test_2();
 #endif
 }
 
