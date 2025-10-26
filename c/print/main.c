@@ -242,6 +242,8 @@
 
 #define rgb(r, g, b) ((Color24){ r, g, b })
 
+#define rgba(r, g, b, a) rgb(r, g, b)
+
 #define set(...) (&(PrintConfig){ EXPAND(dot, __VA_ARGS__) })
 
 #define format(fmt, ...) \
@@ -693,7 +695,7 @@ void test_2(void) {
 }
 
 void test_3(void) {
-  Color24 color = rgb(255, 0, 0);
+  Color24 color = rgba(255, 0, 0, 1);
   print(color);
   print(&color);
   print(set_fg_color(color), "MURDER", reset_style(), set(sep = ""));
