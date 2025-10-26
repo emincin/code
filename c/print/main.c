@@ -71,6 +71,9 @@
 #define TYPE_CONST_ANY      18
 #define TYPE_STRING_PTR               19
 #define TYPE_CONST_STRING_PTR         20
+#define TYPE_COLOR24                  21
+#define TYPE_COLOR24_PTR              22
+#define TYPE_CONST_COLOR24_PTR        23
 
 #define EXPAND_1(func, var) func(var)
 #define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
@@ -191,6 +194,9 @@
   const void*:        TYPE_CONST_ANY, \
   String*:            TYPE_STRING_PTR, \
   const String*:      TYPE_CONST_STRING_PTR, \
+  Color24:            TYPE_COLOR24, \
+  Color24*:           TYPE_COLOR24_PTR, \
+  const Color24*:     TYPE_CONST_COLOR24_PTR, \
   default:            TYPE_NONE)
 
 #define format_of(x) _Generic((x), \
@@ -281,6 +287,8 @@ typedef struct string_t {
   size_t size;
   char* data;
 } String;
+
+String* format_func(const char* fmt, int count, ...);
 
 size_t calculate_capacity(size_t size) {
   size_t capacity = 0;
@@ -478,6 +486,25 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
       }
       return len;
     }
+    case TYPE_COLOR24:
+    {
+      Color24 arg = va_arg(*args_ptr, Color24);
+      String* temp = format("[R:{} G:{} B:{}]", arg.r, arg.g, arg.b);
+      size_t len = temp->size;
+      string_append_sn(str, temp->data, len);
+      string_delete(temp);
+      return len;
+    }
+    case TYPE_COLOR24_PTR:
+    case TYPE_CONST_COLOR24_PTR:
+    {
+      Color24* arg = va_arg(*args_ptr, Color24*);
+      String* temp = format("[R:{} G:{} B:{}]", arg->r, arg->g, arg->b);
+      size_t len = temp->size;
+      string_append_sn(str, temp->data, len);
+      string_delete(temp);
+      return len;
+    }
   }
   return 0;
 }
@@ -665,6 +692,12 @@ void test_2(void) {
   fclose(file);
 }
 
+void test_3(void) {
+  Color24 color = rgb(255, 0, 0);
+  print(color);
+  print(&color);
+}
+
 void test(void) {
 #ifdef PRINT_ANY_TEST
   print_any_test();
@@ -683,6 +716,9 @@ void test(void) {
 #endif
 #ifdef TEST_2
   test_2();
+#endif
+#ifdef TEST_3
+  test_3();
 #endif
 }
 
