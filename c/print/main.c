@@ -634,6 +634,18 @@ void print_256_color_table(void) {
   }
 }
 
+void print_any_test(void) {
+  print();
+  print("Hello", "Emin", 42, 3.141592);
+}
+
+void test(void) {
+#ifdef PRINT_ANY_TEST
+  print_any_test();
+#endif
+}
+
 int main(int argc, char** argv) {
+  test();
   return 0;
 }
