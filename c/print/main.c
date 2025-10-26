@@ -639,9 +639,16 @@ void print_any_test(void) {
   print("Hello", "Emin", 42, 3.141592);
 }
 
+void print_fmt_test(void) {
+  print("{} is {}", "Emin", 42);
+}
+
 void test(void) {
 #ifdef PRINT_ANY_TEST
   print_any_test();
+#endif
+#ifdef PRINT_FMT_TEST
+  print_fmt_test();
 #endif
 }
 
