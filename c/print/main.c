@@ -69,8 +69,8 @@
 #define TYPE_CONST_STRING   16
 #define TYPE_ANY            17
 #define TYPE_CONST_ANY      18
-#define TYPE_STRING_T       19
-#define TYPE_CONST_STRING_T 20
+#define TYPE_STRING_PTR               19
+#define TYPE_CONST_STRING_PTR         20
 
 #define EXPAND_1(func, var) func(var)
 #define EXPAND_2(func, var, ...) func(var), EXPAND_1(func, __VA_ARGS__)
@@ -189,8 +189,8 @@
   const char*:        TYPE_CONST_STRING, \
   void*:              TYPE_ANY, \
   const void*:        TYPE_CONST_ANY, \
-  String*:            TYPE_STRING_T, \
-  const String*:      TYPE_CONST_STRING_T, \
+  String*:            TYPE_STRING_PTR, \
+  const String*:      TYPE_CONST_STRING_PTR, \
   default:            TYPE_NONE)
 
 #define format_of(x) _Generic((x), \
@@ -464,8 +464,8 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
       read_from_value(str, arg, err);
       return sizeof(arg);
     }
-    case TYPE_STRING_T:
-    case TYPE_CONST_STRING_T:
+    case TYPE_STRING_PTR:
+    case TYPE_CONST_STRING_PTR:
     {
       String* arg = va_arg(*args_ptr, String*);
       size_t len = arg->size;
@@ -473,7 +473,7 @@ size_t read_from_va_list(String* str, int type, va_list* args_ptr) {
         return 1;
       }
       bool ok = string_append_sn(str, arg->data, len);
-      if (type == TYPE_STRING_T) {
+      if (type == TYPE_STRING_PTR) {
         string_delete(arg);
       }
       return len;
@@ -658,7 +658,7 @@ void test_1(void) {
 }
 
 void test_2(void) {
-  String* content = format("print in {}", "C23");
+  String* content = format("{{+} print in {}", "C23");
   print(const_of_ptr(content));
   FILE* file = fopen("test.txt", "wb");
   print(content, set(file = file));
