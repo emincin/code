@@ -13,3 +13,5 @@
 [winsize](https://www.bilibili.com/video/BV1L14bzbEPS)
 
 [is_array](https://www.bilibili.com/video/BV1WCWtzcE8P)
+
+[print](https://www.bilibili.com/video/BV1tWsDzKEYJ)
