@@ -17,6 +17,9 @@
 #define SELECT_15(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, ...) _15
 #define SELECT_16(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, ...) _16
 
+#define NO_ARG(...) SELECT_2(__VA_OPT__(,) 0, 1)
+#define HAS_ARG(...) SELECT_2(__VA_OPT__(,) 1, 0)
+
 int main(int argc, char** argv) {
   return 0;
 }
