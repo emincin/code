@@ -249,17 +249,15 @@
 #define format(fmt, ...) \
   format_func(fmt, ARGS_COUNT(__VA_ARGS__) __VA_OPT__(,) EXPAND(typeid_value_pair, __VA_ARGS__))
 
-#define print(...) do { \
-  __VA_OPT__( \
-    print_func( \
-      as_print_config_ptr(LAST(__VA_ARGS__)), \
-      COUNT_ARGS(__VA_ARGS__), \
-      EXPAND(typeid_value_pair, __VA_ARGS__) \
-    ); \
-    break; \
-  ) \
-  print_func(NULL, ARGS_COUNT(__VA_ARGS__)); \
-} while (0)
+#define SELECT_2(_1, _2, ...) _2
+
+#define print(...) SELECT_2(__VA_OPT__(,) \
+  print_func( \
+    as_print_config_ptr(LAST(__VA_ARGS__)), \
+    COUNT_ARGS(__VA_ARGS__), \
+    EXPAND(typeid_value_pair, __VA_ARGS__) \
+  ), \
+  print_func(NULL, ARGS_COUNT(__VA_ARGS__)))
 
 typedef int8_t i8;
 typedef int16_t i16;
