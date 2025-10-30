@@ -28,6 +28,9 @@
   4, 3, 2, 1 \
   ))
 
+#define static_assert_expr(expr, msg) \
+  (sizeof( struct { static_assert(expr, msg); char c; } ) > 0)
+
 int main(int argc, char** argv) {
   return 0;
 }
