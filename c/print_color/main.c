@@ -2,7 +2,7 @@
 
 #define RESET_STYLE "\033[0m"
 
-void reset_style() {
+void reset_style(void) {
   printf(RESET_STYLE);
 }
 
@@ -54,7 +54,7 @@ void print_colors_rgb(const char* s, int fg_r, int fg_g, int fg_b, int bg_r, int
   printf("\033[38;2;%d;%d;%d;48;2;%d;%d;%dm%s" RESET_STYLE, fg_r, fg_g, fg_b, bg_r, bg_g, bg_b, s);
 }
 
-void print_256_color_table() {
+void print_256_color_table(void) {
   for (int i = 0; i < 256; i++) {
     set_bg_idx(i);
     printf("%3d", i);
