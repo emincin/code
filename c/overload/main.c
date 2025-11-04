@@ -127,6 +127,8 @@ typedef struct {
   int y;
 } Point;
 
+#define make_point(x, y) ((Point){ x, y })
+
 Point add_point_point(Point a, Point b) {
   return (Point){ a.x + b.x, a.y + b.y };
 }
