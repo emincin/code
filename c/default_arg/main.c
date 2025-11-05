@@ -39,6 +39,19 @@ void print_info_func(const char* name, int age) {
   printf("[Name:\"%s\" Age:%d]\n", name, age);
 }
 
+#define print_abc(...) SELECT_4(__VA_OPT__(__VA_ARGS__,) \
+  print_abc_func(__VA_ARGS__), \
+  print_abc_func(__VA_ARGS__, 3), \
+  print_abc_func(__VA_ARGS__, 2, 3), \
+  print_abc_func(1, 2, 3))
+
+void print_abc_test(void) {
+  print_abc(1, 2, 3);
+  print_abc(1, 2);
+  print_abc(1);
+  print_abc();
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
