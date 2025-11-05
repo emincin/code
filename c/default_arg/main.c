@@ -31,6 +31,10 @@
 #define static_assert_expr(expr, msg) \
   (sizeof( struct { static_assert(expr, msg); char c; } ) > 0)
 
+void print_abc_func(int a, int b, int c) {
+  printf("%d %d %d\n", a, b, c);
+}
+
 void print_info_func(const char* name, int age) {
   printf("[Name:\"%s\" Age:%d]\n", name, age);
 }
