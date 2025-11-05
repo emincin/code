@@ -28,6 +28,8 @@
   4, 3, 2, 1 \
   ))
 
+#define ARGS_COUNT(...) (0 __VA_OPT__(+ COUNT_ARGS(__VA_ARGS__)))
+
 #define static_assert_expr(expr, msg) \
   (sizeof( struct { static_assert(expr, msg); char c; } ) > 0)
 
