@@ -45,11 +45,22 @@ void print_info_func(const char* name, int age) {
   print_abc_func(__VA_ARGS__, 2, 3), \
   print_abc_func(1, 2, 3))
 
+#define print_info(...) SELECT_3(__VA_OPT__(__VA_ARGS__,) \
+  print_info_func(__VA_ARGS__), \
+  print_info_func(__VA_ARGS__, 0), \
+  print_info_func("Unknown", 0))
+
 void print_abc_test(void) {
   print_abc(1, 2, 3);
   print_abc(1, 2);
   print_abc(1);
   print_abc();
+}
+
+void print_info_test(void) {
+  print_info("Emin", 42);
+  print_info("Emin");
+  print_info();
 }
 
 int main(int argc, char** argv) {
