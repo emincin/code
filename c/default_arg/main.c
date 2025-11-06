@@ -33,6 +33,13 @@
 #define static_assert_expr(expr, msg) \
   (sizeof( struct { static_assert(expr, msg); char c; } ) > 0)
 
+typedef struct {
+  int width;
+  int height;
+} Size;
+
+#define make_size(w, h) ((Size){ w, h })
+
 void print_abc_func(int a, int b, int c) {
   printf("%d %d %d\n", a, b, c);
 }
