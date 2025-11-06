@@ -48,6 +48,12 @@ typedef struct {
   make_size(__VA_ARGS__, 24), \
   make_size(80, 24))
 
+#define new_size_safe(...) (arg_limit(2, __VA_ARGS__), \
+  SELECT_3(__VA_OPT__(__VA_ARGS__,) \
+    make_size(__VA_ARGS__), \
+    make_size(__VA_ARGS__, 24), \
+    make_size(80, 24)))
+
 void print_size(Size size) {
   printf("[width: %d, height: %d]\n", size.width, size.height);
 }
@@ -110,6 +116,8 @@ void test_4(void) {
   print_size(new_size(80, 24));
   print_size(new_size(80));
   print_size(new_size());
+  //new_size(0, 0, 0); // [warning]
+  //new_size_safe(0, 0, 0); // compile-time error: Too many arguments!
 }
 
 void test(void) {
