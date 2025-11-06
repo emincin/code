@@ -65,6 +65,16 @@ void print_info_test(void) {
   print_info();
 }
 
+void test(void) {
+#ifdef TEST_1
+  print_abc_test();
+#endif
+#ifdef TEST_2
+  print_info_test();
+#endif
+}
+
 int main(int argc, char** argv) {
+  test();
   return 0;
 }
