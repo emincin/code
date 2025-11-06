@@ -33,12 +33,24 @@
 #define static_assert_expr(expr, msg) \
   (sizeof( struct { static_assert(expr, msg); char c; } ) > 0)
 
+#define arg_limit(max, ...) \
+  static_assert_expr(ARGS_COUNT(__VA_ARGS__) <= (max), "Too many arguments!")
+
 typedef struct {
   int width;
   int height;
 } Size;
 
 #define make_size(w, h) ((Size){ w, h })
+
+#define new_size(...) SELECT_3(__VA_OPT__(__VA_ARGS__,) \
+  make_size(__VA_ARGS__), \
+  make_size(__VA_ARGS__, 24), \
+  make_size(80, 24))
+
+void print_size(Size size) {
+  printf("[width: %d, height: %d]\n", size.width, size.height);
+}
 
 void print_abc_func(int a, int b, int c) {
   printf("%d %d %d\n", a, b, c);
@@ -58,9 +70,6 @@ void print_info_func(const char* name, int age) {
   print_info_func(__VA_ARGS__), \
   print_info_func(__VA_ARGS__, 0), \
   print_info_func("Unknown", 0))
-
-#define arg_limit(max, ...) \
-  static_assert_expr(ARGS_COUNT(__VA_ARGS__) <= (max), "Too many arguments!")
 
 #define print_abc_safe(...) (arg_limit(3, __VA_ARGS__), \
   SELECT_4(__VA_OPT__(__VA_ARGS__,) \
@@ -97,6 +106,12 @@ void test_3(void) {
   //print_info_safe("", 0, 0); // compile-time error: Too many arguments!
 }
 
+void test_4(void) {
+  print_size(new_size(80, 24));
+  print_size(new_size(80));
+  print_size(new_size());
+}
+
 void test(void) {
 #ifdef TEST_1
   print_abc_test();
@@ -106,6 +121,9 @@ void test(void) {
 #endif
 #ifdef TEST_3
   test_3();
+#endif
+#ifdef TEST_4
+  test_4();
 #endif
 }
 
