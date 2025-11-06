@@ -25,9 +25,19 @@ void is_same_test(void) {
   print_is_same(Player, int);
 }
 
+void const_test(void) {
+  print_is_same(int, const int);
+  print_is_same(const int, int);
+  print_is_same(char*, const char*);
+  print_is_same(const char*, char*);
+}
+
 void test(void) {
 #ifdef IS_SAME_TEST
   is_same_test();
+#endif
+#ifdef CONST_TEST
+  const_test();
 #endif
 }
 
