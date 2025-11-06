@@ -52,6 +52,22 @@ void print_info_func(const char* name, int age) {
   print_info_func(__VA_ARGS__, 0), \
   print_info_func("Unknown", 0))
 
+#define arg_limit(max, ...) \
+  static_assert_expr(ARGS_COUNT(__VA_ARGS__) <= (max), "Too many arguments!")
+
+#define print_abc_safe(...) (arg_limit(3, __VA_ARGS__), \
+  SELECT_4(__VA_OPT__(__VA_ARGS__,) \
+    print_abc_func(__VA_ARGS__), \
+    print_abc_func(__VA_ARGS__, 3), \
+    print_abc_func(__VA_ARGS__, 2, 3), \
+    print_abc_func(1, 2, 3)))
+
+#define print_info_safe(...) (arg_limit(2, __VA_ARGS__), \
+  SELECT_3(__VA_OPT__(__VA_ARGS__,) \
+    print_info_func(__VA_ARGS__), \
+    print_info_func(__VA_ARGS__, 0), \
+    print_info_func("Unknown", 0)))
+
 void print_abc_test(void) {
   print_abc(1, 2, 3);
   print_abc(1, 2);
@@ -65,12 +81,24 @@ void print_info_test(void) {
   print_info();
 }
 
+void test_3(void) {
+  print_abc_safe();
+  print_info_safe();
+  //print_abc(0, 0, 0, 0); // [warning]
+  //print_info("", 0, 0); // [warning]
+  //print_abc_safe(0, 0, 0, 0); // compile-time error: Too many arguments!
+  //print_info_safe("", 0, 0); // compile-time error: Too many arguments!
+}
+
 void test(void) {
 #ifdef TEST_1
   print_abc_test();
 #endif
 #ifdef TEST_2
   print_info_test();
+#endif
+#ifdef TEST_3
+  test_3();
 #endif
 }
 
