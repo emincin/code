@@ -1,5 +1,12 @@
 #include <stdio.h>
 
+#define is_same(T1, T2) _Generic(*(T1*)0, \
+  typeof_unqual(T2): 1, \
+  default: 0)
+
+#define print_is_same(T1, T2) \
+  printf("(%s) = (%s) : %d\n", #T1, #T2, is_same(T1, T2))
+
 typedef struct {
   int id;
   int x;
@@ -12,6 +19,10 @@ void convert_test(void) {
 }
 
 void is_same_test(void) {
+  print_is_same(int, int);
+  print_is_same(Player, Player);
+  print_is_same(int, Player);
+  print_is_same(Player, int);
 }
 
 void test(void) {
