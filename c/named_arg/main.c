@@ -63,6 +63,8 @@
 
 #define dot(x) .x
 
+#define make(type, ...) ((type){ EXPAND(dot, __VA_ARGS__) })
+
 int main(int argc, char** argv) {
   return 0;
 }
