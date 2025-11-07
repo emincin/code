@@ -4,6 +4,10 @@
   typeof_unqual(T2): 1, \
   default: 0)
 
+#define comptime_bool(expr) _Generic(&(char[1 + !!(expr)]){ 0 }, \
+  char (*)[2]: 1, \
+  char (*)[1]: 0)
+
 #define print_is_same(T1, T2) \
   printf("(%s) = (%s) : %d\n", #T1, #T2, is_same(T1, T2))
 
@@ -56,6 +60,9 @@ void test_4(void) {
   }
 }
 
+void test_5(void) {
+}
+
 void test(void) {
 #ifdef IS_SAME_TEST
   is_same_test();
@@ -68,6 +75,9 @@ void test(void) {
 #endif
 #ifdef TEST_4
   test_4();
+#endif
+#ifdef TEST_5
+  test_5();
 #endif
 }
 
