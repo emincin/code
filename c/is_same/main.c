@@ -8,6 +8,10 @@
   char (*)[2]: 1, \
   char (*)[1]: 0)
 
+#define if_constexpr(expr) if (comptime_bool(expr))
+
+#define elif_constexpr(expr) else if (comptime_bool(expr))
+
 #define print_is_same(T1, T2) \
   printf("(%s) = (%s) : %d\n", #T1, #T2, is_same(T1, T2))
 
@@ -61,6 +65,18 @@ void test_4(void) {
 }
 
 void test_5(void) {
+  int x = 42;
+  //if_constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
+  auto a = 0;
+  if_constexpr (is_same(typeof(a), int)) {
+    print_is(a, int);
+  } elif_constexpr (is_same(typeof(a), double)) {
+    print_is(a, double);
+  } elif_constexpr (is_same(typeof(a), char*)) {
+    print_is(a, char*);
+  } elif_constexpr (is_same(typeof(a), Player)) {
+    print_is(a, Player);
+  }
 }
 
 void test(void) {
