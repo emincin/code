@@ -8,6 +8,14 @@
 
 #define elif_constexpr(expr) else if (comptime_bool(expr))
 
+void if_vs_if_constexpr(void) {
+  int x = 42;
+  if (0) {} // OK
+  if (x) {} // OK
+  if_constexpr (0) {} // OK
+  //if_constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
+}
+
 int main(int argc, char** argv) {
   return 0;
 }
