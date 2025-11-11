@@ -53,7 +53,7 @@ void sfinae_test(void) {
 #elif SFINAE_TEST_3
   let a = make_size(80, 24);
 #else
-  let a = NULL;
+  void* a = NULL;
 #endif
   if_constexpr (is_same(typeof(a), int)) {
     int value = get_if_type(a, int);
