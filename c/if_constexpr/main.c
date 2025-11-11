@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 
 #define let auto
@@ -9,6 +10,10 @@
 #define if_constexpr(expr) if (comptime_bool(expr))
 
 #define elif_constexpr(expr) else if (comptime_bool(expr))
+
+#define get_if_type(expr, T) _Generic((expr), \
+  T: (expr), \
+  default: (T){ 0 })
 
 void if_vs_if_constexpr(void) {
   int x = 42;
