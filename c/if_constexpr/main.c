@@ -33,7 +33,44 @@ void if_vs_if_constexpr(void) {
   //if_constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
 }
 
+typedef struct {
+  int width;
+  int height;
+} Size;
+
+#define make_size(w, h) ((Size){ w, h })
+
+void print_size(Size size) {
+  printf("[width: %d, height: %d]\n", size.width, size.height);
+}
+
+void sfinae_test(void) {
+#if SFINAE_TEST_1
+  let a = 42;
+#elif SFINAE_TEST_2
+  int id = 100;
+  let a = &id;
+#elif SFINAE_TEST_3
+  let a = make_size(80, 24);
+#else
+  let a = NULL;
+#endif
+  if_constexpr (is_same(typeof(a), int)) {
+    int value = get_if_type(a, int);
+    printf("%d\n", value);
+  }
+  if_constexpr (is_same(typeof(a), int*)) {
+    int* value = get_if_type(a, int*);
+    printf("%d\n", *value);
+  }
+  if_constexpr (is_same(typeof(a), Size)) {
+    Size value = get_if_type(a, Size);
+    print_size(value);
+  }
+}
+
 void test(void) {
+  sfinae_test();
 }
 
 int main(int argc, char** argv) {
