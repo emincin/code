@@ -3,6 +3,8 @@
 
 #define let auto
 
+#define auto_var(name, expr) typeof(expr) name = (expr)
+
 #define comptime_bool(expr) _Generic(&(char[1 + !!(expr)]){ 0 }, \
   char (*)[2]: 1, \
   char (*)[1]: 0)
@@ -46,12 +48,12 @@ void print_size(Size size) {
 
 void sfinae_test(void) {
 #if defined(SFINAE_TEST_1)
-  let a = 42;
+  auto_var(a, 42);
 #elif defined(SFINAE_TEST_2)
   int id = 100;
-  let a = &id;
+  auto_var(a, &id);
 #elif defined(SFINAE_TEST_3)
-  let a = make_size(80, 24);
+  auto_var(a, make_size(80, 24));
 #else
   void* a = NULL;
 #endif
