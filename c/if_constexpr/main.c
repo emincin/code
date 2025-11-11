@@ -15,6 +15,16 @@
   T: (expr), \
   default: (T){ 0 })
 
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
+
+#define is_array(x) _Generic(&(x), \
+  typeof(*(x)) (*)[ARRAY_SIZE(x)]: 1, \
+  default: 0)
+
+#define is_same(T1, T2) _Generic(*(T1*)0, \
+  typeof_unqual(T2): 1, \
+  default: 0)
+
 void if_vs_if_constexpr(void) {
   int x = 42;
   if (0) {} // OK
