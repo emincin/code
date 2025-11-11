@@ -61,6 +61,7 @@ void sfinae_test(void) {
   }
   if_constexpr (is_same(typeof(a), int*)) {
     int* value = get_if_type(a, int*);
+    assert(value != NULL);
     printf("%d\n", *value);
   }
   if_constexpr (is_same(typeof(a), Size)) {
