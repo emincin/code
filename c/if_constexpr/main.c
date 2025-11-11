@@ -45,12 +45,12 @@ void print_size(Size size) {
 }
 
 void sfinae_test(void) {
-#if SFINAE_TEST_1
+#if defined(SFINAE_TEST_1)
   let a = 42;
-#elif SFINAE_TEST_2
+#elif defined(SFINAE_TEST_2)
   int id = 100;
   let a = &id;
-#elif SFINAE_TEST_3
+#elif defined(SFINAE_TEST_3)
   let a = make_size(80, 24);
 #else
   void* a = NULL;
