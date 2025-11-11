@@ -30,6 +30,14 @@
 
 #define is_integral(expr) (is_signed(expr) || is_unsigned(expr))
 
+#define is_floating_point(expr) _Generic((expr), \
+  float: 1, \
+  double: 1, \
+  long double: 1, \
+  default: 0)
+
+#define is_arithmetic(expr) (is_integral(expr) || is_floating_point(expr))
+
 void test(void) {
 }
 
