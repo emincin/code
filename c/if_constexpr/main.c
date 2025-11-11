@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define let auto
+
 #define comptime_bool(expr) _Generic(&(char[1 + !!(expr)]){ 0 }, \
   char (*)[2]: 1, \
   char (*)[1]: 0)
@@ -16,6 +18,10 @@ void if_vs_if_constexpr(void) {
   //if_constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
 }
 
+void test(void) {
+}
+
 int main(int argc, char** argv) {
+  test();
   return 0;
 }
