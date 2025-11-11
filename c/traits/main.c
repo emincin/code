@@ -11,11 +11,24 @@
 
 #define is_signed(expr) _Generic((expr), \
   char: is_signed_type(char), \
+  signed char: 1, \
+  short: 1, \
+  int: 1, \
+  long: 1, \
+  long long: 1, \
   default: 0)
 
 #define is_unsigned(expr) _Generic((expr), \
   char: is_unsigned_type(char), \
+  _Bool: 1, \
+  unsigned char: 1, \
+  unsigned short: 1, \
+  unsigned int: 1, \
+  unsigned long: 1, \
+  unsigned long long: 1, \
   default: 0)
+
+#define is_integral(expr) (is_signed(expr) || is_unsigned(expr))
 
 void test(void) {
 }
