@@ -9,6 +9,8 @@
   char (*)[2]: 1, \
   char (*)[1]: 0)
 
+#define constexpr(expr) (comptime_bool(expr))
+
 #define if_constexpr(expr) if (comptime_bool(expr))
 
 #define elif_constexpr(expr) else if (comptime_bool(expr))
