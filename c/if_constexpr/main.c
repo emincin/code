@@ -23,7 +23,7 @@
   typeof(*(x)) (*)[ARRAY_SIZE(x)]: 1, \
   default: 0)
 
-#define is_same(T1, T2) _Generic(*(T1*)0, \
+#define is_same(T1, T2) _Generic((T1){ 0 }, \
   typeof_unqual(T2): 1, \
   default: 0)
 
