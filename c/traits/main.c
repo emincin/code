@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+#define comptime_bool(expr) _Generic(&(char[1 + !!(expr)]){ 0 }, \
+  char (*)[2]: 1, \
+  char (*)[1]: 0)
+
+#define constexpr(expr) (comptime_bool(expr))
+
 #define is_c_str(expr) _Generic((expr), \
   char*: 1, \
   const char*: 1, \
