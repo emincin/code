@@ -10,6 +10,8 @@
   const char (*)[sizeof(expr)]: 1, \
   default: 0)
 
+#define is_char_pointer(expr) (is_c_str(expr) && !is_char_array(expr))
+
 #define is_signed_type(T) ((T)(-1) < 0)
 
 #define is_unsigned_type(T) ((T)(-1) > 0)
