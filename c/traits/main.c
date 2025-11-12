@@ -5,6 +5,11 @@
   const char*: 1, \
   default: 0)
 
+#define is_char_array(expr) _Generic((typeof(expr)*){ 0 }, \
+  char (*)[sizeof(expr)]: 1, \
+  const char (*)[sizeof(expr)]: 1, \
+  default: 0)
+
 #define is_signed_type(T) ((T)(-1) < 0)
 
 #define is_unsigned_type(T) ((T)(-1) > 0)
