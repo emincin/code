@@ -58,16 +58,16 @@
 
 #define is_arithmetic(expr) (is_integral(expr) || is_floating_point(expr))
 
-#define is_same(T1, T2) _Generic((typeof_unqual(T1)*){ 0 }, \
-  typeof_unqual(T2)*: 1, \
+#define is_same(X1, X2) _Generic((typeof_unqual(X1)*){ 0 }, \
+  typeof_unqual(X2)*: 1, \
   default: 0)
 
-#define is_same_strict(T1, T2) _Generic((typeof(T1)*){ 0 }, \
-  typeof(T2)*: 1, \
+#define is_same_strict(X1, X2) _Generic((typeof(X1)*){ 0 }, \
+  typeof(X2)*: 1, \
   default: 0)
 
-#define is_pointer_of(T, X) _Generic((typeof(X)*){ 0 }, \
-  typeof(T)**: 1, \
+#define is_pointer_of(type, X) _Generic((typeof(X)*){ 0 }, \
+  typeof(type)**: 1, \
   default: 0)
 
 void test(void) {
