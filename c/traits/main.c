@@ -63,6 +63,10 @@
   typeof(T2)*: 1, \
   default: 0)
 
+#define is_pointer_of(T, X) _Generic((typeof(X)*){ 0 }, \
+  typeof(T)**: 1, \
+  default: 0)
+
 void test(void) {
 }
 
