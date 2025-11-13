@@ -20,7 +20,10 @@
   const char (*)[sizeof(X)]: 1, \
   default: 0)
 
-#define is_char_pointer(expr) (is_c_str(expr) && !is_char_array(expr))
+#define is_char_pointer(X) _Generic((typeof(X)*){ 0 }, \
+  char**: 1, \
+  const char**: 1, \
+  default: 0)
 
 #define is_signed_type(T) ((T)(-1) < 0)
 
