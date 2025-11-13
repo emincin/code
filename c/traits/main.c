@@ -59,6 +59,10 @@
   typeof_unqual(T2)*: 1, \
   default: 0)
 
+#define is_same_strict(T1, T2) _Generic((typeof(T1)*){ 0 }, \
+  typeof(T2)*: 1, \
+  default: 0)
+
 void test(void) {
 }
 

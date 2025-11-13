@@ -4,6 +4,10 @@
   typeof_unqual(T2)*: 1, \
   default: 0)
 
+#define is_same_strict(T1, T2) _Generic((typeof(T1)*){ 0 }, \
+  typeof(T2)*: 1, \
+  default: 0)
+
 #define print_is_same(T1, T2) \
   printf("(%s) = (%s) : %d\n", #T1, #T2, is_same(T1, T2))
 
