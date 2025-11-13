@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#define is_same(T1, T2) _Generic((T1){ 0 }, \
-  typeof_unqual(T2): 1, \
+#define is_same(T1, T2) _Generic((typeof_unqual(T1)*){ 0 }, \
+  typeof_unqual(T2)*: 1, \
   default: 0)
 
 #define print_is_same(T1, T2) \
