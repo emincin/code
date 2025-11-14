@@ -68,6 +68,10 @@
   typeof(Y)*: 1, \
   default: 0)
 
+#define is_array_of(type, X) _Generic((typeof(X)*)0, \
+  type (*)[]: 1, \
+  default: 0)
+
 #define is_pointer_of(type, X) _Generic((typeof(X)*)0, \
   typeof(type)**: 1, \
   default: 0)
@@ -75,6 +79,10 @@
 #define _is_char_array(X) _Generic((typeof(X)*)0, \
   char (*)[sizeof(X)]: 1, \
   const char (*)[sizeof(X)]: 1, \
+  default: 0)
+
+#define _is_array_of(type, X) _Generic((typeof(X)*)0, \
+  type (*)[sizeof_array(type, X)]: 1, \
   default: 0)
 
 void test(void) {
