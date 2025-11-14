@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define sizeof_array(type, arr) (sizeof(arr) / sizeof(type))
+
 #define let auto
 
 #define auto_var(name, expr) typeof(expr) name = (expr)
