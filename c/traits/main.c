@@ -6,7 +6,7 @@
 
 #define auto_var(name, expr) typeof(expr) name = (expr)
 
-#define comptime_bool(expr) _Generic((char (*)[1 + !!(expr)]){ 0 }, \
+#define comptime_bool(expr) _Generic((char (*)[1 + !!(expr)])0, \
   char (*)[2]: 1, \
   char (*)[1]: 0)
 
@@ -17,12 +17,12 @@
   const char*: 1, \
   default: 0)
 
-#define is_char_array(X) _Generic((typeof(X)*){ 0 }, \
+#define is_char_array(X) _Generic((typeof(X)*)0, \
   char (*)[sizeof(X)]: 1, \
   const char (*)[sizeof(X)]: 1, \
   default: 0)
 
-#define is_char_pointer(X) _Generic((typeof(X)*){ 0 }, \
+#define is_char_pointer(X) _Generic((typeof(X)*)0, \
   char**: 1, \
   const char**: 1, \
   default: 0)
@@ -60,15 +60,15 @@
 
 #define is_arithmetic(expr) (is_integral(expr) || is_floating_point(expr))
 
-#define is_same(X, Y) _Generic((typeof_unqual(X)*){ 0 }, \
+#define is_same(X, Y) _Generic((typeof_unqual(X)*)0, \
   typeof_unqual(Y)*: 1, \
   default: 0)
 
-#define is_same_strict(X, Y) _Generic((typeof(X)*){ 0 }, \
+#define is_same_strict(X, Y) _Generic((typeof(X)*)0, \
   typeof(Y)*: 1, \
   default: 0)
 
-#define is_pointer_of(type, X) _Generic((typeof(X)*){ 0 }, \
+#define is_pointer_of(type, X) _Generic((typeof(X)*)0, \
   typeof(type)**: 1, \
   default: 0)
 
