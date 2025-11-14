@@ -4,7 +4,7 @@
 
 #define auto_var(name, expr) typeof(expr) name = (expr)
 
-#define comptime_bool(expr) _Generic(&(char[1 + !!(expr)]){ 0 }, \
+#define comptime_bool(expr) _Generic((char (*)[1 + !!(expr)]){ 0 }, \
   char (*)[2]: 1, \
   char (*)[1]: 0)
 
