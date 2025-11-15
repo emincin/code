@@ -4,3 +4,4 @@ a.out
 *.o
 *.s
 test.txt
+main
