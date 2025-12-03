@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define let auto
+
 #define is_same(T1, T2) _Generic((typeof_unqual(T1)*){ 0 }, \
   typeof_unqual(T2)*: 1, \
   default: 0)
@@ -8,8 +10,8 @@
   typeof(T2)*: 1, \
   default: 0)
 
-#define print_is_same(T1, T2) \
-  printf("(%s) = (%s) : %d\n", #T1, #T2, is_same(T1, T2))
+#define print_is_same(a, b) \
+  printf("%s %s %s\n", #a, is_same(a, b) ? "=" : "!", #b)
 
 #define print_is(a, b) printf("%s is %s\n", #a, #b)
 
@@ -43,7 +45,7 @@ void test_3(void) {
 }
 
 void test_4(void) {
-  auto a = 0;
+  let a = 0;
   if (is_same(typeof(a), int)) {
     print_is(a, int);
   } else if (is_same(typeof(a), double)) {
