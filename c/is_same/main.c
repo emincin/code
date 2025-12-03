@@ -21,11 +21,6 @@ typedef struct {
 
 #define make_player(id, x, y) ((Player){ id, x, y })
 
-void convert_test(void) {
-  //Player a = (Player)0; // compile-time error: arithmetic or pointer type is required
-  Player* b = (Player*)0; // OK
-}
-
 void is_same_test(void) {
   print_is_same(int, int);
   print_is_same(Player, Player);
