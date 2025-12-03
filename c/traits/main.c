@@ -85,7 +85,13 @@
   const char (*)[sizeof(X)]: 1, \
   default: 0)
 
+void test_1(void) {
+}
+
 void test(void) {
+#ifdef TEST_1
+  test_1();
+#endif
 }
 
 int main(int argc, char** argv) {
