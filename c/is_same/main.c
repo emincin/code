@@ -18,6 +18,9 @@
 
 #define print_is(a, b) printf("%s is %s\n", #a, #b)
 
+struct A;
+struct B;
+
 typedef struct {
   int id;
   int x;
@@ -48,6 +51,13 @@ void test_3(void) {
 }
 
 void test_4(void) {
+  print_is_same(&test_4, void (*)(void));
+  print_is_same(test_4(), void);
+  print_is_same(((Player*)0)->id, float);
+  print_is_same(struct A, struct B);
+}
+
+void test_5(void) {
   let a = 0;
   if (is_same(a, int)) {
     print_is(a, int);
@@ -72,6 +82,9 @@ void test(void) {
 #endif
 #ifdef TEST_4
   test_4();
+#endif
+#ifdef TEST_5
+  test_5();
 #endif
 }
 
