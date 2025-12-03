@@ -21,14 +21,14 @@ typedef struct {
 
 #define make_player(id, x, y) ((Player){ id, x, y })
 
-void is_same_test(void) {
+void test_1(void) {
   print_is_same(int, int);
   print_is_same(Player, Player);
   print_is_same(int, Player);
   print_is_same(Player, int);
 }
 
-void const_test(void) {
+void test_2(void) {
   print_is_same(int, const int);
   print_is_same(const int, int);
   print_is_same(char*, const char*);
@@ -56,11 +56,11 @@ void test_4(void) {
 }
 
 void test(void) {
-#ifdef IS_SAME_TEST
-  is_same_test();
+#ifdef TEST_1
+  test_1();
 #endif
-#ifdef CONST_TEST
-  const_test();
+#ifdef TEST_2
+  test_2();
 #endif
 #ifdef TEST_3
   test_3();
