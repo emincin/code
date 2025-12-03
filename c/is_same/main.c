@@ -35,9 +35,9 @@ void test_1(void) {
 
 void test_2(void) {
   print_is_same(int, const int);
+  print_is_same_strict(int, const int);
   print_is_same(const int, int);
-  print_is_same(char*, const char*);
-  print_is_same(const char*, char*);
+  print_is_same_strict(const int, int);
 }
 
 void test_3(void) {
