@@ -13,6 +13,9 @@
 #define print_is_same(a, b) \
   printf("%s %s %s\n", #a, is_same(a, b) ? "=" : "!", #b)
 
+#define print_is_same_strict(a, b) \
+  printf("%s %s %s\n", #a, is_same_strict(a, b) ? "=" : "!", #b)
+
 #define print_is(a, b) printf("%s is %s\n", #a, #b)
 
 typedef struct {
