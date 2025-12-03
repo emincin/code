@@ -2,12 +2,12 @@
 
 #define let auto
 
-#define is_same(T1, T2) _Generic((typeof_unqual(T1)*){ 0 }, \
-  typeof_unqual(T2)*: 1, \
+#define is_same(X, Y) _Generic((typeof_unqual(X)*)0, \
+  typeof_unqual(Y)*: 1, \
   default: 0)
 
-#define is_same_strict(T1, T2) _Generic((typeof(T1)*){ 0 }, \
-  typeof(T2)*: 1, \
+#define is_same_strict(X, Y) _Generic((typeof(X)*)0, \
+  typeof(Y)*: 1, \
   default: 0)
 
 #define print_is_same(a, b) \
@@ -46,13 +46,13 @@ void test_3(void) {
 
 void test_4(void) {
   let a = 0;
-  if (is_same(typeof(a), int)) {
+  if (is_same(a, int)) {
     print_is(a, int);
-  } else if (is_same(typeof(a), double)) {
+  } else if (is_same(a, double)) {
     print_is(a, double);
-  } else if (is_same(typeof(a), char*)) {
+  } else if (is_same(a, char*)) {
     print_is(a, char*);
-  } else if (is_same(typeof(a), Player)) {
+  } else if (is_same(a, Player)) {
     print_is(a, Player);
   }
 }
