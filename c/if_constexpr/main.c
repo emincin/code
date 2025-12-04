@@ -25,12 +25,12 @@
   typeof(*(x)) (*)[ARRAY_SIZE(x)]: 1, \
   default: 0)
 
-#define is_same(T1, T2) _Generic((typeof_unqual(T1)*){ 0 }, \
-  typeof_unqual(T2)*: 1, \
+#define is_same(X, Y) _Generic((typeof_unqual(X)*)0, \
+  typeof_unqual(Y)*: 1, \
   default: 0)
 
-#define is_same_strict(T1, T2) _Generic((typeof(T1)*){ 0 }, \
-  typeof(T2)*: 1, \
+#define is_same_strict(X, Y) _Generic((typeof(X)*)0, \
+  typeof(Y)*: 1, \
   default: 0)
 
 void if_vs_if_constexpr(void) {
