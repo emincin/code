@@ -3,27 +3,15 @@
 
 #define let auto
 
-#define auto_var(name, expr) typeof(expr) name = (expr)
-
 #define comptime_bool(expr) _Generic(&(char[1 + !!(expr)]){ 0 }, \
   char (*)[2]: 1, \
   char (*)[1]: 0)
 
 #define constexpr(expr) (comptime_bool(expr))
 
-#define if_constexpr(expr) if (comptime_bool(expr))
-
-#define elif_constexpr(expr) else if (comptime_bool(expr))
-
 #define get_if_type(expr, T) _Generic((expr), \
   T: (expr), \
   default: (T){ 0 })
-
-#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
-
-#define is_array(x) _Generic(&(x), \
-  typeof(*(x)) (*)[ARRAY_SIZE(x)]: 1, \
-  default: 0)
 
 #define is_same(X, Y) _Generic((typeof_unqual(X)*)0, \
   typeof_unqual(Y)*: 1, \
@@ -35,10 +23,8 @@
 
 void if_vs_if_constexpr(void) {
   int x = 42;
-  if (0) {} // OK
   if (x) {} // OK
-  if_constexpr (0) {} // OK
-  //if_constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
+  //if constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
 }
 
 typedef struct {
@@ -48,38 +34,27 @@ typedef struct {
 
 #define make_size(w, h) ((Size){ w, h })
 
-void print_size(Size size) {
-  printf("[width: %d, height: %d]\n", size.width, size.height);
-}
-
-void sfinae_test(void) {
-#if defined(SFINAE_TEST_1)
-  auto_var(a, 42);
-#elif defined(SFINAE_TEST_2)
-  int id = 100;
-  auto_var(a, &id);
-#elif defined(SFINAE_TEST_3)
-  auto_var(a, make_size(80, 24));
-#else
-  void* a = NULL;
-#endif
-  if_constexpr (is_same(typeof(a), int)) {
+void test_1(void) {
+  let a = 42;
+  if constexpr (is_same(a, int)) {
     int value = get_if_type(a, int);
-    printf("%d\n", value);
+    printf("1: %d\n", value);
   }
-  if_constexpr (is_same(typeof(a), int*)) {
+  if constexpr (is_same(a, int*)) {
     int* value = get_if_type(a, int*);
     assert(value != NULL);
-    printf("%d\n", *value);
+    printf("2: %d\n", *value);
   }
-  if_constexpr (is_same(typeof(a), Size)) {
+  if constexpr (is_same(a, Size)) {
     Size value = get_if_type(a, Size);
-    print_size(value);
+    printf("3: [width: %d, height: %d]\n", value.width, value.height);
   }
 }
 
 void test(void) {
-  sfinae_test();
+#ifdef TEST_1
+  test_1();
+#endif
 }
 
 int main(int argc, char** argv) {
