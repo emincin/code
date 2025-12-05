@@ -51,9 +51,15 @@ void test_1(void) {
   }
 }
 
+void test_2(void) {
+}
+
 void test(void) {
 #ifdef TEST_1
   test_1();
+#endif
+#ifdef TEST_2
+  test_2();
 #endif
 }
 
