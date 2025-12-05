@@ -21,18 +21,18 @@
   typeof(Y)*: 1, \
   default: 0)
 
-void if_vs_if_constexpr(void) {
-  int x = 42;
-  if (x) {} // OK
-  //if constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
-}
-
 typedef struct {
   int width;
   int height;
 } Size;
 
 #define make_size(w, h) ((Size){ w, h })
+
+void if_vs_if_constexpr(void) {
+  int x = 42;
+  if (x) {} // OK
+  //if constexpr (x) {} // compile-time error: compound literal cannot be of variable-length array type
+}
 
 void test_1(void) {
   let a = 42;
