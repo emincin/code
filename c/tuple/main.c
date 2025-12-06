@@ -44,6 +44,8 @@
 
 #define REVERSE(...) __VA_OPT__(CONCAT(REVERSE_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
+#define tuple_t(...) struct { DEF(REVERSE(__VA_ARGS__)) }
+
 #define make_tuple(...) { ARGS_COUNT(__VA_ARGS__) __VA_OPT__(, __VA_ARGS__) }
 
 struct { int x; int y; } make_xy(int x, int y) {
