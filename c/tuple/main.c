@@ -39,6 +39,34 @@
 #define REVERSE_2(x, ...) REVERSE_1(__VA_ARGS__), x
 #define REVERSE_3(x, ...) REVERSE_2(__VA_ARGS__), x
 #define REVERSE_4(x, ...) REVERSE_3(__VA_ARGS__), x
+#define REVERSE_5(x, ...) REVERSE_4(__VA_ARGS__), x
+#define REVERSE_6(x, ...) REVERSE_5(__VA_ARGS__), x
+#define REVERSE_7(x, ...) REVERSE_6(__VA_ARGS__), x
+#define REVERSE_8(x, ...) REVERSE_7(__VA_ARGS__), x
+#define REVERSE_9(x, ...) REVERSE_8(__VA_ARGS__), x
+#define REVERSE_10(x, ...) REVERSE_9(__VA_ARGS__), x
+#define REVERSE_11(x, ...) REVERSE_10(__VA_ARGS__), x
+#define REVERSE_12(x, ...) REVERSE_11(__VA_ARGS__), x
+#define REVERSE_13(x, ...) REVERSE_12(__VA_ARGS__), x
+#define REVERSE_14(x, ...) REVERSE_13(__VA_ARGS__), x
+#define REVERSE_15(x, ...) REVERSE_14(__VA_ARGS__), x
+#define REVERSE_16(x, ...) REVERSE_15(__VA_ARGS__), x
+#define REVERSE_17(x, ...) REVERSE_16(__VA_ARGS__), x
+#define REVERSE_18(x, ...) REVERSE_17(__VA_ARGS__), x
+#define REVERSE_19(x, ...) REVERSE_18(__VA_ARGS__), x
+#define REVERSE_20(x, ...) REVERSE_19(__VA_ARGS__), x
+#define REVERSE_21(x, ...) REVERSE_20(__VA_ARGS__), x
+#define REVERSE_22(x, ...) REVERSE_21(__VA_ARGS__), x
+#define REVERSE_23(x, ...) REVERSE_22(__VA_ARGS__), x
+#define REVERSE_24(x, ...) REVERSE_23(__VA_ARGS__), x
+#define REVERSE_25(x, ...) REVERSE_24(__VA_ARGS__), x
+#define REVERSE_26(x, ...) REVERSE_25(__VA_ARGS__), x
+#define REVERSE_27(x, ...) REVERSE_26(__VA_ARGS__), x
+#define REVERSE_28(x, ...) REVERSE_27(__VA_ARGS__), x
+#define REVERSE_29(x, ...) REVERSE_28(__VA_ARGS__), x
+#define REVERSE_30(x, ...) REVERSE_29(__VA_ARGS__), x
+#define REVERSE_31(x, ...) REVERSE_30(__VA_ARGS__), x
+#define REVERSE_32(x, ...) REVERSE_31(__VA_ARGS__), x
 
 #define SELECT( \
   _1, _2, _3, _4, \
