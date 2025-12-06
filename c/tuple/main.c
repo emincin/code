@@ -2,6 +2,11 @@
 
 #define let auto
 
+#define DEF_1(var) typeof(var) item1;
+#define DEF_2(var, ...) DEF_1(__VA_ARGS__) typeof(var) item2;
+#define DEF_3(var, ...) DEF_2(__VA_ARGS__) typeof(var) item3;
+#define DEF_4(var, ...) DEF_3(__VA_ARGS__) typeof(var) item4;
+
 #define SELECT( \
   _1, _2, _3, _4, \
   _5, _6, _7, _8, \
@@ -29,6 +34,8 @@
 #define CONCAT_IMPL(a, b) a##b
 
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
+
+#define DEF(...) __VA_OPT__(CONCAT(DEF_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
 #define make_tuple(...) { ARGS_COUNT(__VA_ARGS__) __VA_OPT__(, __VA_ARGS__) }
 
