@@ -52,7 +52,9 @@
 
 #define make_tuple2(...) { ARGS_COUNT(__VA_ARGS__) __VA_OPT__(, __VA_ARGS__) }
 
-#define tuple(...) ((tuple_t2(__VA_ARGS__)) make_tuple2(__VA_ARGS__))
+#define tuple(...) ((tuple_t(__VA_ARGS__)) make_tuple(__VA_ARGS__))
+
+#define tuple2(...) ((tuple_t2(__VA_ARGS__)) make_tuple2(__VA_ARGS__))
 
 struct { int x; int y; } make_xy(int x, int y) {
   return (typeof(make_xy(0, 0))){ x, y };
