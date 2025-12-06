@@ -6,6 +6,34 @@
 #define DEF_2(var, ...) DEF_1(__VA_ARGS__) typeof(var) item2;
 #define DEF_3(var, ...) DEF_2(__VA_ARGS__) typeof(var) item3;
 #define DEF_4(var, ...) DEF_3(__VA_ARGS__) typeof(var) item4;
+#define DEF_5(var, ...) DEF_4(__VA_ARGS__) typeof(var) item5;
+#define DEF_6(var, ...) DEF_5(__VA_ARGS__) typeof(var) item6;
+#define DEF_7(var, ...) DEF_6(__VA_ARGS__) typeof(var) item7;
+#define DEF_8(var, ...) DEF_7(__VA_ARGS__) typeof(var) item8;
+#define DEF_9(var, ...) DEF_8(__VA_ARGS__) typeof(var) item9;
+#define DEF_10(var, ...) DEF_9(__VA_ARGS__) typeof(var) item10;
+#define DEF_11(var, ...) DEF_10(__VA_ARGS__) typeof(var) item11;
+#define DEF_12(var, ...) DEF_11(__VA_ARGS__) typeof(var) item12;
+#define DEF_13(var, ...) DEF_12(__VA_ARGS__) typeof(var) item13;
+#define DEF_14(var, ...) DEF_13(__VA_ARGS__) typeof(var) item14;
+#define DEF_15(var, ...) DEF_14(__VA_ARGS__) typeof(var) item15;
+#define DEF_16(var, ...) DEF_15(__VA_ARGS__) typeof(var) item16;
+#define DEF_17(var, ...) DEF_16(__VA_ARGS__) typeof(var) item17;
+#define DEF_18(var, ...) DEF_17(__VA_ARGS__) typeof(var) item18;
+#define DEF_19(var, ...) DEF_18(__VA_ARGS__) typeof(var) item19;
+#define DEF_20(var, ...) DEF_19(__VA_ARGS__) typeof(var) item20;
+#define DEF_21(var, ...) DEF_20(__VA_ARGS__) typeof(var) item21;
+#define DEF_22(var, ...) DEF_21(__VA_ARGS__) typeof(var) item22;
+#define DEF_23(var, ...) DEF_22(__VA_ARGS__) typeof(var) item23;
+#define DEF_24(var, ...) DEF_23(__VA_ARGS__) typeof(var) item24;
+#define DEF_25(var, ...) DEF_24(__VA_ARGS__) typeof(var) item25;
+#define DEF_26(var, ...) DEF_25(__VA_ARGS__) typeof(var) item26;
+#define DEF_27(var, ...) DEF_26(__VA_ARGS__) typeof(var) item27;
+#define DEF_28(var, ...) DEF_27(__VA_ARGS__) typeof(var) item28;
+#define DEF_29(var, ...) DEF_28(__VA_ARGS__) typeof(var) item29;
+#define DEF_30(var, ...) DEF_29(__VA_ARGS__) typeof(var) item30;
+#define DEF_31(var, ...) DEF_30(__VA_ARGS__) typeof(var) item31;
+#define DEF_32(var, ...) DEF_31(__VA_ARGS__) typeof(var) item32;
 
 #define REVERSE_1(x) x
 #define REVERSE_2(x, ...) REVERSE_1(__VA_ARGS__), x
