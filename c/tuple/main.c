@@ -7,6 +7,11 @@
 #define DEF_3(var, ...) DEF_2(__VA_ARGS__) typeof(var) item3;
 #define DEF_4(var, ...) DEF_3(__VA_ARGS__) typeof(var) item4;
 
+#define REVERSE_1(x) x
+#define REVERSE_2(x, ...) REVERSE_1(__VA_ARGS__), x
+#define REVERSE_3(x, ...) REVERSE_2(__VA_ARGS__), x
+#define REVERSE_4(x, ...) REVERSE_3(__VA_ARGS__), x
+
 #define SELECT( \
   _1, _2, _3, _4, \
   _5, _6, _7, _8, \
@@ -36,6 +41,8 @@
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
 
 #define DEF(...) __VA_OPT__(CONCAT(DEF_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
+
+#define REVERSE(...) __VA_OPT__(CONCAT(REVERSE_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
 #define make_tuple(...) { ARGS_COUNT(__VA_ARGS__) __VA_OPT__(, __VA_ARGS__) }
 
