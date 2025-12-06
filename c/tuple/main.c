@@ -30,6 +30,8 @@
 
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
 
+#define make_tuple(...) { ARGS_COUNT(__VA_ARGS__) __VA_OPT__(, __VA_ARGS__) }
+
 struct { int x; int y; } make_xy(int x, int y) {
   return (typeof(make_xy(0, 0))){ x, y };
 }
