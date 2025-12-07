@@ -128,12 +128,26 @@ void test_2(void) {
   printf("%s %s\n", name.item1, name.item2);
 }
 
+typedef tuple_t(char*, int, int, int) version_t;
+
+version_t get_version(void) {
+  return (version_t) { "1.0.0", 1, 0, 0 };
+}
+
+void test_3(void) {
+  version_t v = get_version();
+  printf("%s [major: %d, minor: %d, patch: %d]\n", v.item1, v.item2, v.item3, v.item4);
+}
+
 void test(void) {
 #ifdef TEST_1
   test_1();
 #endif
 #ifdef TEST_2
   test_2();
+#endif
+#ifdef TEST_3
+  test_3();
 #endif
 }
 
