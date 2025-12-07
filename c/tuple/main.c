@@ -122,6 +122,10 @@ void test_1(void) {
 }
 
 void test_2(void) {
+  tuple_t(int, char*) kv = make_tuple(42, "hello");
+  printf("%d %s\n", kv.item1, kv.item2);
+  let name = tuple("Emin", "Cin");
+  printf("%s %s\n", name.item1, name.item2);
 }
 
 void test(void) {
