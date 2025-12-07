@@ -102,7 +102,7 @@
 
 #define tuple_t(...) struct { DEF(REVERSE(__VA_ARGS__)) }
 
-#define tuple_t2(...) struct { int count; DEF(REVERSE(__VA_ARGS__)) }
+#define tuple_t2(...) struct { size_t count; DEF(REVERSE(__VA_ARGS__)) }
 
 #define make_tuple(...) { __VA_ARGS__ }
 
@@ -126,6 +126,9 @@ void test_2(void) {
   printf("%d %s\n", kv.item1, kv.item2);
   let name = tuple("Emin", "Cin");
   printf("%s %s\n", name.item1, name.item2);
+  let keywords = tuple2("if", "while", "for", "let", "const", "fn");
+  for (size_t i = 0; i < keywords.count; i++) {
+  }
 }
 
 typedef tuple_t(char*, int, int, int) version_t;
