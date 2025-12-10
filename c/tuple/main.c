@@ -124,10 +124,13 @@ void test_1(void) {
 #define STR(s) (char*)#s
 
 void test_2(void) {
+  // make_tuple:
   tuple_t(int, char*) kv = make_tuple(42, "hello");
   printf("%d %s\n", kv.item1, kv.item2);
+  // tuple:
   let name = tuple("Emin", "Cin");
   printf("%s %s\n", name.item1, name.item2);
+  // tuple2:
   let keywords = tuple2(STR(if), STR(while), STR(for), STR(let), STR(const), STR(fn));
   char** address = (char**)&keywords.item1;
   printf("count: %zu\n", keywords.count);
