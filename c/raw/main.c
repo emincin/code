@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include <stdio.h>
 
-int main(int argc, char** argv) {
+void show_termios_info(void) {
   struct termios term = { 0 };
   printf("Size of termios: %zu bytes\n", sizeof(struct termios));
   printf("Align of termios: %zu bytes\n", _Alignof(struct termios));
@@ -20,5 +20,8 @@ int main(int argc, char** argv) {
   printf("Offset of c_cc:     %zu\n", offsetof(struct termios, c_cc));
   printf("Offset of c_ispeed: %zu\n", offsetof(struct termios, c_ispeed));
   printf("Offset of c_ospeed: %zu\n", offsetof(struct termios, c_ospeed));
+}
+
+int main(int argc, char** argv) {
   return 0;
 }
