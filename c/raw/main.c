@@ -22,6 +22,10 @@ void show_termios_info(void) {
   printf("Offset of c_ospeed: %zu\n", offsetof(struct termios, c_ospeed));
 }
 
+void test(void) {
+}
+
 int main(int argc, char** argv) {
+  test();
   return 0;
 }
