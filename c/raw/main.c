@@ -84,7 +84,17 @@ bool disable_raw_mode(void) {
   return false;
 }
 
+void test_1(void) {
+  bool ok = enable_raw_mode();
+  printf("raw mode: %d\n", ok);
+  while (true) {
+  }
+}
+
 void test(void) {
+#ifdef TEST_1
+  test_1();
+#endif
 }
 
 int main(int argc, char** argv) {
