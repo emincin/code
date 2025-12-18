@@ -102,13 +102,15 @@
 
 #define STR(x) STR_IMPL(x)
 
+#define DEFINE_FUNC(x) typeof(x)
+
 #define DEFINE(func, ...) __VA_OPT__(CONCAT(DEFINE_, COUNT_ARGS(__VA_ARGS__))(func, __VA_ARGS__))
 
 #define REVERSE(...) __VA_OPT__(CONCAT(REVERSE_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
-#define tuple_t(...) struct { DEFINE(typeof, REVERSE(__VA_ARGS__)) }
+#define tuple_t(...) struct { DEFINE(DEFINE_FUNC, REVERSE(__VA_ARGS__)) }
 
-#define tuple_t2(...) struct { size_t count; DEFINE(typeof, REVERSE(__VA_ARGS__)) }
+#define tuple_t2(...) struct { size_t count; DEFINE(DEFINE_FUNC, REVERSE(__VA_ARGS__)) }
 
 #define make_tuple(...) { __VA_ARGS__ }
 
