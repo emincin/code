@@ -1,8 +1,16 @@
+#if __has_include(<termios.h>)
 #include <termios.h>
+#endif
+
+#if __has_include(<windows.h>)
+#include <windows.h>
+#endif
+
 #include <stddef.h>
 #include <stdio.h>
 
 void show_termios_info(void) {
+#if __has_include(<termios.h>)
   struct termios term = { 0 };
   printf("Size of termios: %zu bytes\n", sizeof(struct termios));
   printf("Align of termios: %zu bytes\n", _Alignof(struct termios));
@@ -20,6 +28,7 @@ void show_termios_info(void) {
   printf("Offset of c_cc:     %zu\n", offsetof(struct termios, c_cc));
   printf("Offset of c_ispeed: %zu\n", offsetof(struct termios, c_ispeed));
   printf("Offset of c_ospeed: %zu\n", offsetof(struct termios, c_ospeed));
+#endif
 }
 
 void test(void) {
