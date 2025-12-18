@@ -96,6 +96,10 @@
 
 #define CONCAT(a, b) CONCAT_IMPL(a, b)
 
+#define STR_IMPL(x) (char*)#x
+
+#define STR(x) STR_IMPL(x)
+
 #define DEF(...) __VA_OPT__(CONCAT(DEF_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
 #define REVERSE(...) __VA_OPT__(CONCAT(REVERSE_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
@@ -120,8 +124,6 @@ void test_1(void) {
   let pos = make_xy(2, 1);
   printf("[x: %d, y: %d]\n", pos.x, pos.y);
 }
-
-#define STR(s) (char*)#s
 
 void test_2(void) {
   // make_tuple:
