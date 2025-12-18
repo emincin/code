@@ -34,16 +34,14 @@ void show_termios_info(void) {
 
 bool enable_raw_mode(void) {
 #if __has_include(<termios.h>)
-#endif
-#if __has_include(<windows.h>)
+#elif __has_include(<windows.h>)
 #endif
   return true;
 }
 
 bool disable_raw_mode(void) {
 #if __has_include(<termios.h>)
-#endif
-#if __has_include(<windows.h>)
+#elif __has_include(<windows.h>)
 #endif
   return true;
 }
