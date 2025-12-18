@@ -104,6 +104,8 @@
 
 #define REVERSE(...) __VA_OPT__(CONCAT(REVERSE_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
+#define type_of(T) typeof(*(T*)0)
+
 #define tuple_t(...) struct { DEF(REVERSE(__VA_ARGS__)) }
 
 #define tuple_t2(...) struct { size_t count; DEF(REVERSE(__VA_ARGS__)) }
