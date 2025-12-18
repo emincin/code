@@ -6,6 +6,7 @@
 #include <windows.h>
 #endif
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 
@@ -29,6 +30,22 @@ void show_termios_info(void) {
   printf("Offset of c_ispeed: %zu\n", offsetof(struct termios, c_ispeed));
   printf("Offset of c_ospeed: %zu\n", offsetof(struct termios, c_ospeed));
 #endif
+}
+
+bool enable_raw_mode(void) {
+#if __has_include(<termios.h>)
+#endif
+#if __has_include(<windows.h>)
+#endif
+  return true;
+}
+
+bool disable_raw_mode(void) {
+#if __has_include(<termios.h>)
+#endif
+#if __has_include(<windows.h>)
+#endif
+  return true;
 }
 
 void test(void) {
