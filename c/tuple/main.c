@@ -2,6 +2,8 @@
 
 #define let auto
 
+#define type_of(T) typeof(*(T*)0)
+
 #define DEF_1(var) typeof(var) item1;
 #define DEF_2(var, ...) DEF_1(__VA_ARGS__) typeof(var) item2;
 #define DEF_3(var, ...) DEF_2(__VA_ARGS__) typeof(var) item3;
@@ -103,8 +105,6 @@
 #define DEF(...) __VA_OPT__(CONCAT(DEF_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
 
 #define REVERSE(...) __VA_OPT__(CONCAT(REVERSE_, COUNT_ARGS(__VA_ARGS__))(__VA_ARGS__))
-
-#define type_of(T) typeof(*(T*)0)
 
 #define tuple_t(...) struct { DEF(REVERSE(__VA_ARGS__)) }
 
