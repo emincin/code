@@ -55,14 +55,14 @@ bool enable_raw_mode(void) {
   }
   return true;
 #endif
-  return true;
+  return false;
 }
 
 bool disable_raw_mode(void) {
 #if __has_include(<termios.h>)
 #elif __has_include(<windows.h>)
 #endif
-  return true;
+  return false;
 }
 
 void test(void) {
