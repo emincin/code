@@ -61,6 +61,25 @@ bool enable_raw_mode(void) {
 bool disable_raw_mode(void) {
 #if __has_include(<termios.h>)
 #elif __has_include(<windows.h>)
+  HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+  if (handle == NULL || handle == INVALID_HANDLE_VALUE) {
+    return false;
+  }
+  BOOL ok = false;
+  DWORD mode = 0;
+  ok = GetConsoleMode(handle, &mode);
+  if (!ok) {
+    return false;
+  }
+  mode |= ENABLE_PROCESSED_INPUT;
+  mode |= ENABLE_LINE_INPUT;
+  mode |= ENABLE_ECHO_INPUT;
+  mode &= ~ENABLE_VIRTUAL_TERMINAL_INPUT;
+  ok = SetConsoleMode(handle, mode);
+  if (!ok) {
+    return false;
+  }
+  return true;
 #endif
   return false;
 }
