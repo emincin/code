@@ -6,3 +6,12 @@ a.out
 test.txt
 main
 target/
+# Visual Studio
+.vs/
+Debug/
+Release/
+*.sln
+*.slnx
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
