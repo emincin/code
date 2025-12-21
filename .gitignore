@@ -1,8 +1,11 @@
+# macOS
 .DS_Store
+# GCC/Clang
 a.out
 *.i
 *.o
 *.s
+# Test
 test.txt
 main
 target/
