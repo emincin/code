@@ -74,12 +74,14 @@ typedef uint64_t u64;
 #define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
 #define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
 
+// clang-format off
 #define SELECT( \
   _1, _2, _3, _4, \
   _5, _6, _7, _8, \
   _9, _10, _11, _12, \
   _13, _14, _15, _16, \
   name, ...) name
+// clang-format on
 
 #define EXPAND_ALL(func, ...) __VA_OPT__( \
   SELECT(__VA_ARGS__, \
