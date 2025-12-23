@@ -77,12 +77,14 @@ typedef uint64_t u64;
 #define EXPAND_15(func, var, ...) func(var), EXPAND_14(func, __VA_ARGS__)
 #define EXPAND_16(func, var, ...) func(var), EXPAND_15(func, __VA_ARGS__)
 
+// clang-format off
 #define SELECT( \
   _1, _2, _3, _4, \
   _5, _6, _7, _8, \
   _9, _10, _11, _12, \
   _13, _14, _15, _16, \
   name, ...) name
+// clang-format on
 
 #define EXPAND_ALL(func, ...) __VA_OPT__( \
   SELECT(__VA_ARGS__, \
@@ -111,7 +113,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
   if (fmtlen == 0) return;
   va_list args;
   va_start(args, count);
-  char buffer[BUFFER_SIZE + 1] = { 0 };
+  char buffer[BUFFER_SIZE + 1] = {0};
   int buffer_index = 0;
   int param_index = 0;
   for (int i = 0; i < fmtlen; i++) {
@@ -137,7 +139,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_I8 || type == TYPE_I16 || type == TYPE_I32 || type == TYPE_U8 || type == TYPE_U16) {
           int data = va_arg(args, int);
-          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          char temp_buf[TEMP_BUF_SIZE] = {0};
           int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%d", data);
           if (buffer_index + len <= BUFFER_SIZE) {
             memcpy(buffer + buffer_index, temp_buf, len);
@@ -145,7 +147,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_U32) {
           u32 data = va_arg(args, u32);
-          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          char temp_buf[TEMP_BUF_SIZE] = {0};
           int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%u", data);
           if (buffer_index + len <= BUFFER_SIZE) {
             memcpy(buffer + buffer_index, temp_buf, len);
@@ -153,7 +155,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_I64) {
           i64 data = va_arg(args, i64);
-          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          char temp_buf[TEMP_BUF_SIZE] = {0};
           int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%" PRId64, data);
           if (buffer_index + len <= BUFFER_SIZE) {
             memcpy(buffer + buffer_index, temp_buf, len);
@@ -161,7 +163,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_U64) {
           u64 data = va_arg(args, u64);
-          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          char temp_buf[TEMP_BUF_SIZE] = {0};
           int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%" PRIu64, data);
           if (buffer_index + len <= BUFFER_SIZE) {
             memcpy(buffer + buffer_index, temp_buf, len);
@@ -169,7 +171,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_FLOAT || type == TYPE_DOUBLE) {
           double data = va_arg(args, double);
-          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          char temp_buf[TEMP_BUF_SIZE] = {0};
           int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%f", data);
           if (buffer_index + len <= BUFFER_SIZE) {
             memcpy(buffer + buffer_index, temp_buf, len);
@@ -177,7 +179,7 @@ void print_fmt_func(const char* fmt, int count, ...) {
           }
         } else if (type == TYPE_ANY) {
           void* data = va_arg(args, void*);
-          char temp_buf[TEMP_BUF_SIZE] = { 0 };
+          char temp_buf[TEMP_BUF_SIZE] = {0};
           int len = snprintf(temp_buf, TEMP_BUF_SIZE, "%p", data);
           if (buffer_index + len <= BUFFER_SIZE) {
             memcpy(buffer + buffer_index, temp_buf, len);
