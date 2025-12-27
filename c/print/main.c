@@ -141,6 +141,7 @@
 #define LAST_31(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E) E
 #define LAST_32(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F) F
 
+// clang-format off
 #define SELECT( \
   _1, _2, _3, _4, \
   _5, _6, _7, _8, \
@@ -151,6 +152,7 @@
   _25, _26, _27, _28, \
   _29, _30, _31, _32, \
   name, ...) name
+// clang-format on
 
 #define COUNT_ARGS(...) __VA_OPT__( SELECT(__VA_ARGS__, \
   32, 31, 30, 29, \
