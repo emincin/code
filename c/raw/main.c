@@ -12,7 +12,7 @@
 
 void show_termios_info(void) {
 #if __has_include(<termios.h>)
-  struct termios term = { 0 };
+  struct termios term = {0};
   printf("Size of termios: %zu bytes\n", sizeof(struct termios));
   printf("Align of termios: %zu bytes\n", _Alignof(struct termios));
   printf("Size of c_iflag:  %zu\n", sizeof(term.c_iflag));
