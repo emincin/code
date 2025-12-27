@@ -4,6 +4,7 @@ UseTab: Never
 IndentWidth: 2
 ColumnLimit: 0
 SortIncludes: false
+IndentCaseLabels: true
 PointerAlignment: Left
 BreakBeforeBraces: Attach
 SkipMacroDefinitionBody: true
