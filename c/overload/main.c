@@ -53,11 +53,11 @@ typedef struct {
 } vec3;
 
 vec2 make_vec2(double x, double y) {
-  return (vec2){ x, y };
+  return (vec2){x, y};
 }
 
 vec3 make_vec3(double x, double y, double z) {
-  return (vec3){ x, y, z };
+  return (vec3){x, y, z};
 }
 
 #define make_vec(...) _Generic(NONAME_FUNC(vec2, __VA_ARGS__), \
@@ -106,14 +106,14 @@ double length_vec3(vec3 a) {
 
 vec2 normalize_vec2(vec2 a) {
   double len = length(a);
-  if (len < EPSILON) return (vec2){ 0 };
-  return (vec2){ a.x / len, a.y / len };
+  if (len < EPSILON) return (vec2){0};
+  return (vec2){a.x / len, a.y / len};
 }
 
 vec3 normalize_vec3(vec3 a) {
   double len = length(a);
-  if (len < EPSILON) return (vec3){ 0 };
-  return (vec3){ a.x / len, a.y / len, a.z / len };
+  if (len < EPSILON) return (vec3){0};
+  return (vec3){a.x / len, a.y / len, a.z / len};
 }
 
 #define normalize(...) _Generic(NONAME_FUNC(typeof(FIRST_ARG(__VA_ARGS__)), __VA_ARGS__), \
@@ -130,7 +130,7 @@ typedef struct {
 #define make_point(x, y) ((Point){ x, y })
 
 Point add_point_point(Point a, Point b) {
-  return (Point){ a.x + b.x, a.y + b.y };
+  return (Point){a.x + b.x, a.y + b.y};
 }
 
 int add_int_int(int a, int b) {
